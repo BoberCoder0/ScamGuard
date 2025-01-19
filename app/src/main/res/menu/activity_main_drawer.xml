@@ -7,13 +7,13 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/free_icon_home_2815392"
-            android:title="@string/menu_home" />
+            android:icon="@android:drawable/ic_search_category_default"
+            android:title="@string/menu_search" />
 
         <item
             android:id="@+id/nav_search"
-            android:icon="@android:drawable/ic_search_category_default"
-            android:title="@string/menu_search" />
+            android:icon="@drawable/_024px_oojs_ui_icon_"
+            android:title="@string/menu_learn" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/free_icon_settings_2815474"

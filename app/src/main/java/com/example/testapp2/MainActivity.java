@@ -81,11 +81,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
+
+        //setContentView(R.layout.activity_main); вмсте с нижим не работает(не удалять)
+        /*ImageButton accountButton = findViewById(R.id.account_button_go);
+        accountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+                startActivity(intent);
+            }
+        });здесь не работает (не удалять)*/
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -97,11 +109,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d("MainActivity", "onNavigationItemSelected: Item ID = " + id);
         if (id == R.id.nav_home) { //**Исправлен порядок меню**
             Log.d("MainActivity", "onNavigationItemSelected: nav_home selected");
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, Search.class);
             startActivity(intent);
         } else if (id == R.id.nav_search) { //**Исправлен порядок меню**
             Log.d("MainActivity", "onNavigationItemSelected: nav_search selected");
-            Intent intent = new Intent(this, Search.class);
+            Intent intent = new Intent(this, Learn.class);
             startActivity(intent);
         } else if (id == R.id.nav_settings) { //**Исправлен порядок меню**
             Log.d("MainActivity", "onNavigationItemSelected: nav_settings selected");
@@ -121,6 +133,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
+
 
 
 }

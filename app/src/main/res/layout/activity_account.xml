@@ -19,6 +19,7 @@
         android:id="@+id/imageButton6"
         android:layout_width="68dp"
         android:layout_height="61dp"
+        android:contentDescription="@string/b_f_c"
         app:srcCompat="?attr/homeAsUpIndicator" />
 
     <com.google.android.material.appbar.MaterialToolbar
