@@ -14,6 +14,8 @@
 
         <item name="android:textViewStyle">@style/TextView_Light</item>
 
+
+
         <!-- Customize your theme here. -->
     </style>
 
@@ -30,4 +32,5 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
+
 </resources>

@@ -14,6 +14,8 @@
 
         <item name="android:textViewStyle">@style/TextView_Dark</item>
         <!-- Customize your theme here. -->
+
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
     <!-- Base application theme. -->
     <style name="Base.Theme.Testapp2" parent="Theme.Material3.DayNight.NoActionBar">

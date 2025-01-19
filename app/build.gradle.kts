@@ -46,7 +46,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.mediarouter)
     implementation(libs.poi.ooxml)
-
+    implementation("com.google.android.material:material:1.11.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

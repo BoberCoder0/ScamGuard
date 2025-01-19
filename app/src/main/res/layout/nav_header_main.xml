@@ -14,21 +14,39 @@
 
     <ImageButton
         android:id="@+id/account_button_go"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:contentDescription="@string/b_f_c"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        app:srcCompat="@drawable/ic_launcher_foreground" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/nav_header_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="227dp"
+        android:layout_height="27dp"
+        android:layout_gravity="left"
+        android:layout_margin="0dp"
+        android:backgroundTint="#00003FCF"
+        android:elevation="0dp"
+        android:gravity="left"
+        android:padding="0dp"
+        android:text=" Android Studio"
+        android:textColor="@color/white"
+        app:elevation="0dp"
+        />
 
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/button6"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nav_header_subtitle" />
+        android:layout_height="27dp"
+        android:layout_gravity="left"
+        android:layout_margin="0dp"
+        android:backgroundTint="#00003FCF"
+        android:elevation="0dp"
+        android:gravity="left"
+        android:padding="0dp"
+        android:text=" emailadress@gmail.com"
+        android:textColor="@color/white"
+        app:elevation="0dp"
+        />
+
 </LinearLayout>
