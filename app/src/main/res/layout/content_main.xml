@@ -1,0 +1,59 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/app_bar_main">
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="352dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="20dp"
+        android:text="Данное приложение - это не только ваш личный определитель номера, но и надежный защитник от спама, мошенничества и нежелательных звонков.  Это приложение - революционный инструмент в мире телефонной безопасности, предлагающий уникальные функции и возможности."
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/start_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/start_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="129dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginBottom="22dp"
+        android:text="Начать поиск"
+        android:backgroundTint="#003FCF"
+        app:layout_constraintBottom_toTopOf="@+id/learn_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/learn_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="477dp"
+        android:text="Изучить схемы мошенничества"
+        android:backgroundTint="#003FCF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_search" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Search">
+
+    <!-- Поле ввода номера телефона -->
+    <EditText
+        android:id="@+id/phone_number_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="+7 (___) ___--___"
+        android:inputType="phone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
+
+    <!-- Кнопка "Поиск" -->
+    <Button
+        android:id="@+id/check_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Поиск"
+        app:layout_constraintTop_toBottomOf="@id/phone_number_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Поле для отображения результата -->
+    <TextView
+        android:id="@+id/result_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Результат появится здесь"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/check_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <TextView
+        android:id="@+id/debug_txt"
+        android:layout_width="186dp"
+        android:layout_height="103dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="391dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
