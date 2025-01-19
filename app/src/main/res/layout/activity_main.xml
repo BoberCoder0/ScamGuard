@@ -22,7 +22,7 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer"
-        style="@style/NavigationViewStyle" /> <!-- Применяем наш стиль -->
+        style="Theme.ScamGuard" /> <!-- Применяем наш стиль -->
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

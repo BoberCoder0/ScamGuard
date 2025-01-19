@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="center_color_app">#003FCF</color>
+    <color name="color_allocate">#FF4081</color>
+    <color name="text_color_light">#000000</color>
+    <color name="text_color_dark">#FFFFFF</color>
+    <color name="textColor">#000000</color> <!-- Черный цвет для светлой темы --> <!--<color name="background_color">#00FFFFFF</color>  цвет для светлой темы -->
 </resources>
