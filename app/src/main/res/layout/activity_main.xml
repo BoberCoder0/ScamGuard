@@ -21,11 +21,11 @@
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
             style="@style/NavigationViewStyle"
-            android:theme="@style/Theme.Testapp2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
+            android:theme="@style/Theme.Testapp2"
             app:headerLayout="@layout/nav_header_main"
             app:itemTextAppearance="@style/TextViewStyleForNavigation"
             app:menu="@menu/activity_main_drawer" />

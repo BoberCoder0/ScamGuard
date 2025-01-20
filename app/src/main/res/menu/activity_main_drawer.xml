@@ -6,6 +6,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:icon="@android:drawable/ic_search_category_default"
+            android:title="Profile" />
+
+        <item
             android:id="@+id/nav_home"
             android:icon="@android:drawable/ic_search_category_default"
             android:title="@string/menu_home" />
@@ -19,4 +23,5 @@
             android:icon="@drawable/free_icon_settings_2815474"
             android:title="@string/menu_settings" />
     </group>
+    <group />
 </menu>
