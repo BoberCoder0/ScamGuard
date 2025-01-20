@@ -1,7 +1,7 @@
 <resources>
-    <style name="Theme.ScamGuard" parent="Theme.Material3.DynamicColors.Light.NoActionBar">
+    <style name="Theme.ScamGuard" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/center_color_app</item>  <!-- Используем наш цвет выделения-->
+        <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -17,21 +17,28 @@
         <item name="android:navigationBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:textColorSecondary">@color/black</item>
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
     <style name="Theme.ScamGuard.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.ScamGuard.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="spinBars">true</item>
-        <item name="color">@color/black</item>
+    <style name="TextView_Style">
     </style>
 
-    <!-- Добавляем стиль для выделения NavigationView-->
     <style name="NavigationViewStyle" parent="Widget.Design.NavigationView">
-        <item name="colorControlHighlight">@color/center_color_app</item>  <!-- Используем наш цвет выделения-->
+        <item name="colorControlHighlight">@color/center_color_app</item>
     </style>
+
+    <style name="TextView_Light">
+        <item name="android:textColor">#000000</item>
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
+    <style name="TextView_Dark">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">#00000000</item>
+    </style>
+
 
 </resources>
