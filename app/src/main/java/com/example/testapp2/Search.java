@@ -56,8 +56,6 @@ public class Search extends AppCompatActivity {
                 // Проверяем номер в базе данных
                 if (isScammerNumber(phoneNumber)) {
                     searchResult.setText("Этот номер отмечен как мошенник!");
-                } else if (isSpamNumber(phoneNumber)) {
-                    searchResult.setText("Этот номер отмечен как спам.");
                 } else {
                     searchResult.setText("Номер не найден в базе.");
                 }
@@ -71,16 +69,6 @@ public class Search extends AppCompatActivity {
         return scammerNumbers.contains(phoneNumber);
     }
 
-    private boolean isSpamNumber(String phoneNumber) {
-        // Пример: список номеров спама
-        String[] spamNumbers = {"+7 (111) 222-33-44", "+7 (555) 666-77-88"};
-        for (String spam : spamNumbers) {
-            if (spam.equals(phoneNumber)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     // Класс для форматирования номера
     private static class PhoneNumberFormattingTextWatcher implements TextWatcher {

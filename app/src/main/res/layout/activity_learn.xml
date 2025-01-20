@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".Learn">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
@@ -25,86 +26,172 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
-                android:text="Схемы мошенничества"
+                android:text="Популярные схемы мошенничества в 2024 году"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <!-- Блок информации -->
+            <!-- Содержание -->
             <TextView
                 android:id="@+id/learn_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Здесь представлены самые популярные схемы мошенничества и советы, как не попасться:"
-                android:textColor="#333333"
+                android:layout_marginBottom="16dp"
+                android:text="Содержание:"
+                android:textColor="#555555"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/learn_content_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="1. Имитация голоса родных в аудиосообщениях"
+                android:textColor="#555555"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/learn_content_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="2. Звонок или сообщение от «начальника»"
+                android:textColor="#555555"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/learn_content_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="3. Звонки от псевдосотрудников госслужб и ведомств"
+                android:textColor="#555555"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/learn_content_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="4. Звонки от лжесотрудников банков"
+                android:textColor="#555555"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/learn_content_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="5. Фейковые опросы и конкурсы"
+                android:textColor="#555555"
                 android:textSize="16sp" />
 
             <!-- Раздел 1 -->
             <TextView
-                android:id="@+id/section_phishing"
+                android:id="@+id/section1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="4dp"
-                android:text="1. Фишинг"
+                android:layout_marginBottom="8dp"
+                android:text="1. Имитация голоса родных в аудиосообщениях"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/section1_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Фишинг — это попытка выманить у вас личные данные через поддельные сайты или сообщения. Советы:"
-                android:textColor="#555555"
-                android:textSize="16sp" />
-
-            <!-- Советы -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="- Никогда не переходите по подозрительным ссылкам.\n- Убедитесь, что URL-адрес сайта правильный.\n- Не вводите данные банковской карты на неизвестных сайтах."
-                android:textColor="#777777"
-                android:textSize="16sp" />
+                android:textColor="#555555"
+                android:textSize="16sp"
+                android:lineSpacingExtra="4dp" />
 
             <!-- Раздел 2 -->
             <TextView
+                android:id="@+id/section2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="4dp"
-                android:text="2. Звонки от 'службы безопасности'"
+                android:layout_marginBottom="8dp"
+                android:text="2. Звонок или сообщение от «начальника»"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/section2_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Мошенники звонят под видом сотрудников банка, чтобы заполучить ваши данные."
-                android:textColor="#555555"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="- Не сообщайте PIN-код и CVV карты.\n- Звоните в банк самостоятельно, если возникают сомнения.\n- Банки никогда не требуют передавать данные через звонок."
-                android:textColor="#777777"
-                android:textSize="16sp" />
+                android:textColor="#555555"
+                android:textSize="16sp"
+                android:lineSpacingExtra="4dp" />
 
-            <!-- PDF-файл -->
-            <Button
-                android:id="@+id/open_pdf_button"
-                android:layout_width="match_parent"
+            <!-- Раздел 3 -->
+            <TextView
+                android:id="@+id/section3"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="#6200EE"
-                android:text="Читать больше (PDF)"
-                android:textColor="#FFFFFF" />
+                android:layout_marginBottom="8dp"
+                android:text="3. Звонки от псевдосотрудников госслужб и ведомств"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/section3_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="#555555"
+                android:textSize="16sp"
+                android:lineSpacingExtra="4dp" />
+
+            <!-- Раздел 4 -->
+            <TextView
+                android:id="@+id/section4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="4. Звонки от лжесотрудников банков"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/section4_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="#555555"
+                android:textSize="16sp"
+                android:lineSpacingExtra="4dp" />
+
+            <!-- Раздел 5 -->
+            <TextView
+                android:id="@+id/section5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="5. Фейковые опросы и конкурсы"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/section5_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="#555555"
+                android:textSize="16sp"
+                android:lineSpacingExtra="4dp" />
+
         </LinearLayout>
     </ScrollView>
 
