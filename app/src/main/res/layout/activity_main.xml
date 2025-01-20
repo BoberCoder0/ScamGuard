@@ -24,37 +24,16 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:fitsSystemWindows="true"
             android:theme="@style/Theme.Testapp2"
+            android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header_main"
             app:itemTextAppearance="@style/TextViewStyleForNavigation"
             app:menu="@menu/activity_main_drawer" />
     </androidx.drawerlayout.widget.DrawerLayout>
 
-    <TextView
-        android:id="@+id/bottom_text"
-        android:layout_width="160dp"
-        android:layout_height="62dp"
-        android:layout_gravity="bottom"
-        android:padding="16dp"
-        android:text="version 0.0.3"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        tools:ignore="RtlCompat" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/bottom_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="80dp"
-            style="@style/CustomSwitchStyle"
-            tools:ignore="RtlCompat"
-            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

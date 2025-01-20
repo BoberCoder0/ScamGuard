@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
+    private ImageButton accountButtonGo;
+    private Button button5;
+    private Button button6;
 
 
     @Override
@@ -82,7 +85,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        /*setSupportActionBar(binding.appBarMain.toolbar);
+
+        accountButtonGo = findViewById(R.id.account_button_go);
+        button5 = findViewById(R.id.button5);
+        button6 = findViewById(R.id.button6);
+
+
+        accountButtonGo.setOnClickListener(view -> openAccountActivity());
+        button5.setOnClickListener(view -> openAccountActivity());
+        button6.setOnClickListener(view -> openAccountActivity());*/
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -134,7 +150,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-
-
-
+   /* private void openAccountActivity(){
+        Intent intent = new Intent(this, AccountActivity.class);
+        startActivity(intent);
+    }*/
 }

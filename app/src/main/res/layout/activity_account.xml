@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,19 +13,32 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/center_color_app"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="@null" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ImageButton
-        android:id="@+id/imageButton6"
-        android:layout_width="68dp"
-        android:layout_height="61dp"
-        android:contentDescription="@string/b_f_c"
-        app:srcCompat="?attr/homeAsUpIndicator" />
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_anchor="@+id/appBarLayout"
-        app:layout_anchorGravity="center" />
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <fragment
+                android:id="@+id/nav_host_fragment_content_account"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/nav_graph" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
