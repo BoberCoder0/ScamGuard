@@ -18,6 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <com.example.testapp2.SwipeDetectorView
+            android:id="@+id/swipeDetector"
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
+            />
+
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
             style="@style/NavigationViewStyle"

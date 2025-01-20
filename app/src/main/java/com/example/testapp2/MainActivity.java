@@ -3,6 +3,7 @@ package com.example.testapp2;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ImageButton accountButtonGo;
     private Button button5;
     private Button button6;
+    private SwipeDetectorView swipeDetector;
+    private boolean swipeStarted = false;
 
 
     @Override
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setContentView(R.layout.activity_main);
 
         toolbar = binding.appBarMain.toolbar;
         setSupportActionBar(toolbar); // Устанавливаем наш тулбар как экшнбар
@@ -54,6 +58,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .setAnchorView(R.id.fab).show();
             }
         });*/
+
+
+        drawer = findViewById(R.id.drawer_layout); // Замени на ID своего DrawerLayout
+        swipeDetector = findViewById(R.id.swipeDetector); // Замени на ID своего SwipeDetectorView
+        swipeDetector.attachDrawerLayout(drawer);
+        swipeDetector.setSwipeSensitivity(400);
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         drawer = binding.drawerLayout;
         navigationView = binding.navView;
@@ -182,6 +193,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         onBackPressed();
         return true;
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (swipeDetector.onTouchEvent(ev)) {
+            if(ev.getAction() == MotionEvent.ACTION_DOWN){
+                swipeStarted = true;
+            } else  if(ev.getAction() == MotionEvent.ACTION_UP && swipeStarted) {
+                if(!drawer.isDrawerOpen(drawer.findViewById(R.id.nav_view)))
+                    drawer.openDrawer(drawer.findViewById(R.id.nav_view));
+                swipeStarted = false;
+                return true;
+            }
+        } else  if(ev.getAction() == MotionEvent.ACTION_UP){
+            swipeStarted = false;
+        }
+
+
+        return super.dispatchTouchEvent(ev);
+    }
+
 
    /* private void openAccountActivity(){
         Intent intent = new Intent(this, AccountActivity.class);
