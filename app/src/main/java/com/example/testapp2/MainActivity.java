@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.widget.Button;
 import android.util.Log;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -62,8 +63,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        Button startSearchButton = findViewById(R.id.start_search); // **Исправлено ID**
-        Button learnSchemesButton = findViewById(R.id.learn_button);  // **Исправлено ID**
+        Button startSearchButton = findViewById(R.id.start_search);
+        Button learnSchemesButton = findViewById(R.id.learn_button);
 
         // первая кнопка
         startSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -85,35 +86,61 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        /*setSupportActionBar(binding.appBarMain.toolbar);
+        View headerView = navigationView.getHeaderView(0);
+        button5 = headerView.findViewById(R.id.button5);
+        button6 = headerView.findViewById(R.id.button6);
+        accountButtonGo = headerView.findViewById(R.id.account_button_go);
 
-        accountButtonGo = findViewById(R.id.account_button_go);
-        button5 = findViewById(R.id.button5);
-        button6 = findViewById(R.id.button6);
+        // Назначаем обработчики нажатий
+        setupClickListeners();
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        accountButtonGo.setOnClickListener(view -> openAccountActivity());
-        button5.setOnClickListener(view -> openAccountActivity());
-        button6.setOnClickListener(view -> openAccountActivity());*/
-
+        // Добавляем кнопку "назад"
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
+
+    private void setupClickListeners() {
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startAccountActivity();
+            }
+        });
+
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startAccountActivity();
+            }
+        });
+
+        accountButtonGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startAccountActivity();
+            }
+        });
+    }
+
+
+    private void startAccountActivity() {
+        Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+        try {
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "AccountActivity не найдена", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
-
-        //setContentView(R.layout.activity_main); вмсте с нижим не работает(не удалять)
-        /*ImageButton accountButton = findViewById(R.id.account_button_go);
-        accountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-                startActivity(intent);
-            }
-        });здесь не работает (не удалять)*/
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -148,6 +175,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
    /* private void openAccountActivity(){

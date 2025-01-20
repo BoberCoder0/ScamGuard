@@ -64,4 +64,5 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="android_studio">Android Studio</string>
     <string name="emailadress_gmail_com">emailadress@gmail.com</string>
+    <string name="account_toolbar">Аккаунт</string>
 </resources>

@@ -10,18 +10,16 @@ import com.example.testapp2.databinding.ActivityAccountBinding;
 
 public class AccountActivity extends AppCompatActivity {
 
-    private ActivityAccountBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityAccountBinding.inflate(getLayoutInflater());
+        com.example.testapp2.databinding.ActivityAccountBinding binding = ActivityAccountBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
         //Убираем автоматическую настройку кнопки "Назад"
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Аккаунт"); //Устанавливаем пустой заголовок
+            getSupportActionBar().setTitle(R.string.account_toolbar); //Устанавливаем пустой заголовок
         }
     }
 }
