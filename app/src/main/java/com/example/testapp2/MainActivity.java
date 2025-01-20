@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ImageButton accountButtonGo;
     private Button button5;
     private Button button6;
-    private SwipeDetectorView swipeDetector;
+    //private SwipeDetectorView swipeDetector;
     private boolean swipeStarted = false;
 
 
@@ -60,11 +60,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });*/
 
 
-        drawer = findViewById(R.id.drawer_layout); // Замени на ID своего DrawerLayout
+        /*drawer = findViewById(R.id.drawer_layout); // Замени на ID своего DrawerLayout
         swipeDetector = findViewById(R.id.swipeDetector); // Замени на ID своего SwipeDetectorView
         swipeDetector.attachDrawerLayout(drawer);
         swipeDetector.setSwipeSensitivity(400);
-        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);*/
 
         drawer = binding.drawerLayout;
         navigationView = binding.navView;
@@ -194,24 +194,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (swipeDetector.onTouchEvent(ev)) {
-            if(ev.getAction() == MotionEvent.ACTION_DOWN){
-                swipeStarted = true;
-            } else  if(ev.getAction() == MotionEvent.ACTION_UP && swipeStarted) {
-                if(!drawer.isDrawerOpen(drawer.findViewById(R.id.nav_view)))
-                    drawer.openDrawer(drawer.findViewById(R.id.nav_view));
-                swipeStarted = false;
-                return true;
-            }
-        } else  if(ev.getAction() == MotionEvent.ACTION_UP){
-            swipeStarted = false;
-        }
+    /*@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main); // Замени на свой layout
 
 
-        return super.dispatchTouchEvent(ev);
-    }
+        drawer = findViewById(R.id.drawer_layout); // Замени на ID своего DrawerLayout
+        swipeDetector = findViewById(R.id.swipeDetector); // Замени на ID своего SwipeDetectorView
+        swipeDetector.attach (drawer);
+    }*/
 
 
    /* private void openAccountActivity(){
