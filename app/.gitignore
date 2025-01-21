@@ -2,6 +2,7 @@
 .gradle
 /build/
 .idea/
+.idea/vcs.xml
 .classpath
 .project
 local.properties
