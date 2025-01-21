@@ -65,4 +65,5 @@
     <string name="android_studio">Android Studio</string>
     <string name="emailadress_gmail_com">emailadress@gmail.com</string>
     <string name="account_toolbar">Аккаунт</string>
+    <string name="profile">Profile</string>
 </resources>
