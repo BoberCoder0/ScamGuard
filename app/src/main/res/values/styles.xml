@@ -9,7 +9,7 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/design_default_color_primary_variant</item>
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -78,8 +78,5 @@
     <style name="TextViewStyleForNavigation">
         <item name="android:textSize">18sp</item>
     </style>
-
-
-
 
 </resources>

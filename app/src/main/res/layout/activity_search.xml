@@ -6,12 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".Search">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/center_color_app"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/white"
+        />
+
     <!-- Поле ввода номера телефона -->
     <EditText
         android:id="@+id/phone_number_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="120dp"
         android:hint="+7 (___) ___--___"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"

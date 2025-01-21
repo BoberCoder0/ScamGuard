@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActivityMainBinding binding;
     private DrawerLayout drawer;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +56,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         });
         // Добавляем кнопку "назад"
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
     }
 
 
@@ -95,8 +93,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(intent!= null)
             startActivity(intent);
         drawer.closeDrawer(GravityCompat.START);
+
+        NavigationView navigationView = binding.navView;
+        navigationView.post(new Runnable() {
+            @Override
+            public void run() {
+                navigationView.setCheckedItem(-1);
+            }
+        });
+
         return true;
     }
+
+
 
     @Override
     public void onBackPressed() {

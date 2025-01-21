@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">testapp2</string>
+    <string name="app_name">ScamGuard</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -66,4 +66,8 @@
     <string name="emailadress_gmail_com">emailadress@gmail.com</string>
     <string name="account_toolbar">Аккаунт</string>
     <string name="profile">Profile</string>
+    <string name="settings">Настройки</string>
+    <string name="learn">Справка</string>
+    <string name="search">Поиск</string>
+    <string name="account">Аккаунт</string>
 </resources>

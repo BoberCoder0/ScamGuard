@@ -2,12 +2,18 @@ package com.example.testapp2;
 
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.ScrollView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.text.HtmlCompat;
+
+import com.example.testapp2.databinding.ActivityAccountBinding;
+import com.example.testapp2.databinding.ActivityLearnBinding;
 
 public class Learn extends AppCompatActivity {
 
@@ -17,6 +23,18 @@ public class Learn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn);
+
+        ActivityLearnBinding binding = ActivityLearnBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        Toolbar toolbar = binding.toolbar;
+        setSupportActionBar(toolbar);
+
+        // Установка лейбла
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(getString(R.string.learn));
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         // Находим ScrollView
         scrollView = findViewById(R.id.scrollView);
@@ -31,6 +49,16 @@ public class Learn extends AppCompatActivity {
         findViewById(R.id.learn_content_4).setOnClickListener(view -> scrollToSection(R.id.section4));
         findViewById(R.id.learn_content_5).setOnClickListener(view -> scrollToSection(R.id.section5));
 
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     // Установка HTML-содержимого для TextView.
     private void setHtmlContent() {
