@@ -37,6 +37,8 @@ public class Search extends AppCompatActivity {
     private static final String TABLE_NAME = "scammer_numbers";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_PHONE_NUMBER = "phone_number";
+
+
     private DBHelper dbHelper;
 
     @Override
@@ -60,6 +62,9 @@ public class Search extends AppCompatActivity {
         EditText phoneNumberInput = findViewById(R.id.phone_number_input);
         Button searchButton = findViewById(R.id.check_button);
         TextView searchResult = findViewById(R.id.result_view);
+        TextView categoryView = findViewById(R.id.category_view);
+        TextView complaintsView = findViewById(R.id.complaints_view);
+        TextView commentView = findViewById(R.id.comment_view);
         dbHelper = new DBHelper(this);
 
         // Загрузка данных из excel в базу данных (один раз при первом запуске)
@@ -90,10 +95,26 @@ public class Search extends AppCompatActivity {
             }
 
             // Проверяем номер в базе данных
-            String resultMessage = searchInDatabase(normalizedNumber);
-            searchResult.setText(resultMessage);
+            ScamInfo resultMessage = searchInDatabase(normalizedNumber);
+            if (resultMessage != null) {
+                // Устанавливаем данные в TextView
+                categoryView.setText("Категория: " + resultMessage.getCategory());
+                complaintsView.setText("Жалобы: " + resultMessage.getComplaints());
+                commentView.setText("Комментарий: " + resultMessage.getComment());
+                searchResult.setText("Этот номер мошенник!");
+            } else {
+                // Если номер не найден
+                categoryView.setText("Категория: -");
+                complaintsView.setText("Жалобы: -");
+                commentView.setText("Комментарий: -");
+                searchResult.setText("Номер не найден в базе.");
+            }
+
         });
+
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -117,7 +138,7 @@ public class Search extends AppCompatActivity {
     }
 
     // Поиск в базе данных
-    private String searchInDatabase(String phoneNumber) {
+    private ScamInfo searchInDatabase(String phoneNumber) {
         // Преобразуем номер в формат, который используется в базе данных
         /* Вначале номер телефона передается в метод formatPhoneNumberDB(),
         который удаляет все нецифровые символы и приводит номер к формату,
@@ -128,9 +149,11 @@ public class Search extends AppCompatActivity {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         // Настройка параметров SQL-запроса
-        String[] projection = {"phoneNumber"};
+        String[] projection = {"phoneNumber","category","complaints","comment"};
         String selection = "phoneNumber = ?";
         String[] selectionArgs = {formattedPhoneNumber};
+
+
 
         Log.d("PhoneNumberSearch", "Ищем номер в базе: " + formattedPhoneNumber); // Логируем номер поиска
 
@@ -146,10 +169,17 @@ public class Search extends AppCompatActivity {
                     null
             );
             if (cursor != null && cursor.moveToFirst()) {
-                return "Этот номер отмечен как мошенник!";
+                // Получаем данные
+                String category = cursor.getString(cursor.getColumnIndexOrThrow("category"));
+                String complaints = cursor.getString(cursor.getColumnIndexOrThrow("complaints"));
+                String comment = cursor.getString(cursor.getColumnIndexOrThrow("comment"));
+                String result = "Это номер мошенников";
+
+                return new ScamInfo(category, complaints, comment, result);
             } else {
-                return "Номер не найден в базе.";
+                return null; // Номер не найден
             }
+
         } finally {
             if (cursor != null)
                 cursor.close();
