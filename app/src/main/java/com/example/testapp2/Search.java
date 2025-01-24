@@ -118,10 +118,13 @@ public class Search extends AppCompatActivity {
 
     // Поиск в базе данных
     private String searchInDatabase(String phoneNumber) {
+        // Преобразуем номер в формат, который используется в базе данных
+        String formattedPhoneNumber = formatPhoneNumber(phoneNumber);
+
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] projection = {COLUMN_PHONE_NUMBER};
         String selection = COLUMN_PHONE_NUMBER + " = ?";
-        String[] selectionArgs = {phoneNumber};
+        String[] selectionArgs = {formattedPhoneNumber};
 
         Cursor cursor = null;
         try {
@@ -140,8 +143,29 @@ public class Search extends AppCompatActivity {
                 return "Номер не найден в базе.";
             }
         } finally {
-            if (cursor != null) cursor.close();
+            if (cursor != null)
+                cursor.close();
         }
+    }
+
+    // Метод для удаления пробелов и символов (скобок) из номера
+
+    private String formatPhoneNumber(String phoneNumber) {
+        // Логируем исходный номер
+        Log.d("PhoneNumberFormatter", "Исходный номер: " + phoneNumber);
+
+        // Если номер начинается с +, сохраняем + и удаляем все остальные символы
+        String formattedNumber = phoneNumber.replaceAll("[^\\d]", "");
+
+        // Добавляем символ "+" в начало
+        if (formattedNumber.length() > 0 && formattedNumber.charAt(0) != '+') {
+            formattedNumber = "+" + formattedNumber;
+        }
+
+        // Логируем отформатированный номер
+        Log.d("PhoneNumberFormatter", "Отформатированный номер: " + formattedNumber);
+
+        return formattedNumber;
     }
 
     // Загрузка номеров мошенников из Excel в базу данных
