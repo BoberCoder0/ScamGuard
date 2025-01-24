@@ -119,17 +119,25 @@ public class Search extends AppCompatActivity {
     // Поиск в базе данных
     private String searchInDatabase(String phoneNumber) {
         // Преобразуем номер в формат, который используется в базе данных
-        String formattedPhoneNumber = formatPhoneNumber(phoneNumber);
+        /* Вначале номер телефона передается в метод formatPhoneNumberDB(),
+        который удаляет все нецифровые символы и приводит номер к формату,
+        который используется в базе данных. */
+        String formattedPhoneNumber = formatPhoneNumberDB(phoneNumber);
 
+        // Получение базы данных для чтения
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] projection = {COLUMN_PHONE_NUMBER};
-        String selection = COLUMN_PHONE_NUMBER + " = ?";
+
+        // Настройка параметров SQL-запроса
+        String[] projection = {"phoneNumber"};
+        String selection = "phoneNumber = ?";
         String[] selectionArgs = {formattedPhoneNumber};
+
+        Log.d("PhoneNumberSearch", "Ищем номер в базе: " + formattedPhoneNumber); // Логируем номер поиска
 
         Cursor cursor = null;
         try {
             cursor = db.query(
-                    TABLE_NAME,
+                    "scammer_table",
                     projection,
                     selection,
                     selectionArgs,
@@ -150,7 +158,7 @@ public class Search extends AppCompatActivity {
 
     // Метод для удаления пробелов и символов (скобок) из номера
 
-    private String formatPhoneNumber(String phoneNumber) {
+    private String formatPhoneNumberDB(String phoneNumber) {
         // Логируем исходный номер
         Log.d("PhoneNumberFormatter", "Исходный номер: " + phoneNumber);
 
