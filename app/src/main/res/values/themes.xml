@@ -14,6 +14,7 @@
         <!-- Настройка отображения контента за статус-баром-->
 
         <!-- Customize your theme here. -->
+
     </style>
 
     <style name="Theme.Testapp2.NoActionBar">
@@ -45,6 +46,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="navigationIcon">@drawable/ic_back_white</item>
+        <item name="android:background">@drawable/rounded_imagebutton_background</item>
     </style>
 
 </resources>

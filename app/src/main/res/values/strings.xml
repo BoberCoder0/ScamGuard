@@ -70,4 +70,8 @@
     <string name="learn">Справка</string>
     <string name="search">Поиск</string>
     <string name="account">Аккаунт</string>
+    <string name="history">History</string>
+    <string name="history_a">История</string>
+    <string name="about_us">о приложении</string>
+    <string name="about_us_a">о приложении</string>
 </resources>

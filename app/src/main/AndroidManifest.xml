@@ -13,25 +13,35 @@
         android:theme="@style/Theme.Testapp2"
         tools:targetApi="31">
         <activity
+            android:name=".AboutActivity"
+            android:exported="false"
+            android:label="@string/about_us_a"
+            android:theme="@style/Theme.TestApp2.Settings" />
+        <activity
+            android:name=".History"
+            android:exported="false"
+            android:label="@string/history_a"
+            android:theme="@style/Theme.TestApp2.Settings" />
+        <activity
             android:name=".AccountActivity"
             android:exported="false"
             android:label="@string/account"
-            android:theme="@style/Theme.TestApp2.Settings"/>
+            android:theme="@style/Theme.TestApp2.Settings" />
         <activity
             android:name=".Settings"
+            android:exported="false"
             android:label="@string/settings"
-            android:theme="@style/Theme.TestApp2.Settings"
-            android:exported="false" />
+            android:theme="@style/Theme.TestApp2.Settings" />
         <activity
             android:name=".Learn"
-            android:label="@string/learn"
             android:exported="false"
-            android:theme="@style/Theme.TestApp2.Settings"/>
+            android:label="@string/learn"
+            android:theme="@style/Theme.TestApp2.Settings" />
         <activity
             android:name=".Search"
-            android:label="@string/search"
             android:exported="false"
-            android:theme="@style/Theme.TestApp2.Settings"/>
+            android:label="@string/search"
+            android:theme="@style/Theme.TestApp2.Settings" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

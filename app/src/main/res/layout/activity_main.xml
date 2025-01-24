@@ -30,11 +30,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:theme="@style/Theme.Testapp2"
             android:fitsSystemWindows="true"
+            android:background="@drawable/drawer_background"
             app:headerLayout="@layout/nav_header_main"
             app:itemTextAppearance="@style/TextViewStyleForNavigation"
-            app:menu="@menu/activity_main_drawer" />
+            app:menu="@menu/activity_main_drawer"
+            app:layout_insetEdge="none"/>
     </androidx.drawerlayout.widget.DrawerLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

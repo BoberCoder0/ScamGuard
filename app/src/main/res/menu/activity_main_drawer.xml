@@ -11,6 +11,11 @@
             android:title="@string/profile" />
 
         <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/history_icon_2"
+            android:title="@string/history" />
+
+        <item
             android:id="@+id/nav_search"
             android:icon="@android:drawable/ic_search_category_default"
             android:title="@string/menu_home" />
@@ -23,6 +28,14 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/free_icon_settings_2815474"
             android:title="@string/menu_settings" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/info2"
+            android:title="@string/about_us"
+            android:theme="@style/AboutUsMenuItemStyle"
+            android:textColor="@color/gray2"
+
+            />
     </group>
-    <group />
 </menu>

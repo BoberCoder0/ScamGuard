@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_main">
+    tools:showIn="@layout/app_bar_main"
+    >
 
 
     <TextView
@@ -35,6 +36,7 @@
         android:layout_marginBottom="4dp"
         android:backgroundTint="#003FCF"
         android:text="Начать поиск"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toTopOf="@+id/learn_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,6 +52,7 @@
         android:layout_marginBottom="347dp"
         android:backgroundTint="#003FCF"
         android:text="Изучить схемы мошенничества"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
