@@ -18,7 +18,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActivityMainBinding binding;
     private DrawerLayout drawer;
 
-
+    // Экземпляр DatabaseHelper
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         });
         // Добавляем кнопку "назад"
+
+        // Инициализация DatabaseHelper и копирование базы данных
+        databaseHelper = new DatabaseHelper(this);
+        try {
+            databaseHelper.copyDatabaseIfNeeded(); // Копирование базы данных, если её нет
+//            Log.d("MainActivity", "База данных успешно скопирована или уже существует.");
+        } catch (Exception e) {
+//            Log.e("MainActivity", "Ошибка при копировании базы данных: ", e);
+        }
     }
 
 
@@ -83,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.nav_account) {
             intent = new Intent(this, AccountActivity.class); // Переход к профилю
+        }
+        else if (id == R.id.nav_history) {
+            intent = new Intent(this, History.class); // Переход к профилю
         }
         else if (id == R.id.nav_learn) {
             intent = new Intent(this, Learn.class); // Переход к обучению

@@ -32,7 +32,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
-        dataBinding = true //что что не работает? убери
+        //dataBinding = true //что что не работает? убери
     }
 }
 
@@ -49,8 +49,7 @@ dependencies {
     implementation(libs.mediarouter)
     implementation(libs.poi.ooxml)
     implementation(libs.appcompat)
-    implementation(project(":app"))
-    implementation(project(":app"))
+    /*implementation(project(":app"))*/
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
