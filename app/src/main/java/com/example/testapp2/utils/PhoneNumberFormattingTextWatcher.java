@@ -34,7 +34,7 @@ public class PhoneNumberFormattingTextWatcher implements android.text.TextWatche
         isUpdating = false;
     }
 
-    private String formatPhoneNumber(String digits) {
+    public static String formatPhoneNumber(String digits) {
         StringBuilder formatted = new StringBuilder();
         if (digits.length() > 0) {
             formatted.append("+7 ");

@@ -20,6 +20,7 @@ public class Search extends AppCompatActivity {
     private SearchViewModel searchViewModel;
     private EditText phoneNumberInput;
     private TextView searchResult, categoryView, complaintsView, commentView;
+    private TextView formatPhoneNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +43,18 @@ public class Search extends AppCompatActivity {
         complaintsView = findViewById(R.id.complaints_view);
         commentView = findViewById(R.id.comment_view);
 
+
         phoneNumberInput.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         // Инициализация ViewModel
         searchViewModel = new SearchViewModel(this);
 
+
         // Обработчик кнопки поиска
         searchButton.setOnClickListener(v -> {
             String phoneNumber = phoneNumberInput.getText().toString().trim();
             if (TextUtils.isEmpty(phoneNumber)) {
-                searchResult.setText("Введите номер телефона!");
+                searchResult.setText("Введите корректный номер!");
                 return;
             }
             searchViewModel.searchPhoneNumber(phoneNumber);
@@ -64,12 +67,7 @@ public class Search extends AppCompatActivity {
                 complaintsView.setText("Жалобы: " + scamInfo.getComplaints());
                 commentView.setText("Комментарий: " + scamInfo.getComment());
                 searchResult.setText("Этот номер мошенник!");
-            } else {
-                categoryView.setText("Категория: -");
-                complaintsView.setText("Жалобы: -");
-                commentView.setText("Комментарий: -");
-                searchResult.setText("Номер не найден в базе.");
-            }
+            } else searchResult.setText("Номер не найден в базе.");
         });
     }
 
