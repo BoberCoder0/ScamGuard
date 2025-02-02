@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.example.testapp2.SwipeDetectorView
+        <com.example.testapp2.utils.SwipeDetectorView
             android:id="@+id/swipeDetector"
             android:layout_width="400dp"
             android:layout_height="match_parent"

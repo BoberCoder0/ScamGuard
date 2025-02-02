@@ -1,4 +1,4 @@
-package com.example.testapp2;
+package com.example.testapp2.Activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package com.example.testapp2;
+package com.example.testapp2.Activity;
 
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.text.HtmlCompat;
 
-import com.example.testapp2.databinding.ActivityAccountBinding;
+import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityLearnBinding;
 
 public class Learn extends AppCompatActivity {

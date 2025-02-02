@@ -5,6 +5,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.example.testapp2.Data.models.ScamInfo;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,6 +22,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private final Context context;
     private SQLiteDatabase database;
+    private static final String TABLE_SCAMMERS = "scammer_table";
+    private static final String COLUMN_ID = "_id";
+    private static final String COLUMN_PHONE_NUMBER = "phoneNumber";
+    private static final String COLUMN_CATEGORY = "category";
+    private static final String COLUMN_COMPLAINTS = "complaints";
+    private static final String COLUMN_COMMENT = "comment";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -78,7 +87,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String path = DATABASE_PATH + DATABASE_NAME;
         database = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
     }
-
     /**
      * Закрывает соединение с базой данных.
      */
@@ -91,17 +99,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Выполняет запрос к базе данных для получения деталей номера телефона.
-     *
-     * @param phoneNumber Номер телефона для поиска
-     * @return Cursor с результатами запроса
+     * Поиск информации о номере в базе данных.
      */
-    public Cursor getPhoneNumberDetails(String phoneNumber) {
+    public ScamInfo getScamInfo(String phoneNumber) {
         if (database == null || !database.isOpen()) {
             openDatabase();
         }
 
-        String query = "SELECT category, comments FROM scammer_table WHERE phone_number = ?";
-        return database.rawQuery(query, new String[]{phoneNumber});
+        String query = "SELECT " + COLUMN_CATEGORY + ", " + COLUMN_COMPLAINTS + ", " + COLUMN_COMMENT +
+                " FROM " + TABLE_SCAMMERS +
+                " WHERE " + COLUMN_PHONE_NUMBER + " = ?";
+
+        Cursor cursor = null;
+        ScamInfo scamInfo = null;
+
+        try {
+            cursor = database.rawQuery(query, new String[]{phoneNumber});
+            if (cursor != null && cursor.moveToFirst()) {
+                String category = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CATEGORY));
+                String complaints = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_COMPLAINTS));
+                String comment = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_COMMENT));
+
+                scamInfo = new ScamInfo(
+                        category,
+                        complaints,
+                        comment,
+                        "Внимание!\nНомер находится в базе, возможно, вам звонят мошенники."
+                );
+                Log.d("DB_RESULT", "Категория: " + category + ", Жалобы: " + complaints + ", Комментарий: " + comment);
+            } else {
+                Log.d("DB_RESULT", "Номер не найден: " + phoneNumber);
+            }
+        } catch (Exception e) {
+            Log.e("DB_ERROR", "Ошибка при поиске номера: " + phoneNumber, e);
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+
+        return scamInfo;
     }
 }
+

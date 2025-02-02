@@ -1,11 +1,13 @@
-package com.example.testapp2;
+package com.example.testapp2.utils;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.example.testapp2.R;
 
 public class SwipeDetectorView extends View {
 

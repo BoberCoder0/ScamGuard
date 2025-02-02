@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.TestApp2.Settings"
-    tools:context=".Learn">
+    tools:context=".Activity.Learn">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

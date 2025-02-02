@@ -2,12 +2,12 @@ package com.example.testapp2;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
-import androidx.core.view.GravityCompat;
-
-import com.google.android.material.navigation.NavigationView;
+import com.example.testapp2.Activity.AccountActivity;
+import com.example.testapp2.Activity.History;
+import com.example.testapp2.Activity.Learn;
+import com.example.testapp2.Activity.Search;
+import com.example.testapp2.Activity.Settings;
 
 public class NavigationManager {
 
@@ -19,7 +19,7 @@ public class NavigationManager {
         Intent intent = null;
 
         if (id == R.id.nav_search) {
-            intent = new Intent(context,Search.class); // Переход к поиску
+            intent = new Intent(context, Search.class); // Переход к поиску
         }
         else if (id == R.id.nav_account) {
             intent = new Intent(context, AccountActivity.class); // Переход к профилю

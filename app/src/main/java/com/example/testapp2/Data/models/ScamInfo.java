@@ -1,4 +1,4 @@
-package com.example.testapp2;
+package com.example.testapp2.Data.models;
 
 public class ScamInfo {
     private String category;
