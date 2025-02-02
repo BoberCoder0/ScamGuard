@@ -24,7 +24,7 @@
         android:padding="0dp"
 
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/kotosina" />
+        app:srcCompat="@drawable/i_3" />
 
     <Button
         android:id="@+id/button5"
