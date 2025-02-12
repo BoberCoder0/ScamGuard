@@ -16,7 +16,9 @@ import com.example.testapp2.NavigationManager;
 import com.example.testapp2.R;
 import com.example.testapp2.app.dataBaseApp;
 import com.example.testapp2.databinding.ActivityMainBinding;
+import com.example.testapp2.fragments.LoginFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.example.testapp2.fragments.LoginFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -64,11 +66,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavigationManager.onNavigationSelected(this, item.getItemId());
+        // Получение email из LoginFragment или другого источника
+        String email = getUserEmail();
+
+        // Передача email в метод onNavigationSelected
+        NavigationManager.onNavigationSelected(this, item.getItemId(), email);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private String getUserEmail() {
+        // Логика для получения email пользователя
+        LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager().findFragmentById(R.id.email);
+        if (loginFragment != null) {
+            return loginFragment.getEmail();
+        }
+        return null; // или возвращайте пустую строку, если email не найден
+    }
+
 
 
     /*private void startAccountActivity() {
