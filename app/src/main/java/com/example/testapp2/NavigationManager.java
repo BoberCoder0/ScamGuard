@@ -3,8 +3,8 @@ package com.example.testapp2;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.testapp2.Activity.AccountActivity;
-import com.example.testapp2.Activity.History;
+import com.example.testapp2.Activity.Account.AccountActivity;
+import com.example.testapp2.Activity.Account.History;
 import com.example.testapp2.Activity.Learn;
 import com.example.testapp2.Activity.Search;
 import com.example.testapp2.Activity.Settings;

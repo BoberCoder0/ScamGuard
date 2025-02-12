@@ -1,4 +1,4 @@
-package com.example.testapp2.Activity;
+package com.example.testapp2.Activity.Account;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

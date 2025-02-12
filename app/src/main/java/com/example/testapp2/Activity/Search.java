@@ -9,9 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
+
 import com.example.testapp2.R;
-import com.example.testapp2.Data.models.ScamInfo;
 import com.example.testapp2.SearchViewModel;
 import com.example.testapp2.utils.PhoneNumberFormattingTextWatcher;
 
