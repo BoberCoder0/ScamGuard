@@ -39,7 +39,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
@@ -51,24 +50,20 @@ dependencies {
     implementation(libs.mediarouter)
     implementation(libs.poi.ooxml)
     implementation(libs.appcompat)
-    implementation(libs.firebase.auth)
-    /*implementation(project(":app"))*/
+
+    // Firebase BOM (используем только одну строку!)
+    implementation(platform("com.google.firebase:firebase-bom:33.9.0"))
+
+    // Firebase Authentication
+    implementation("com.google.firebase:firebase-auth")
+
+    // Firebase Firestore (если используешь)
+    implementation("com.google.firebase:firebase-firestore")
+
+    // Firebase Analytics (если используешь)
+    implementation("com.google.firebase:firebase-analytics")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    // Import the Firebase BoM
-    implementation(platform("com.google.firebase:firebase-bom:33.9.0"))
-    // TODO: Add the dependencies for Firebase products you want to use
-    // When using the BoM, don't specify versions in Firebase dependencies
-    implementation("com.google.firebase:firebase-analytics")
-    // Add the dependencies for any other desired Firebase products
-    // https://firebase.google.com/docs/android/setup#available-libraries
-    // Firebase Firestore
-    implementation ("com.google.firebase:firebase-firestore:24.1.0")
-    // Firebase Auth (если ещё не добавлено)
-    implementation ("com.google.firebase:firebase-auth:21.0.5")
-    // Добавь это, если ещё нет зависимости для Firebase BOM (Bill of Materials)
-    implementation (platform("com.google.firebase:firebase-bom:32.0.0"))
-    // Firebase SDK для базовых функций
-    implementation ("com.google.firebase:firebase-core:21.1.0")
 }

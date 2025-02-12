@@ -69,7 +69,7 @@
         android:layout_width="163dp"
         android:layout_height="52dp"
         android:layout_marginStart="124dp"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="124dp"
         android:backgroundTint="#00505050"
         android:elevation="0dp"
@@ -77,7 +77,24 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+
+    <TextView
+        android:id="@+id/errorMessageText"
+        android:layout_width="355dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="28dp"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:text="Ошибка: Неверные данные"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

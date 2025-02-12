@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.testapp2.ui.AuthNavigator;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.example.testapp2.Data.Firebase.FirebaseAuthManager;
 import com.example.testapp2.Activity.Account.AccountActivity;
 import com.example.testapp2.Activity.Account.AuthActivity;
@@ -25,6 +26,7 @@ public class LoginFragment extends Fragment {
 
     private FirebaseAuthManager authManager;
     private AuthNavigator navigator;
+    private TextView errorMessageText;
 
     @Nullable
     @Override
@@ -38,10 +40,16 @@ public class LoginFragment extends Fragment {
         EditText passwordInput = view.findViewById(R.id.password);
         Button loginButton = view.findViewById(R.id.loginButton);
         TextView goToRegister = view.findViewById(R.id.goToRegister);
+        errorMessageText = view.findViewById(R.id.errorMessageText); // Для вывода ошибки
 
         loginButton.setOnClickListener(v -> {
             String email = emailInput.getText().toString();
             String password = passwordInput.getText().toString();
+
+            if (email.isEmpty() || password.isEmpty()) {
+                showErrorMessage("Введите email и пароль.");
+                return;
+            }
 
             authManager.loginUser(email, password, new FirebaseAuthManager.AuthCallback() {
                 @Override
@@ -52,7 +60,14 @@ public class LoginFragment extends Fragment {
 
                 @Override
                 public void onFailure(String errorMessage) {
-                    Toast.makeText(getActivity(), "Ошибка: " + errorMessage, Toast.LENGTH_SHORT).show();
+                    if (errorMessage.contains("There is no user record")) {
+                        showErrorMessage("Вы не зарегистрированы. Пожалуйста, создайте аккаунт.");
+                        clearInputFields(emailInput, passwordInput);
+                    } else if (errorMessage.contains("The password is invalid")) {
+                        showErrorMessage("Неправильный email или пароль.");
+                    } else {
+                        showErrorMessage("Ошибка: " + errorMessage);
+                    }
                 }
             });
         });
@@ -60,6 +75,17 @@ public class LoginFragment extends Fragment {
         goToRegister.setOnClickListener(v -> navigator.navigateToRegister());
 
         return view;
+    }
+    // Показываем сообщение об ошибке
+    private void showErrorMessage(String message) {
+        errorMessageText.setText(message);
+        errorMessageText.setVisibility(View.VISIBLE);
+    }
+
+    // Очищаем поля ввода
+    private void clearInputFields(EditText email, EditText password) {
+        email.setText("");
+        password.setText("");
     }
 }
 
