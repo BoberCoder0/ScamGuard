@@ -17,11 +17,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setupBottomNavigation();
     }
-
+    protected abstract int getSelectedMenuItemId();
     private void setupBottomNavigation() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         if (bottomNavigationView != null) {
             bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
+            // Подсвечиваем текущую кнопку
+            bottomNavigationView.setSelectedItemId(getSelectedMenuItemId());
         }
     }
 

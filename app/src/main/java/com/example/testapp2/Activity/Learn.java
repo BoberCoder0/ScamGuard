@@ -32,6 +32,12 @@ public class Learn extends BaseActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Скрыть кнопку "Назад"
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setHomeButtonEnabled(false);
+        }
+
         // Настраиваем нижний тулбар
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
@@ -57,17 +63,6 @@ public class Learn extends BaseActivity {
         findViewById(R.id.learn_content_4).setOnClickListener(view -> scrollToSection(R.id.section4));
         findViewById(R.id.learn_content_5).setOnClickListener(view -> scrollToSection(R.id.section5));
 
-    }
-
-
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
     // Установка HTML-содержимого для TextView.
     private void setHtmlContent() {
@@ -135,4 +130,9 @@ public class Learn extends BaseActivity {
             scrollView.post(() -> scrollView.smoothScrollTo(0, sectionView.getTop()));
         }
     }
+
+    protected int getSelectedMenuItemId() {
+        return R.id.nav_home;
+    }
+
 }

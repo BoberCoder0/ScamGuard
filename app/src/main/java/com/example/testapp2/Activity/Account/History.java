@@ -10,12 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.testapp2.Activity.BaseActivity;
-import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityHistoryBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class History extends BaseActivity {
+public class History extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +21,8 @@ public class History extends BaseActivity {
 
         ActivityHistoryBinding binding = ActivityHistoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        // Устанавливаем верхний тулбар
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
-
-        // Настраиваем нижний тулбар
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
-
-
         CharSequence label = "";
         try {
             PackageManager packageManager = getPackageManager();

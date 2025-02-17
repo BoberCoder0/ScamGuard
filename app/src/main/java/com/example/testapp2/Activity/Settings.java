@@ -25,6 +25,13 @@ public class Settings extends BaseActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Скрыть кнопку "Назад"
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setHomeButtonEnabled(false);
+        }
+
+
         // Настраиваем нижний тулбар
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
@@ -69,4 +76,11 @@ public class Settings extends BaseActivity {
         onBackPressed();
         return true;
     }
+
+    protected int getSelectedMenuItemId() {
+        return R.id.nav_home;
+    }
+
+
+
 }

@@ -84,4 +84,9 @@ public class AccountActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    protected int getSelectedMenuItemId() {
+        return R.id.nav_home;
+    }
+
 }
