@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Testapp2"
         tools:targetApi="31">
-
+        <activity
+            android:name=".InfoActivity"
+            android:exported="false" />
         <!-- Указываем активность AuthActivity как стартовую -->
         <activity
             android:name=".Activity.Account.AuthActivity"
@@ -21,11 +23,10 @@
             android:theme="@style/Theme.Testapp2.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Оставляем другие активности, но они не будут запускаться при старте -->
+        </activity> <!-- Оставляем другие активности, но они не будут запускаться при старте -->
         <activity
             android:name=".Activity.Account.History"
             android:exported="false"
@@ -50,9 +51,7 @@
             android:name=".Activity.Search"
             android:exported="false"
             android:label="@string/search"
-            android:theme="@style/Theme.TestApp2.Settings" />
-
-        <!-- Убираем фильтр MAIN и LAUNCHER для MainActivity, чтобы она не открывалась первым экраном -->
+            android:theme="@style/Theme.TestApp2.Settings" /> <!-- Убираем фильтр MAIN и LAUNCHER для MainActivity, чтобы она не открывалась первым экраном -->
         <activity
             android:name=".Activity.MainActivity"
             android:exported="true"
