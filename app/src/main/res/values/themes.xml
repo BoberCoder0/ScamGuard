@@ -15,6 +15,7 @@
 
         <!-- Customize your theme here. -->
 
+        <item name="android:fontFamily">@font/inter</item>
     </style>
 
     <style name="Theme.Testapp2.NoActionBar">
@@ -47,6 +48,7 @@
         <item name="windowNoTitle">true</item>
         <item name="navigationIcon">@drawable/ic_back_white</item>
         <item name="android:background">@drawable/rounded_imagebutton_background</item>
+        <item name="android:fontFamily">@font/inter</item>
     </style>
 
     <style name="Theme.TestApp2.SettingsInvers" parent="Theme.Material3.DayNight">
@@ -65,6 +67,7 @@
         <item name="windowNoTitle">true</item>
         <item name="navigationIcon">@drawable/ic_back_white</item>
         <item name="android:background">@drawable/rounded_imagebutton_background</item>
+        <item name="android:fontFamily">@font/inter</item>
     </style>
 
 </resources>
