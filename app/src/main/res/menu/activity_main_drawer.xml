@@ -25,7 +25,7 @@
             android:icon="@drawable/_024px_oojs_ui_icon_"
             android:title="@string/menu_learn" />
         <item
-            android:id="@+id/nav_settings"
+            android:id="@+id/"
             android:icon="@drawable/free_icon_settings_2815474"
             android:title="@string/menu_settings" />
 
