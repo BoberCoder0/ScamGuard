@@ -7,4 +7,5 @@
     android:layout_height="match_parent"
     tools:context=".InfoActivity">
 
+    <include layout="@layout/navigation_bar"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

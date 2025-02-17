@@ -26,4 +26,6 @@
         android:layout_marginTop="20dp"
         android:text="Темная тема" />
 
+
+    <include layout="@layout/navigation_bar"/>
 </LinearLayout>

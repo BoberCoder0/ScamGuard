@@ -23,4 +23,5 @@
 
     <!-- Остальной контент Activity -->
 
+    <include layout="@layout/navigation_bar"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
