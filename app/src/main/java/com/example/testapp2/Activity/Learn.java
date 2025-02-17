@@ -12,10 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.text.HtmlCompat;
 
+import com.example.testapp2.NavigationManager;
 import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityLearnBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Learn extends AppCompatActivity {
+import com.example.testapp2.Activity.MainActivity;
+
+public class Learn extends BaseActivity {
 
     private ScrollView scrollView;
 
@@ -24,10 +28,14 @@ public class Learn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn);
 
-        ActivityLearnBinding binding = ActivityLearnBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        Toolbar toolbar = binding.toolbar;
+        // Устанавливаем верхний тулбар
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Настраиваем нижний тулбар
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
+
 
         // Установка лейбла
         if (getSupportActionBar() != null) {
@@ -50,6 +58,7 @@ public class Learn extends AppCompatActivity {
         findViewById(R.id.learn_content_5).setOnClickListener(view -> scrollToSection(R.id.section5));
 
     }
+
 
 
     @Override

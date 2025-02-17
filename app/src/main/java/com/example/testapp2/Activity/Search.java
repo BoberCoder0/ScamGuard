@@ -13,8 +13,9 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.testapp2.R;
 import com.example.testapp2.SearchViewModel;
 import com.example.testapp2.utils.PhoneNumberFormattingTextWatcher;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Search extends AppCompatActivity {
+public class Search extends BaseActivity {
 
     private SearchViewModel searchViewModel;
     private EditText phoneNumberInput;
@@ -26,13 +27,14 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        //тулбар
+        // Устанавливаем верхний тулбар
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getString(R.string.search));
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+
+        // Настраиваем нижний тулбар
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
+
 
         // Инициализация UI элементов
         phoneNumberInput = findViewById(R.id.phone_number_input);

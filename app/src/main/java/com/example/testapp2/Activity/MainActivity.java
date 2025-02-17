@@ -21,7 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.example.testapp2.fragments.LoginFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity {
 
     private ActivityMainBinding binding;
     private DrawerLayout drawer;
@@ -36,14 +36,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(binding.getRoot()); // Правильный setContentView
         databaseHelper = dataBaseApp.getDatabaseHelper();
 
-        // Устанавливаем верхний тулбар
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // Настраиваем нижний тулбар
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
-
         findViewById(R.id.start_search).setOnClickListener(v -> {
             Intent intent = new Intent(this, Search.class);
             startActivity(intent);
@@ -53,12 +45,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(this, Learn.class);
             startActivity(intent);
         });
-    }
+        // Устанавливаем верхний тулбар
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavigationManager.onNavigationSelected(this, item.getItemId());
-        return true;
+        // Настраиваем нижний тулбар
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
+
+
     }
 
     private String getUserEmail() {
