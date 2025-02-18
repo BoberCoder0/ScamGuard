@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,11 +14,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.testapp2.Activity.MainActivity;
 import com.example.testapp2.R;
-import com.google.firebase.auth.FirebaseUser;
-import androidx.fragment.app.Fragment;
-import com.example.testapp2.Data.Firebase.FirebaseAuthManager;
-import com.example.testapp2.Activity.Account.AccountActivity;
-import com.example.testapp2.Activity.Account.AuthActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 

@@ -25,10 +25,10 @@ public class Settings extends BaseActivity {
 //        // Устанавливаем верхний тулбар
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
-        ActivitySettingsBinding binding = ActivitySettingsBinding.inflate(getLayoutInflater());
+        /*ActivitySettingsBinding binding = ActivitySettingsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Toolbar toolbar = binding.toolbar;
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);*/
 
 //        // Скрыть кнопку "Назад"
 //        if (getSupportActionBar() != null) {

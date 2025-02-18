@@ -1,21 +1,77 @@
-<FrameLayout
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    tools:context=".Activity.MainActivity"
+    android:background="@drawable/background_lime">
 
     <!-- Верхний тулбар -->
-    <include layout="@layout/app_bar_main" />
+    <!--<include layout="@layout/app_bar_main" />-->
 
-    <!-- Контент главной страницы -->
-    <FrameLayout
-        android:id="@+id/main_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="349dp"
+        android:layout_height="119dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="39dp"
+        android:gravity="center"
+        android:text="Данное приложение - это ваш личный определитель номера и надежный защитник от спама, мошенничества и нежелательных звонков.  Это приложение - инструмент предлагающий функции и возможности по выявлению телефонных мошенников."
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/start_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/start_search"
+        android:layout_width="144dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="129dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="#003FCF"
+        android:text="Начать поиск"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/learn_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/learn_button"
+        android:layout_width="264dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="347dp"
+        android:backgroundTint="#003FCF"
+        android:text="Изучить схемы мошенничества"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_search" />
 
     <!-- Нижний навигационный тулбар -->
     <include layout="@layout/navigation_bar"/>
-</FrameLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="107dp"
+        android:layout_height="27dp"
+        android:text="Scam Guard"
+        android:textSize="17sp"
+        tools:layout_editor_absoluteX="11dp"
+        tools:layout_editor_absoluteY="41dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

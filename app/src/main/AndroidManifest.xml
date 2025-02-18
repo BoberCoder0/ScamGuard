@@ -58,7 +58,7 @@
             android:name=".Activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Testapp2.NoActionBar" />
+            android:theme="@style/Theme.TestApp2.Settings" />
     </application>
 
 </manifest>
