@@ -2,6 +2,7 @@ package com.example.testapp2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.example.testapp2.Activity.Learn;
 import com.example.testapp2.Activity.MainActivity;
@@ -12,8 +13,14 @@ import com.example.testapp2.Activity.InfoActivity;
 public class NavigationManager {
 
     public static void onNavigationSelected(Context context, int id) {
-        Intent intent = null;
+        Log.d("NavigationManager", "Switching to: " + id);
 
+        if (isCurrentActivity(context, id)) {
+            Log.d("NavigationManager", "Страница уже открыта, не переключаемся.");
+            return;
+        }
+
+        Intent intent = null;
         if (id == R.id.nav_home) {
             intent = new Intent(context, MainActivity.class);
         } else if (id == R.id.nav_learn) {
@@ -27,7 +34,19 @@ public class NavigationManager {
         }
 
         if (intent != null) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             context.startActivity(intent);
         }
     }
+
+    // Функция проверяет, открыта ли уже нужная активити
+    private static boolean isCurrentActivity(Context context, int id) {
+        if (context instanceof MainActivity && id == R.id.nav_home) return true;
+        if (context instanceof Learn && id == R.id.nav_learn) return true;
+        if (context instanceof Search && id == R.id.nav_search) return true;
+        if (context instanceof Settings && id == R.id.nav_settings) return true;
+        if (context instanceof InfoActivity && id == R.id.nav_info) return true;
+        return false;
+    }
+
 }

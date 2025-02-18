@@ -14,6 +14,7 @@ import androidx.core.text.HtmlCompat;
 
 import com.example.testapp2.NavigationManager;
 import com.example.testapp2.R;
+import com.example.testapp2.databinding.ActivityAccountBinding;
 import com.example.testapp2.databinding.ActivityLearnBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -26,29 +27,33 @@ public class Learn extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_learn);
-
-        // Устанавливаем верхний тулбар
-        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setContentView(R.layout.activity_learn);
+        ActivityLearnBinding binding = ActivityLearnBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
 
-        // Скрыть кнопку "Назад"
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            getSupportActionBar().setHomeButtonEnabled(false);
-        }
+        // Устанавливаем верхний тулбар
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+
+//        // Скрыть кнопку "Назад"
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//            getSupportActionBar().setHomeButtonEnabled(false);
+//        }
 
         // Настраиваем нижний тулбар
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+//        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
 
 
-        // Установка лейбла
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getString(R.string.learn));
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+//        // Установка лейбла
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setTitle(getString(R.string.learn));
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        }
 
         // Находим ScrollView
         scrollView = findViewById(R.id.scrollView);
@@ -132,7 +137,7 @@ public class Learn extends BaseActivity {
     }
 
     protected int getSelectedMenuItemId() {
-        return R.id.nav_home;
+        return R.id.nav_learn;
     }
 
 }

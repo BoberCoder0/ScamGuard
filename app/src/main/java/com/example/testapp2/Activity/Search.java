@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.testapp2.R;
 import com.example.testapp2.SearchViewModel;
+import com.example.testapp2.databinding.ActivitySearchBinding;
 import com.example.testapp2.utils.PhoneNumberFormattingTextWatcher;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -25,21 +26,25 @@ public class Search extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-
-        // Устанавливаем верхний тулбар
-        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setContentView(R.layout.activity_search);
+//
+//        // Устанавливаем верхний тулбар
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+        ActivitySearchBinding binding = ActivitySearchBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
 
-        // Скрыть кнопку "Назад"
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            getSupportActionBar().setHomeButtonEnabled(false);
-        }
+//        // Скрыть кнопку "Назад"
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//            getSupportActionBar().setHomeButtonEnabled(false);
+//        }
 
-        // Настраиваем нижний тулбар
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
+//        // Настраиваем нижний тулбар
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+//        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
 
 
         // Инициализация UI элементов
@@ -79,7 +84,7 @@ public class Search extends BaseActivity {
     }
 
     protected int getSelectedMenuItemId() {
-        return R.id.nav_home;
+        return R.id.nav_search;
     }
 
 }

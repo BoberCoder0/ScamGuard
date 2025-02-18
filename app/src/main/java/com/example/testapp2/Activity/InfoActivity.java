@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.testapp2.R;
+import com.example.testapp2.databinding.ActivityInfoBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class InfoActivity extends BaseActivity {
@@ -18,21 +19,26 @@ public class InfoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_info);
+//        setContentView(R.layout.activity_info);
+//
+//        // Устанавливаем верхний тулбар
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
-        // Устанавливаем верхний тулбар
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        ActivityInfoBinding binding = ActivityInfoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
 
-        // Скрыть кнопку "Назад"
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            getSupportActionBar().setHomeButtonEnabled(false);
-        }
+//        // Скрыть кнопку "Назад"
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//            getSupportActionBar().setHomeButtonEnabled(false);
+//        }
 
-        // Настраиваем нижний тулбар
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
+//        // Настраиваем нижний тулбар
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+//        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -43,7 +49,7 @@ public class InfoActivity extends BaseActivity {
     }
 
     protected int getSelectedMenuItemId() {
-        return R.id.nav_home;
+        return R.id.nav_info;
     }
 
 }

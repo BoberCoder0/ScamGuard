@@ -2,19 +2,17 @@ package com.example.testapp2.Activity.Account;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.testapp2.Activity.BaseActivity;
 import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityAccountBinding;
+
 
 public class AccountActivity extends BaseActivity {
 
@@ -33,13 +31,6 @@ public class AccountActivity extends BaseActivity {
         setContentView(binding.getRoot());
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
-
-        // Установка лейбла
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getString(R.string.account));
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
 
         // Находим элементы UI
         nickNameInput = findViewById(R.id.nick_name_input);
@@ -76,15 +67,8 @@ public class AccountActivity extends BaseActivity {
             currentNickName.setText("Ваш ник: " + savedNickName);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
+    @Override
     protected int getSelectedMenuItemId() {
         return R.id.nav_home;
     }
