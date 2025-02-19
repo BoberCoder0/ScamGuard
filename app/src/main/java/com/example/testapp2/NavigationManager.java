@@ -25,7 +25,7 @@ public class NavigationManager {
             intent = new Intent(context, MainActivity.class);
         } else if (id == R.id.nav_learn) {
             intent = new Intent(context, Learn.class);
-        } else if (id == R.id.nav_search) {
+        } else if (id == R.id.nav_search_test) {
             intent = new Intent(context, Search.class);
         } else if (id == R.id.nav_settings) {
             intent = new Intent(context, Settings.class);
@@ -43,7 +43,7 @@ public class NavigationManager {
     private static boolean isCurrentActivity(Context context, int id) {
         if (context instanceof MainActivity && id == R.id.nav_home) return true;
         if (context instanceof Learn && id == R.id.nav_learn) return true;
-        if (context instanceof Search && id == R.id.nav_search) return true;
+        if (context instanceof Search && id == R.id.nav_search_test) return true;
         if (context instanceof Settings && id == R.id.nav_settings) return true;
         if (context instanceof InfoActivity && id == R.id.nav_info) return true;
         return false;

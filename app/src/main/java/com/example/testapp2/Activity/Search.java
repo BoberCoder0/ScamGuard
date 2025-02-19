@@ -31,10 +31,10 @@ public class Search extends BaseActivity {
 //        // Устанавливаем верхний тулбар
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
-        ActivitySearchBinding binding = ActivitySearchBinding.inflate(getLayoutInflater());
+        /*ActivitySearchBinding binding = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Toolbar toolbar = binding.toolbar;
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);*/
 
 //        // Скрыть кнопку "Назад"
 //        if (getSupportActionBar() != null) {
@@ -84,7 +84,7 @@ public class Search extends BaseActivity {
     }
 
     protected int getSelectedMenuItemId() {
-        return R.id.nav_search;
+        return R.id.nav_search_test;
     }
 
 }

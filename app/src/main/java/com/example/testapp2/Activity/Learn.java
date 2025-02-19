@@ -17,6 +17,7 @@ import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityAccountBinding;
 import com.example.testapp2.databinding.ActivityLearnBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.testapp2.Activity.MainActivity;
 
@@ -27,33 +28,33 @@ public class Learn extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_learn);
+        setContentView(R.layout.activity_learn);
         ActivityLearnBinding binding = ActivityLearnBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Toolbar toolbar = binding.toolbar;
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = binding.toolbar;
+        //setSupportActionBar(toolbar);
 
         // Устанавливаем верхний тулбар
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-//        // Скрыть кнопку "Назад"
-//        if (getSupportActionBar() != null) {
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//            getSupportActionBar().setHomeButtonEnabled(false);
-//        }
+        // Скрыть кнопку "Назад"
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setHomeButtonEnabled(false);
+        }
 
         // Настраиваем нижний тулбар
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-//        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
+        /*BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);*/
 
 
-//        // Установка лейбла
-//        if (getSupportActionBar() != null) {
-//            getSupportActionBar().setTitle(getString(R.string.learn));
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        }
+        // Установка лейбла
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(getString(R.string.learn));
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         // Находим ScrollView
         scrollView = findViewById(R.id.scrollView);

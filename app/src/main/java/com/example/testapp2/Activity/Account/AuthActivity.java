@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
 import com.example.testapp2.Activity.MainActivity;
 import com.example.testapp2.fragments.LoginFragment;
 import com.example.testapp2.fragments.RegisterFragment;

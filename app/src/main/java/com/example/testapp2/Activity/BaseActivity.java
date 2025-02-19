@@ -26,7 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract int getSelectedMenuItemId();
     private void setupBottomNavigation() {
         Log.e("BaseActivity", "setupBottomNavigation: НАЧАЛО ФУНКЦИИ!");
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = binding.getRoot().findViewById(R.id.bottom_navigation);
 
         if (bottomNavigationView == null) {
             Log.e("BaseActivity", "setupBottomNavigation: bottom_navigation == NULL!");
