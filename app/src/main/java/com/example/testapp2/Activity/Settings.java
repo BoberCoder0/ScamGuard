@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.testapp2.Activity.Account.AccountActivity;
 import com.example.testapp2.R; // Убедись, что путь до R правильный
+import com.example.testapp2.databinding.ActivitySearchBinding;
 import com.example.testapp2.databinding.ActivitySettingsBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -26,8 +27,11 @@ public class Settings extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-//
+//        setContentView(R.layout.activity_settings);
+
+        ActivitySettingsBinding binding = ActivitySettingsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
 //        // Устанавливаем верхний тулбар
          Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

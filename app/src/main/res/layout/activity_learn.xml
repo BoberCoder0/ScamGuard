@@ -9,6 +9,8 @@
     tools:context=".Activity.Learn"
     android:background="@drawable/background_yellow_left">
 
+    <include layout="@layout/app_bar_main"/>
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -204,6 +206,5 @@
         android:layout_height="wrap_content"
         app:barrierDirection="left" />
 
-    <include layout="@layout/app_bar_main"/>
     <include layout="@layout/navigation_bar"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
