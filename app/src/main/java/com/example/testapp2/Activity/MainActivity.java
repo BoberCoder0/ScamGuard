@@ -94,12 +94,12 @@ public class MainActivity extends AppCompatActivity {
     // Для перехода по иконке аккаунта
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.up_menu_toolbar, menu);
+        getMenuInflater().inflate(R.menu.up_toolbar_menu, menu);
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.nav_account) {
+        if (item.getItemId() == R.id.nav_accoutn) {
             startActivity(new Intent(getApplicationContext(), AccountActivity.class));
             overridePendingTransition(0, 0);
             return true;

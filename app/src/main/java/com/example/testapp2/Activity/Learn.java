@@ -1,7 +1,9 @@
 package com.example.testapp2.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.text.HtmlCompat;
 
+import com.example.testapp2.Activity.Account.AccountActivity;
 import com.example.testapp2.NavigationManager;
 import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityAccountBinding;
@@ -21,7 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.testapp2.Activity.MainActivity;
 
-public class Learn extends BaseActivity {
+public class Learn extends AppCompatActivity {
 
     private ScrollView scrollView;
 
@@ -43,11 +46,6 @@ public class Learn extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setHomeButtonEnabled(false);
         }
-
-        // Настраиваем нижний тулбар
-        /*BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);*/
-
 
         // Установка лейбла
         if (getSupportActionBar() != null) {
@@ -136,9 +134,23 @@ public class Learn extends BaseActivity {
             scrollView.post(() -> scrollView.smoothScrollTo(0, sectionView.getTop()));
         }
     }
+    // Подключаем меню к Toolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.up_toolbar_menu, menu);
+        return true;
+    }
 
-    protected int getSelectedMenuItemId() {
-        return R.id.nav_learn;
+    // Обрабатываем нажатие на кнопку аккаунта
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.nav_accoutn) {
+            // Запускаем активити аккаунта
+            Intent intent = new Intent(this, AccountActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
