@@ -2,6 +2,7 @@ package com.example.testapp2.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -67,7 +68,40 @@ public class Learn extends AppCompatActivity {
         findViewById(R.id.learn_content_4).setOnClickListener(view -> scrollToSection(R.id.section4));
         findViewById(R.id.learn_content_5).setOnClickListener(view -> scrollToSection(R.id.section5));
 
+        // Переход по кнопкам в нижнем тулбаре
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        // Set Home selected
+        bottomNavigationView.setSelectedItemId(R.id.nav_learn);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                int id = item.getItemId();
+
+                if (id == R.id.nav_learn) {
+                    return true;
+                } else if (id == R.id.nav_search) {
+                    startActivity(new Intent(getApplicationContext(), Search.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (id == R.id.nav_settings) {
+                    startActivity(new Intent(getApplicationContext(), Settings.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (id == R.id.nav_info) {
+                    startActivity(new Intent(getApplicationContext(), InfoActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (id == R.id.nav_home) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
+
     // Установка HTML-содержимого для TextView.
     private void setHtmlContent() {
         TextView section1Content = findViewById(R.id.section1_content);
@@ -134,7 +168,7 @@ public class Learn extends AppCompatActivity {
             scrollView.post(() -> scrollView.smoothScrollTo(0, sectionView.getTop()));
         }
     }
-    // Подключаем меню к Toolbar
+    /*// Подключаем меню к Toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.up_toolbar_menu, menu);
@@ -148,6 +182,21 @@ public class Learn extends AppCompatActivity {
             // Запускаем активити аккаунта
             Intent intent = new Intent(this, AccountActivity.class);
             startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }*/
+    // Для перехода по иконке аккаунта
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.up_toolbar_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.nav_accoutn) {
+            startActivity(new Intent(getApplicationContext(), AccountActivity.class));
+            overridePendingTransition(0, 0);
             return true;
         }
         return super.onOptionsItemSelected(item);

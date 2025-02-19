@@ -53,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-//        // Скрыть кнопку "Назад"
-//        if (getSupportActionBar() != null) {
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//            getSupportActionBar().setHomeButtonEnabled(false);
-//        }
+        // Скрыть кнопку "Назад"
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setHomeButtonEnabled(false);
+        }
 
         // Переход по кнопкам в нижнем тулбаре
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);

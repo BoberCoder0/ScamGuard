@@ -1,13 +1,19 @@
 package com.example.testapp2.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Switch;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+
+import com.example.testapp2.Activity.Account.AccountActivity;
 import com.example.testapp2.R; // Убедись, что путь до R правильный
 import com.example.testapp2.databinding.ActivitySettingsBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -63,6 +69,56 @@ public class Settings extends AppCompatActivity {
             editor.putBoolean("is_dark_mode", isChecked);
             editor.apply();
         });
+
+        // Переход по кнопкам в нижнем тулбаре
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        // Set Home selected
+        bottomNavigationView.setSelectedItemId(R.id.nav_settings);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                int id = item.getItemId();
+
+                if (id == R.id.nav_learn) {
+                    startActivity(new Intent(getApplicationContext(), Learn.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (id == R.id.nav_search) {
+                    startActivity(new Intent(getApplicationContext(), Search.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (id == R.id.nav_settings) {
+                    return true;
+                } else if (id == R.id.nav_info) {
+                    startActivity(new Intent(getApplicationContext(), InfoActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (id == R.id.nav_home) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    // Для перехода по иконке аккаунта
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.up_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.nav_accoutn) {
+            startActivity(new Intent(getApplicationContext(), AccountActivity.class));
+            overridePendingTransition(0, 0);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -84,7 +140,4 @@ public class Settings extends AppCompatActivity {
     protected int getSelectedMenuItemId() {
         return R.id.nav_settings;
     }
-
-
-
 }

@@ -84,7 +84,7 @@ public class Search extends AppCompatActivity {
             // Переход по кнопкам в нижнем тулбаре
             BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
             // Set Home selected
-            bottomNavigationView.setSelectedItemId(R.id.nav_home);
+            bottomNavigationView.setSelectedItemId(R.id.nav_search);
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
