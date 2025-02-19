@@ -70,7 +70,6 @@ public class AccountActivity extends AppCompatActivity {
 
     /*@Override
     protected int getSelectedMenuItemId() {
-        return R.id.na;
-    }
-*/
+        return R.id.nav_home;
+    }*/
 }

@@ -26,25 +26,25 @@ public class Settings extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_settings);
 //
 //        // Устанавливаем верхний тулбар
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+         Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         /*ActivitySettingsBinding binding = ActivitySettingsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);*/
 
-//        // Скрыть кнопку "Назад"
-//        if (getSupportActionBar() != null) {
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//            getSupportActionBar().setHomeButtonEnabled(false);
-//        }
+        // Скрыть кнопку "Назад"
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setHomeButtonEnabled(false);
+        }
 
-//        // Настраиваем нижний тулбар
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-//        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
+        // Настраиваем нижний тулбар
+        //BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        //bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
 
 
 //        // Добавляем кнопку "назад"
