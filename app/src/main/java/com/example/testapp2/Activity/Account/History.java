@@ -20,18 +20,10 @@ public class History extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        setContentView(R.layout.activity_history);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
         ActivityHistoryBinding binding = ActivityHistoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
-
-//        // Настраиваем нижний тулбар
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-//        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
 
         CharSequence label = "";
         try {
@@ -52,8 +44,4 @@ public class History extends AppCompatActivity {
 //        }
     }
 
-    /*@Override
-    protected int getSelectedMenuItemId() {
-        return R.id.nav_;
-    }*/
 }

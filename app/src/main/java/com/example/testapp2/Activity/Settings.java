@@ -26,32 +26,17 @@ public class Settings extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-//
+        ActivitySettingsBinding binding = ActivitySettingsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 //        // Устанавливаем верхний тулбар
          Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*ActivitySettingsBinding binding = ActivitySettingsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        Toolbar toolbar = binding.toolbar;
-        setSupportActionBar(toolbar);*/
 
         // Скрыть кнопку "Назад"
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setHomeButtonEnabled(false);
         }
-
-        // Настраиваем нижний тулбар
-        //BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        //bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
-
-
-//        // Добавляем кнопку "назад"
-//        if (getSupportActionBar() != null) {
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        }
 
         themeSwitch = findViewById(R.id.themeSwitch);
         sharedPreferences = getSharedPreferences("theme_pref", Context.MODE_PRIVATE);
@@ -129,15 +114,5 @@ public class Settings extends AppCompatActivity {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-    }
-
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        onBackPressed();
-//        return true;
-//    }
-
-    protected int getSelectedMenuItemId() {
-        return R.id.nav_settings;
     }
 }

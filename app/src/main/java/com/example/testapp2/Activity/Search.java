@@ -29,9 +29,7 @@ public class Search extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_search);
-//
+        super.onCreate(savedInstanceState);//
         ActivitySearchBinding binding = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //Toolbar toolbar = binding.toolbar;
@@ -45,7 +43,6 @@ public class Search extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setHomeButtonEnabled(false);
         }
-
 
             // Инициализация UI элементов
             phoneNumberInput = findViewById(R.id.phone_number_input);
