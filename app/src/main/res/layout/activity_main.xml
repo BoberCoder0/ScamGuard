@@ -10,7 +10,7 @@
     android:background="@drawable/background_lime">
 
     <!-- Верхний тулбар -->
-    <!--<include layout="@layout/app_bar_main" />-->
+    <include layout="@layout/app_bar_main" />
 
     <TextView
         android:id="@+id/textView2"
@@ -64,14 +64,5 @@
 
     <!-- Нижний навигационный тулбар -->
     <include layout="@layout/navigation_bar"/>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="107dp"
-        android:layout_height="27dp"
-        android:text="Scam Guard"
-        android:textSize="17sp"
-        tools:layout_editor_absoluteX="11dp"
-        tools:layout_editor_absoluteY="41dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

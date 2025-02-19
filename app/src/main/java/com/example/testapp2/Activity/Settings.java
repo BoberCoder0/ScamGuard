@@ -12,7 +12,7 @@ import com.example.testapp2.R; // Убедись, что путь до R пра�
 import com.example.testapp2.databinding.ActivitySettingsBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Settings extends BaseActivity {
+public class Settings extends AppCompatActivity {
 
     private Switch themeSwitch;
     private SharedPreferences sharedPreferences;

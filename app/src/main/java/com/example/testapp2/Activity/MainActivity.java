@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+
 import com.example.testapp2.Activity.Account.AccountActivity;
 import com.example.testapp2.Data.database.DatabaseHelper;
 import com.example.testapp2.R;
@@ -28,12 +29,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main); // Правильный setContentView
+        setContentView(R.layout.activity_main); // Правильный setContentView
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Устанавливаем верхний тулбар
-        Toolbar toolbar = binding.toolbar;
+        //Toolbar toolbar = binding.toolbar;
+        //setSupportActionBar(toolbar);
+
+        // Устанавливаем верхний тулбар
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         databaseHelper = dataBaseApp.getDatabaseHelper();
