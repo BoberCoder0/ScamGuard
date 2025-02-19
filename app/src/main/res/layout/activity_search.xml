@@ -8,22 +8,6 @@
     tools:context=".Activity.Search"
     android:background="@drawable/background_yellow">
 
-
-    <include layout="@layout/app_bar_main"/>
-    <!--<androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/center_color_app"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@color/white"
-        />-->
-
     <!-- Поле ввода номера телефона -->
     <EditText
         android:id="@+id/phone_number_input"
@@ -112,6 +96,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/check_button" />
 
-
+    <!-- Верхний тулбар -->
+    <include layout="@layout/app_bar_main" />
+    <!-- Нижний тулбар -->
     <include layout="@layout/navigation_bar"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
