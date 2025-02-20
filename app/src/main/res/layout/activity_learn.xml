@@ -6,10 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.TestApp2.Settings"
-    tools:context=".Activity.Learn">
-<!--    android:background="@drawable/background_yellow_left">-->
+    tools:context=".Activity.Learn"
+    android:background="@drawable/background_yellow_left">
 
     <include layout="@layout/app_bar_main"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -44,7 +51,8 @@
                 android:layout_marginBottom="16dp"
                 android:text="Содержание:"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/learn_content_1"
                 android:layout_width="wrap_content"
@@ -52,6 +60,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="1. Имитация голоса родных в аудиосообщениях"
                 android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/learn_content_2"
                 android:layout_width="wrap_content"
@@ -59,6 +68,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="2. Звонок или сообщение от «начальника»"
                 android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/learn_content_3"
                 android:layout_width="wrap_content"
@@ -66,6 +76,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="3. Звонки от псевдосотрудников госслужб и ведомств"
                 android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/learn_content_4"
                 android:layout_width="wrap_content"
@@ -73,6 +84,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="4. Звонки от лжесотрудников банков"
                 android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/learn_content_5"
                 android:layout_width="wrap_content"
@@ -98,8 +110,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:textSize="16sp"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="4dp"
+                android:textSize="16sp" />
 
             <!-- Раздел 2 -->
             <TextView
@@ -118,8 +130,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:textSize="16sp"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="4dp"
+                android:textSize="16sp" />
 
             <!-- Раздел 3 -->
             <TextView
@@ -138,8 +150,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:textSize="16sp"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="4dp"
+                android:textSize="16sp" />
 
             <!-- Раздел 4 -->
             <TextView
@@ -158,8 +170,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:textSize="16sp"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="4dp"
+                android:textSize="16sp" />
 
             <!-- Раздел 5 -->
             <TextView
@@ -178,18 +190,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:textSize="16sp"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="4dp"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </ScrollView>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
