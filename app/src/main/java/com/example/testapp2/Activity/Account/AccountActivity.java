@@ -13,7 +13,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityAccountBinding;
 
-
 public class AccountActivity extends AppCompatActivity {
 
     private EditText nickNameInput;
@@ -66,10 +65,4 @@ public class AccountActivity extends AppCompatActivity {
         if (!savedNickName.isEmpty())
             currentNickName.setText("Ваш ник: " + savedNickName);
     }
-
-
-    /*@Override
-    protected int getSelectedMenuItemId() {
-        return R.id.nav_home;
-    }*/
 }

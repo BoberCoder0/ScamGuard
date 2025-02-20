@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +15,6 @@ import com.example.testapp2.Data.database.DatabaseHelper;
 import com.example.testapp2.R;
 import com.example.testapp2.app.dataBaseApp;
 import com.example.testapp2.databinding.ActivityMainBinding;
-import com.example.testapp2.databinding.ActivitySearchBinding;
-import com.example.testapp2.databinding.ActivitySettingsBinding;
 import com.example.testapp2.fragments.LoginFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -29,13 +26,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // Правильный setContentView
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        // Устанавливаем верхний тулбар
-        //Toolbar toolbar = binding.toolbar;
-        //setSupportActionBar(toolbar);
 
         // Устанавливаем верхний тулбар
         Toolbar toolbar = findViewById(R.id.toolbar);

@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.TestApp2.Settings"
-    tools:context=".Activity.Learn"
-    android:background="@drawable/background_yellow_left">
+    tools:context=".Activity.Learn">
+<!--    android:background="@drawable/background_yellow_left">-->
 
     <include layout="@layout/app_bar_main"/>
 

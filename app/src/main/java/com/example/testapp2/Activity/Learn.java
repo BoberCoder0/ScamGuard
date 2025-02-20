@@ -168,24 +168,6 @@ public class Learn extends AppCompatActivity {
             scrollView.post(() -> scrollView.smoothScrollTo(0, sectionView.getTop()));
         }
     }
-    /*// Подключаем меню к Toolbar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.up_toolbar_menu, menu);
-        return true;
-    }
-
-    // Обрабатываем нажатие на кнопку аккаунта
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.nav_accoutn) {
-            // Запускаем активити аккаунта
-            Intent intent = new Intent(this, AccountActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
     // Для перехода по иконке аккаунта
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
