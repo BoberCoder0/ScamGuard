@@ -1,15 +1,15 @@
 <resources>
     <style name="Theme.ScamGuard" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+<!--        <item name="colorPrimary">@color/purple_500</item>-->
+<!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+<!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">#003700B3</item>
+        <item name="android:statusBarColor">@color/design_default_color_primary_variant</item>
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -57,7 +57,7 @@
     </style>
 
     <style name="NavigationViewStyle" parent="Widget.Design.NavigationView">
-        <item name="colorControlHighlight">#003FCF</item>
+        <item name="colorControlHighlight">@color/center_color_app</item>
     </style>
 
     <!-- Стиль для элемента меню "О нас" -->

@@ -2,8 +2,10 @@ package com.example.testapp2.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         databaseHelper = dataBaseApp.getDatabaseHelper();
+
+        TextView textView = findViewById(R.id.textView2);
+        textView.setText(Html.fromHtml(getString(R.string.main_content), Html.FROM_HTML_MODE_COMPACT));
+
 
         findViewById(R.id.start_search).setOnClickListener(v -> {
             Intent intent = new Intent(this, Search.class);

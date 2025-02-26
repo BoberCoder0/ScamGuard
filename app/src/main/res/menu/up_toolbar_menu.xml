@@ -5,7 +5,7 @@
     <!-- Кнопка аккаунта -->
     <item
         android:id="@+id/nav_accoutn"
-        android:icon="@drawable/i_2"
+        android:icon="@drawable/account"
         android:title="Аккаунт"
         app:showAsAction="always"/>
 

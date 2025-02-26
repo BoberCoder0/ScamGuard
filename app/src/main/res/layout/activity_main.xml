@@ -8,28 +8,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.MainActivity"
-    android:background="@drawable/background_lime">
+    android:background="@drawable/background_main">
 
     <!-- Верхний тулбар -->
     <include layout="@layout/app_bar_main" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="349dp"
-        android:layout_height="119dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="31dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="200dp"
         android:layout_marginBottom="39dp"
         android:gravity="center"
-        android:text="Данное приложение - это ваш личный определитель номера и надежный защитник от спама, мошенничества и нежелательных звонков.  Это приложение - инструмент предлагающий функции и возможности по выявлению телефонных мошенников."
+        android:text="@string/main_content"
         android:textColor="@color/textColor"
-        android:textSize="14sp"
-        android:textStyle="bold"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/start_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
         android:id="@+id/start_search"
@@ -41,9 +44,9 @@
         android:layout_marginTop="39dp"
         android:layout_marginEnd="130dp"
         android:layout_marginBottom="4dp"
-        android:backgroundTint="#003FCF"
+        android:backgroundTint="@color/green_dark"
         android:text="Начать поиск"
-        app:cornerRadius="12dp"
+        app:cornerRadius="14dp"
         app:layout_constraintBottom_toTopOf="@+id/learn_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,9 +61,9 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="49dp"
         android:layout_marginBottom="347dp"
-        android:backgroundTint="#003FCF"
+        android:backgroundTint="@color/green_dark"
         android:text="Изучить схемы мошенничества"
-        app:cornerRadius="12dp"
+        app:cornerRadius="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

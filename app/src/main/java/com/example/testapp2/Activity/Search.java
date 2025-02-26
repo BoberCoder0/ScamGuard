@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.testapp2.Activity.Account.AccountActivity;
 import com.example.testapp2.R;
@@ -33,8 +35,6 @@ public class Search extends AppCompatActivity {
 //        setContentView(R.layout.activity_search);
         ActivitySearchBinding binding = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //Toolbar toolbar = binding.toolbar;
-        //setSupportActionBar(toolbar);
         // Устанавливаем верхний тулбар
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -44,7 +44,6 @@ public class Search extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setHomeButtonEnabled(false);
         }
-
 
             // Инициализация UI элементов
             phoneNumberInput = findViewById(R.id.phone_number_input);
@@ -74,11 +73,21 @@ public class Search extends AppCompatActivity {
             // Наблюдение за LiveData
             searchViewModel.getSearchResult().observe(this, scamInfo -> {
                 if (scamInfo != null) {
+                    // Показать TextView, если результат найден
+                    categoryView.setVisibility(View.VISIBLE);
+                    complaintsView.setVisibility(View.VISIBLE);
+                    commentView.setVisibility(View.VISIBLE);
+                    searchResult.setVisibility(View.VISIBLE);
+
                     categoryView.setText("Категория: " + scamInfo.getCategory());
-                    complaintsView.setText("Жалобы: " + scamInfo.getComplaints());
-                    commentView.setText("Комментарий: " + scamInfo.getComment());
-                    searchResult.setText("Этот номер мошенник!");
-                } else searchResult.setText("Номер не найден в базе.");
+                    complaintsView.setText("Кол-во жалоб: " + scamInfo.getComplaints());
+                    commentView.setText("Комментарий от пользователя: " + scamInfo.getComment());
+                    searchResult.setText("Внимание!\n" +"\n" + "Номер находится в базе, возможно, это мошенники.");
+
+                    searchResult.setBackgroundResource(R.drawable.red_border);
+                } else {
+                    searchResult.setText("Номер в базе отсутсвует.");
+                    searchResult.setBackgroundResource(R.drawable.green_border);}
             });
             // Переход по кнопкам в нижнем тулбаре
             BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

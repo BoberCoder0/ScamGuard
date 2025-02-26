@@ -14,8 +14,8 @@
         android:layout_gravity="bottom"
         android:background="#98FFFFFF"
         app:backgroundTint="#BBFFFFFF"
-        app:itemIconTint="@color/center_color_app"
-        app:itemTextColor="#0C24F2"
+        app:itemIconTint="@color/blue_dark"
+        app:itemTextColor="@color/blue_dark"
         app:menu="@menu/bottom_nav_menu" />
 
 </FrameLayout>
