@@ -128,4 +128,19 @@ public class Search extends AppCompatActivity {
             }
             return super.onOptionsItemSelected(item);
         }
+
+        /*
+        * номера:
+        *+7 (904) 760-97-38  -
+        *+74950402963        -
+        * +74958004031
+        * +74952804985
+        * +74959801607
+        * +74951494318
+        *
+        *
+        *
+        *
+        *
+        * */
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,8 +7,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MainActivity">
-<!--    android:background="@drawable/background_lime">-->
+    tools:context=".Activity.MainActivity"
+    android:background="@drawable/background_lime">
 
     <!-- Верхний тулбар -->
     <include layout="@layout/app_bar_main" />
@@ -32,8 +33,10 @@
 
     <Button
         android:id="@+id/start_search"
-        android:layout_width="144dp"
-        android:layout_height="54dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="129dp"
         android:layout_marginTop="39dp"
         android:layout_marginEnd="130dp"
@@ -48,9 +51,10 @@
 
     <Button
         android:id="@+id/learn_button"
-        android:layout_width="264dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="50dp"
+        android:paddingVertical="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="49dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="49dp"
         android:layout_marginBottom="347dp"

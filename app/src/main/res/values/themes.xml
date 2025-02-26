@@ -21,9 +21,11 @@
     <style name="Theme.Testapp2.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:background">@color/transparent</item>
     </style>
 
-    <style name="Theme.Testapp2.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Testapp2.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"
+        />
 
     <style name="Theme.Testapp2.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <!-- Base application theme. -->
