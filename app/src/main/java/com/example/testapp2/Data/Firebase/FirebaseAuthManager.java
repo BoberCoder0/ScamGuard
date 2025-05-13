@@ -15,8 +15,12 @@ public class FirebaseAuthManager {
 
     public FirebaseUser getCurrentUser() {
         return auth.getCurrentUser();
+        /**
+         *          no usages зачем?
+         */
     }
 
+    // регистрация пользователя
     public void registerUser(String email, String password, AuthCallback callback) {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
@@ -28,6 +32,7 @@ public class FirebaseAuthManager {
                 });
     }
 
+    // email User  authification  auth
     public void loginUser(String email, String password, AuthCallback callback) {
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
@@ -39,10 +44,12 @@ public class FirebaseAuthManager {
                 });
     }
 
+    // кнопка выхода из лк
     public void logoutUser() {
-        auth.signOut();
+        auth.signOut(); // TODO: настроить кнопку выхода из лк
     }
 
+    // Ошибки
     public interface AuthCallback {
         void onSuccess(FirebaseUser user);
         void onFailure(String errorMessage);

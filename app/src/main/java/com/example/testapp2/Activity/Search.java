@@ -86,8 +86,15 @@ public class Search extends AppCompatActivity {
 
                     searchResult.setBackgroundResource(R.drawable.red_border);
                 } else {
+                    // Скрыть TextView, если результат найден
+                    categoryView.setVisibility(View.GONE);
+                    complaintsView.setVisibility(View.GONE);
+                    commentView.setVisibility(View.GONE);
+                    searchResult.setVisibility(View.GONE);
+
                     searchResult.setText("Номер в базе отсутсвует.");
-                    searchResult.setBackgroundResource(R.drawable.green_border);}
+                    searchResult.setBackgroundResource(R.drawable.green_border);
+                }
             });
             // Переход по кнопкам в нижнем тулбаре
             BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

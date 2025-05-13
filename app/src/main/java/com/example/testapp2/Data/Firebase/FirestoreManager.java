@@ -14,11 +14,11 @@ public class FirestoreManager {
         db = FirebaseFirestore.getInstance();
     }
 
-    public void saveUserToFirestore(String userId, String email) {
+    public void saveUserToFirestore(String userId, String email,String nickname) {
         Map<String, Object> userData = new HashMap<>();
         userData.put("email", email);
         userData.put("search_history", new ArrayList<>()); // Пустая история
-
+        userData.put("nickname", nickname); // имя пользователя
         db.collection("users").document(userId).set(userData);
     }
 
