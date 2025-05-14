@@ -47,12 +47,15 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.activity)
-    implementation(libs.mediarouter)
+    // implementation(libs.mediarouter) // Необходима ли она?
     implementation(libs.poi.ooxml)
-    implementation(libs.appcompat)
 
     // Firebase BOM (используем только одну строку!)
     implementation(platform("com.google.firebase:firebase-bom:33.9.0"))
+
+    // для Cloud Firestore
+    implementation("com.google.firebase:firebase-firestore") // Без версии - будет использоваться версия из BOM
+
 
     // Firebase Authentication
     implementation("com.google.firebase:firebase-auth")

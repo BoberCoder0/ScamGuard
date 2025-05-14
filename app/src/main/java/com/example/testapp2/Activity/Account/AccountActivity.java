@@ -17,6 +17,8 @@ import com.example.testapp2.Activity.MainActivity;
 import com.example.testapp2.Data.Firebase.FirestoreManager;
 import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityAccountBinding;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -75,7 +77,7 @@ public class AccountActivity extends AppCompatActivity {
             saveNickName();
         });
 
-        dellAcount.setOnClickListener(v ->{
+        /*dellAcount.setOnClickListener(v ->{
             db.collection("users").document(user.getUid())
                     .delete()
                     .addOnSuccessListener(unused -> {
@@ -89,7 +91,42 @@ public class AccountActivity extends AppCompatActivity {
                     .addOnFailureListener(e ->
                         Toast.makeText(this, "Аккаут не был удален!", Toast.LENGTH_SHORT).show());
 
+        });*/
+
+        dellAcount.setOnClickListener(v -> {
+            if (user == null) return;
+
+            // Повторная аутентификация
+            String email = user.getEmail();
+            String password = "введённый_пользователем_пароль"; // нужно запросить его у пользователя
+            AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+
+            user.reauthenticate(credential)
+                    .addOnSuccessListener(authResult -> {
+                        // Удаляем из Firestore
+                        db.collection("users").document(user.getUid())
+                                .delete()
+                                .addOnSuccessListener(unused -> {
+                                    // Удаляем аккаунт из Auth
+                                    user.delete()
+                                            .addOnSuccessListener(aVoid -> {
+                                                Toast.makeText(this, "Аккаунт удалён!", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                finish();
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(this, "Ошибка удаления аккаунта!", Toast.LENGTH_SHORT).show();
+                                            });
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(this, "Ошибка удаления данных!", Toast.LENGTH_SHORT).show();
+                                });
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Повторная аутентификация не удалась", Toast.LENGTH_SHORT).show();
+                    });
         });
+
     }
 
     private void saveNickName(){
