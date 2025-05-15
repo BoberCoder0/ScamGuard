@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,10 +20,13 @@ import com.example.testapp2.R; // Убедись, что путь до R пра�
 import com.example.testapp2.databinding.ActivitySettingsBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.File;
+
 public class Settings extends AppCompatActivity {
 
     private Switch themeSwitch;
     private SharedPreferences sharedPreferences;
+    private Button cleanCacheButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +58,22 @@ public class Settings extends AppCompatActivity {
 //            getSupportActionBar().setDisplayShowHomeEnabled(true);
 //        }
 
+        // Инициализация элементов UI
         themeSwitch = findViewById(R.id.themeSwitch);
+        cleanCacheButton = findViewById(R.id.CleanCashButton);
         sharedPreferences = getSharedPreferences("theme_pref", Context.MODE_PRIVATE);
 
         // Загружаем сохраненное состояние темы
         boolean isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false);
         themeSwitch.setChecked(isDarkMode);
         setThemeMode(isDarkMode);
+
+        // Обработчик кнопки очистки кеша
+        cleanCacheButton.setOnClickListener(v -> {
+            clearApplicationCache();
+            Toast.makeText(this, "Кеш очищен", Toast.LENGTH_SHORT).show();
+            restartApplication();
+        });
 
 
         themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -102,6 +116,7 @@ public class Settings extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
     // Для перехода по иконке аккаунта
@@ -136,6 +151,46 @@ public class Settings extends AppCompatActivity {
 //        onBackPressed();
 //        return true;
 //    }
+// Метод для очистки кеша приложения
+private void clearApplicationCache() {
+    try {
+        File cacheDir = getCacheDir();
+        File applicationDir = new File(cacheDir.getParent());
+        if (applicationDir.exists()) {
+            String[] children = applicationDir.list();
+            for (String child : children) {
+                if (!child.equals("lib")) {
+                    deleteDir(new File(applicationDir, child));
+                }
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+    // Вспомогательный метод для рекурсивного удаления директории
+    private static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (String child : children) {
+                boolean success = deleteDir(new File(dir, child));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        return dir != null && dir.delete();
+    }
+
+    // Метод для перезапуска приложения
+    private void restartApplication() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+        Runtime.getRuntime().exit(0); // Гарантированное завершение процесса
+    }
 
     protected int getSelectedMenuItemId() {
         return R.id.nav_settings;

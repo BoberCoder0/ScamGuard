@@ -80,6 +80,8 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         user = auth.getCurrentUser();
         firestoreManager = new FirestoreManager();
 
+        super.onStart(); /** очень плохо */
+        FirebaseAuth auth = FirebaseAuth.getInstance(); // Не кэшируйте!
         // Проверяем, зарегистрирован ли пользователь
         if (auth.getCurrentUser() == null) {
             // Пользователь не авторазован, показываем кнопки

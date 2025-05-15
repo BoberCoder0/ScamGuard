@@ -104,9 +104,9 @@ public class RegisterFragment extends Fragment {
         // Установка клика на кнопку регистрации
         registerButton.setOnClickListener(v -> registerUser());
 
-        registerButton.setOnClickListener(v -> {
+        /*registerButton.setOnClickListener(v -> {
             navigator.navigateToRegister();
-        });
+        });*/
 
 
         return view;
