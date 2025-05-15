@@ -26,6 +26,17 @@ public class LoginFragment extends Fragment {
     private AuthNavigator navigator;
     private EditText emailInput;
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            navigator = (AuthNavigator) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement AuthNavigator");
+        }
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

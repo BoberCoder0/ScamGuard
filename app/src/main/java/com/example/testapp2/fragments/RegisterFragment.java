@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.content.Context;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.example.testapp2.Activity.MainActivity;
 import com.example.testapp2.Data.Firebase.FirestoreManager;
 import com.example.testapp2.R;
 
+import com.example.testapp2.ui.AuthNavigator;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Random;
@@ -25,10 +27,20 @@ public class RegisterFragment extends Fragment {
     private EditText emailField, passwordField, confirmPasswordField,nickName, codeField;
     private Button registerButton;
     private Button sendCodeButton, verifyCodeButton;
-
     private FirebaseAuth mAuth;
-
     private String generatedCode = "666666";
+    private AuthNavigator navigator;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            navigator = (AuthNavigator) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement AuthNavigator");
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -92,6 +104,11 @@ public class RegisterFragment extends Fragment {
         // Установка клика на кнопку регистрации
         registerButton.setOnClickListener(v -> registerUser());
 
+        registerButton.setOnClickListener(v -> {
+            navigator.navigateToRegister();
+        });
+
+
         return view;
     }
 
@@ -145,7 +162,7 @@ public class RegisterFragment extends Fragment {
         // Здесь должна быть отправка письма
         // Можно через Firebase Functions, SMTP API или сторонний backend
         // Для отладки можно просто выводить в лог или показывать Toast
-        Toast.makeText(getActivity(), "Код: " + code, Toast.LENGTH_LONG).show(); // Убери в релизе!
+        Toast.makeText(getActivity(), "Код: " + code, Toast.LENGTH_LONG).show(); // TODO: Убери в релизе!
     }
 }
 

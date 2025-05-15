@@ -2,7 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     // Add the Google services Gradle plugin
     id("com.google.gms.google-services")
-    }
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+}
 
 android {
     namespace = "com.example.testapp2"
@@ -34,7 +36,11 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
         //dataBinding = true //что что не работает? убери
+    }
+    kotlinOptions {
+        jvmTarget = "11"
     }
 }
 
@@ -65,8 +71,19 @@ dependencies {
 
     // Firebase Analytics (если используешь)
     implementation("com.google.firebase:firebase-analytics")
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.activity.compose)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.ui)
+    implementation(libs.ui.graphics)
+    implementation(libs.ui.tooling.preview)
+    implementation(libs.material3)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.ui.test.junit4)
+    debugImplementation(libs.ui.tooling)
+    debugImplementation(libs.ui.test.manifest)
 }

@@ -1,8 +1,11 @@
 package com.example.testapp2.Activity.Account;
 
+import static androidx.core.app.PendingIntentCompat.getActivity;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,6 +21,10 @@ import com.example.testapp2.Data.Firebase.FirestoreManager;
 import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityAccountBinding;
 import com.example.testapp2.fragments.DellAccountFragment;
+import com.example.testapp2.fragments.EmptyActivity;
+import com.example.testapp2.fragments.LoginFragment;
+import com.example.testapp2.fragments.RegisterFragment;
+import com.example.testapp2.ui.AuthNavigator;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AccountActivity extends AppCompatActivity {
+public class AccountActivity extends AppCompatActivity implements AuthNavigator {
 
     private EditText nickNameInput;
     private TextView currentNickName;
@@ -48,6 +55,7 @@ public class AccountActivity extends AppCompatActivity {
 
         ActivityAccountBinding binding = ActivityAccountBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         // тулбар
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
@@ -63,6 +71,8 @@ public class AccountActivity extends AppCompatActivity {
         Button saveButton = binding.saveButton;
         currentNickName = binding.currentNickName;
         Button dellAcount = binding.dellAccount;
+        Button login = binding.buttonLogin;
+        Button register = binding.buttonRegister;
 
         // подключение к бд
         db = FirebaseFirestore.getInstance();
@@ -70,34 +80,67 @@ public class AccountActivity extends AppCompatActivity {
         user = auth.getCurrentUser();
         firestoreManager = new FirestoreManager();
 
-        // Загрузка сохраненного ника
-        loadNickName();
+        // Проверяем, зарегистрирован ли пользователь
+        if (auth.getCurrentUser() == null) {
+            // Пользователь не авторазован, показываем кнопки
+            nickNameInput.setVisibility(View.GONE);
+            saveButton.setVisibility(View.GONE);
+            currentNickName.setVisibility(View.GONE);
+            dellAcount.setVisibility(View.GONE);
 
-        // Обработчик кнопки сохранения
-        saveButton.setOnClickListener(v -> {
-            saveNickName();
-        });
+            login.setVisibility(View.VISIBLE);
+            register.setVisibility(View.VISIBLE);
 
-        /*dellAcount.setOnClickListener(v ->{
-            db.collection("users").document(user.getUid())
-                    .delete()
-                    .addOnSuccessListener(unused -> {
-                        user.delete();
-                        Toast.makeText(this, "Аккаунт Удален!", Toast.LENGTH_SHORT).show();
-                        currentNickName.setText("");
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        //overridePendingTransition(0, 0);
-                        finish();
-                    })
-                    .addOnFailureListener(e ->
-                        Toast.makeText(this, "Аккаут не был удален!", Toast.LENGTH_SHORT).show());
+            // прямой переход на фрагмент с помощью интерфейса
+            login.setOnClickListener(v -> this.navigateToLogin());
+            register.setOnClickListener(v -> this.navigateToRegister());
 
-        });*/
+            // TODO: код ниже не нужен + сделать вход (сейшас не воркает)
 
-        dellAcount.setOnClickListener(v -> {
-            DellAccountFragment dialog = new DellAccountFragment();
-            dialog.show(getSupportFragmentManager(),"DellAccountFragment");
-        });
+            /*login.setOnClickListener(v -> {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new LoginFragment())
+                        .addToBackStack(null) // чтобы можно было вернуться нажатием "Назад"
+                        .commit();
+
+                // Переход на AuthActivity
+                Intent intent = new Intent(AccountActivity.this, EmptyActivity.class);
+                startActivity(intent);
+                finish(); // Закрываем текущую активность
+            });*/
+
+            /*register.setOnClickListener(v2 -> {
+                // Переход на AuthActivity
+                Intent intent = new Intent(AccountActivity.this, EmptyActivity.class);
+                startActivity(intent);
+                finish(); // Закрываем текущую активность
+
+            });*/
+
+            // TODO: finish(); (если добавть не работает)
+        } else {
+            // Пользователь авторизован, показываем фрагмент регистрации
+            nickNameInput.setVisibility(View.VISIBLE);
+            saveButton.setVisibility(View.VISIBLE);
+            currentNickName.setVisibility(View.VISIBLE);
+            dellAcount.setVisibility(View.VISIBLE);
+
+            login.setVisibility(View.GONE);
+            register.setVisibility(View.GONE);
+
+            // Загрузка сохраненного ника
+            loadNickName();
+
+            // Обработчик кнопки сохранения
+            saveButton.setOnClickListener(v -> {
+                saveNickName();
+            });
+
+            dellAcount.setOnClickListener(v -> {
+                DellAccountFragment dialog = new DellAccountFragment();
+                dialog.show(getSupportFragmentManager(),"DellAccountFragment");
+            });
+        }
 
     }
 
@@ -135,5 +178,21 @@ public class AccountActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e ->
                     Toast.makeText(this, "Ошибка загрузки ника", Toast.LENGTH_SHORT).show());
+    }
+
+    // для фрагмента
+    @Override
+    public void navigateToLogin() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new LoginFragment())
+                .addToBackStack(null)
+                .commit();
+    }
+    @Override
+    public void navigateToRegister() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new RegisterFragment())
+                .addToBackStack(null)
+                .commit();
     }
 }
