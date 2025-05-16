@@ -5,20 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Base.Theme.Testapp2"
-    tools:context=".Activity.Account.AccountActivity">
+    tools:context=".Activity.Account.AccountActivity"
+    android:background="@drawable/background_main">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/center_color_app"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleTextColor="@color/white" />
+    <include layout="@layout/app_bar_main"/>
 
     <include layout="@layout/navigation_bar"/>
 
@@ -27,14 +17,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="66dp"
         android:layout_marginEnd="16dp"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.8"/>
 
     <EditText
         android:id="@+id/nick_name_input"
@@ -54,6 +44,7 @@
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/green_dark"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="Сохранить"
@@ -77,11 +68,11 @@
         android:id="@+id/buttonLogin"
         android:layout_width="112dp"
         android:layout_height="57dp"
-        android:background="@drawable/button_background"
         android:paddingStart="32dp"
         android:paddingTop="16dp"
         android:paddingEnd="32dp"
         android:paddingBottom="16dp"
+        android:backgroundTint="@color/green_dark"
         android:text="Вход"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -94,7 +85,7 @@
         android:layout_width="173dp"
         android:layout_height="58dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/button_background"
+        android:backgroundTint="@color/green_dark"
         android:paddingStart="32dp"
         android:paddingTop="16dp"
         android:paddingEnd="32dp"

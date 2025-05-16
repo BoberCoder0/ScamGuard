@@ -7,6 +7,7 @@
     tools:context=".Activity.MainActivity"
     android:theme="@style/Theme.ScamGuard.TransparentToolbar"
     android:background="@color/transparent"
+    app:itemBackground="@android:color/transparent"
     >
 
     <com.google.android.material.appbar.AppBarLayout

@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="textColor">#FFFFFF</color> <!-- Белый цвет для темной темы --> <!--<color name="background_color">#00000000</color>-->
+    <color name="blue_dark">#121212</color> <!-- Темный цвет для фона -->
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray">#B0B0B0</color>
+    <color name="center_color_app">#BB86FC</color> <!-- фиолетовый для темной темы -->
+    <color name="text_color_light">#000000</color>
+    <color name="text_color_dark">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="textColor">#FFFFFF</color>
+
+    <!-- Фон окна в темной теме -->
+    <color name="background_color">#121212</color>
 </resources>

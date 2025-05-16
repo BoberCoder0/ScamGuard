@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="blue_dark">#091552</color>
     <color name="green_dark">#013732</color>
@@ -14,4 +13,7 @@
     <color name="transparent">#00000000</color>
     <color name="textColor">#000000</color>
     <color name="second_center_collor_app">#98FFFFFF</color>
+
+    <!-- Добавляем background_color для светлой темы -->
+    <color name="background_color">#FFFFFFFF</color> <!-- Белый фон -->
 </resources>

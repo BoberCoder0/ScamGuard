@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.testapp2.Activity.Account.AccountActivity;
 import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityInfoBinding;
+import com.example.testapp2.utils.ThemeHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.checkerframework.checker.units.qual.A;
@@ -24,6 +25,7 @@ public class InfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ThemeHelper.applyTheme(this); // ДО super.onCreate
         super.onCreate(savedInstanceState);
         //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_info);

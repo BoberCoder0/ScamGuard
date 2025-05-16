@@ -25,7 +25,7 @@
             android:name=".Activity.Account.AuthActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Testapp2.NoActionBar">
+            android:theme="@style/Theme.ScamGuard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

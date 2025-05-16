@@ -20,6 +20,7 @@ import com.example.testapp2.R;
 import com.example.testapp2.SearchViewModel;
 import com.example.testapp2.databinding.ActivitySearchBinding;
 import com.example.testapp2.utils.PhoneNumberFormattingTextWatcher;
+import com.example.testapp2.utils.ThemeHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Search extends AppCompatActivity {
@@ -31,6 +32,7 @@ public class Search extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ThemeHelper.applyTheme(this); // 👈 обязательно ДО super.onCreate
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_search);
         ActivitySearchBinding binding = ActivitySearchBinding.inflate(getLayoutInflater());
@@ -145,18 +147,4 @@ public class Search extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
         }
 
-        /*
-        * номера:
-        *+7 (904) 760-97-38  -
-        *+74950402963        -
-        * +74958004031
-        * +74952804985
-        * +74959801607
-        * +74951494318
-        *
-        *
-        *
-        *
-        *
-        * */
 }

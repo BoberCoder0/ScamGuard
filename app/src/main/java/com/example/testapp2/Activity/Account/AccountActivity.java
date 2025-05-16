@@ -66,7 +66,8 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         setContentView(binding.getRoot());
 
         // верхний тулбар
-        Toolbar toolbar = binding.toolbar;
+        // Устанавливаем верхний тулбар
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Скрыть кнопку "Назад"

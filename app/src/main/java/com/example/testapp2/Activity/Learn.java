@@ -20,6 +20,7 @@ import com.example.testapp2.NavigationManager;
 import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityAccountBinding;
 import com.example.testapp2.databinding.ActivityLearnBinding;
+import com.example.testapp2.utils.ThemeHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.widget.Toolbar;
 
@@ -31,6 +32,7 @@ public class Learn extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {  // TODO: доделать перенос в strings
+        ThemeHelper.applyTheme(this); // 👈 обязательно ДО super.onCreate
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn);
         ActivityLearnBinding binding = ActivityLearnBinding.inflate(getLayoutInflater());
@@ -93,6 +95,7 @@ public class Learn extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
     // Установка HTML-содержимого для TextView.

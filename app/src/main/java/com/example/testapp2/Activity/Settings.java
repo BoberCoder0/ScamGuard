@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.testapp2.Activity.Account.AccountActivity;
 import com.example.testapp2.R; // Убедись, что путь до R правильный
 import com.example.testapp2.databinding.ActivitySettingsBinding;
+import com.example.testapp2.utils.ThemeHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
@@ -30,6 +31,7 @@ public class Settings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ThemeHelper.applyTheme(this); // 👈 обязательно ДО super.onCreate
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
@@ -61,12 +63,25 @@ public class Settings extends AppCompatActivity {
         });
 
 
+//        themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            setThemeMode(isChecked);
+//            // Сохраняем состояние темы в SharedPreferences
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putBoolean("is_dark_mode", isChecked);
+//            editor.apply();
+//            recreate(); // Просто пересоздаём активность
+//        });
         themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            setThemeMode(isChecked);
-            // Сохраняем состояние темы в SharedPreferences
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("is_dark_mode", isChecked);
-            editor.apply();
+            // Сохраняем состояние темы
+            ThemeHelper.saveThemeChoice(this, isChecked);
+            ThemeHelper.applyTheme(this); // применяем тему сразу
+
+            // Перезапускаем активити без анимации (мягко, без мерцания)
+            Intent intent = getIntent();
+            finish();
+            overridePendingTransition(0, 0); // убрать анимацию при выходе
+            startActivity(intent);
+            overridePendingTransition(0, 0); // убрать анимацию при входе
         });
 
         // Переход по кнопкам в нижнем тулбаре
@@ -131,11 +146,6 @@ public class Settings extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        onBackPressed();
-//        return true;
-//    }
 // Метод для очистки кеша приложения
 private void clearApplicationCache() {
     try {
