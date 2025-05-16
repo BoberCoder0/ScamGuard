@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.content.Context;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,13 +32,23 @@ public class RegisterFragment extends Fragment {
     private String generatedCode = "666666";
     private AuthNavigator navigator;
 
-    @Override
+    /*@Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
             navigator = (AuthNavigator) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement AuthNavigator");
+        }
+    }*/
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof AuthNavigator) {
+            navigator = (AuthNavigator) context;
+        } else {
+            throw new ClassCastException(context + " must implement AuthNavigator");
         }
     }
 
@@ -58,10 +69,19 @@ public class RegisterFragment extends Fragment {
 
         registerButton = view.findViewById(R.id.button_register);
         sendCodeButton = view.findViewById(R.id.button_send_code);
+        ImageButton backButton = view.findViewById(R.id.back_to_login_button);
         verifyCodeButton = view.findViewById(R.id.verify_code_button);
 
         registerButton.setVisibility(View.GONE); // скрыть до подтверждения
         verifyCodeButton.setVisibility(View.GONE); // скрыть до получения кода
+
+        backButton.setOnClickListener(v -> {
+            // Используем интерфейс для навигации
+            navigator.navigateToLogin();
+
+            // Или альтернативный вариант:
+            // requireActivity().getSupportFragmentManager().popBackStack();
+        });
 
         sendCodeButton.setOnClickListener(v -> {
             String email = emailField.getText().toString().trim();
@@ -107,6 +127,8 @@ public class RegisterFragment extends Fragment {
         /*registerButton.setOnClickListener(v -> {
             navigator.navigateToRegister();
         });*/
+
+
 
 
         return view;

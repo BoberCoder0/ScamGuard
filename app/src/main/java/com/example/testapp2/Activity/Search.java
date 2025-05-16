@@ -92,7 +92,7 @@ public class Search extends AppCompatActivity {
                     categoryView.setVisibility(View.GONE);
                     complaintsView.setVisibility(View.GONE);
                     commentView.setVisibility(View.GONE);
-                    searchResult.setVisibility(View.GONE);
+                    searchResult.setVisibility(View.VISIBLE);
 
                     searchResult.setText("Номер в базе отсутсвует.");
                     searchResult.setBackgroundResource(R.drawable.green_border);

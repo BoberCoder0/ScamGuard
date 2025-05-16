@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 
 
 import com.example.testapp2.Activity.Account.AccountActivity;
+import com.example.testapp2.Activity.Account.AuthActivity;
 import com.example.testapp2.Data.database.DatabaseHelper;
 import com.example.testapp2.R;
 import com.example.testapp2.app.dataBaseApp;

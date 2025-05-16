@@ -3,10 +3,13 @@ package com.example.testapp2.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -14,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import com.example.testapp2.Activity.Account.AccountActivity;
 import com.example.testapp2.R; // Убедись, что путь до R правильный
@@ -116,7 +121,6 @@ public class Settings extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
     // Для перехода по иконке аккаунта
