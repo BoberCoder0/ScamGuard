@@ -20,6 +20,8 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:titleTextColor="@color/white" />
 
+    <include layout="@layout/navigation_bar"/>
+
     <TextView
         android:id="@+id/current_nick_name"
         android:layout_width="0dp"
@@ -64,7 +66,7 @@
         android:layout_height="49dp"
         android:layout_marginStart="23dp"
         android:layout_marginEnd="23dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginBottom="100dp"
         android:backgroundTint="#928F8F"
         android:text=" Удалить Аккаунт"
         app:layout_constraintBottom_toBottomOf="parent"

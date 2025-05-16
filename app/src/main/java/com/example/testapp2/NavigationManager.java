@@ -2,13 +2,17 @@ package com.example.testapp2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.View;
 
 import com.example.testapp2.Activity.Learn;
 import com.example.testapp2.Activity.MainActivity;
 import com.example.testapp2.Activity.Search;
 import com.example.testapp2.Activity.Settings;
 import com.example.testapp2.Activity.InfoActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NavigationManager {
 
@@ -47,6 +51,15 @@ public class NavigationManager {
         if (context instanceof Settings && id == R.id.nav_settings) return true;
         if (context instanceof InfoActivity && id == R.id.nav_info) return true;
         return false;
+    }
+
+    public static void resetNavigationSelection(BottomNavigationView bottomNav) {
+        if (bottomNav != null) {
+            Menu menu = bottomNav.getMenu();
+            for (int i = 0; i < menu.size(); i++) {
+                menu.getItem(i).setChecked(false);
+            }
+        }
     }
 
 }

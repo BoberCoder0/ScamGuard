@@ -5,6 +5,7 @@ import static androidx.core.app.PendingIntentCompat.getActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,12 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.testapp2.Activity.InfoActivity;
 import com.example.testapp2.Activity.Learn;
 import com.example.testapp2.Activity.MainActivity;
+import com.example.testapp2.Activity.Search;
+import com.example.testapp2.Activity.Settings;
 import com.example.testapp2.Data.Firebase.FirestoreManager;
+import com.example.testapp2.NavigationManager;
 import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityAccountBinding;
 import com.example.testapp2.fragments.DellAccountFragment;
@@ -25,6 +31,7 @@ import com.example.testapp2.fragments.EmptyActivity;
 import com.example.testapp2.fragments.LoginFragment;
 import com.example.testapp2.fragments.RegisterFragment;
 import com.example.testapp2.ui.AuthNavigator;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +40,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import android.view.Menu;
 
 public class AccountActivity extends AppCompatActivity implements AuthNavigator {
 
@@ -56,7 +65,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         ActivityAccountBinding binding = ActivityAccountBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // тулбар
+        // верхний тулбар
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
 
@@ -97,28 +106,6 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
             login.setOnClickListener(v -> this.navigateToLogin());
             register.setOnClickListener(v -> this.navigateToRegister());
 
-            // TODO: код ниже не нужен + сделать вход (сейшас не воркает)
-
-            /*login.setOnClickListener(v -> {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new LoginFragment())
-                        .addToBackStack(null) // чтобы можно было вернуться нажатием "Назад"
-                        .commit();
-
-                // Переход на AuthActivity
-                Intent intent = new Intent(AccountActivity.this, EmptyActivity.class);
-                startActivity(intent);
-                finish(); // Закрываем текущую активность
-            });*/
-
-            /*register.setOnClickListener(v2 -> {
-                // Переход на AuthActivity
-                Intent intent = new Intent(AccountActivity.this, EmptyActivity.class);
-                startActivity(intent);
-                finish(); // Закрываем текущую активность
-
-            });*/
-
             // TODO: finish(); (если добавть не работает)
         } else {
             // Пользователь авторизован, показываем фрагмент регистрации
@@ -144,6 +131,72 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
             });
         }
 
+        /*// Переход по кнопкам в нижнем тулбаре
+        //BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        // Set Home selected
+        // Убрать выделение любого пункта
+        //bottomNavigationView.setSelectedItemId(R.id.nav_accoutn);
+        //bottomNavigationView.getMenu().setGroupCheckable(0, false, true);
+
+        // Переход по кнопкам в нижнем тулбаре
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        // Убрать выделение любого пункта
+        NavigationManager.resetNavigationSelection(bottomNavigationView);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                int id = item.getItemId();
+
+                if (id == R.id.nav_learn) {
+                    startActivity(new Intent(getApplicationContext(), Learn.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (id == R.id.nav_search) {
+                    startActivity(new Intent(getApplicationContext(), Search.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (id == R.id.nav_settings) {
+                    startActivity(new Intent(getApplicationContext(), Settings.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (id == R.id.nav_info) {
+                    startActivity(new Intent(getApplicationContext(), InfoActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (id == R.id.nav_home) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });*/
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        // Убираем выделение при создании активити
+        resetBottomNavigationSelection(bottomNavigationView);
+
+        // Устанавливаем слушатель
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+            NavigationManager.onNavigationSelected(AccountActivity.this, id);
+            return true;
+        });
+    }
+
+    // Новый метод для сброса выделения
+    private void resetBottomNavigationSelection(BottomNavigationView bottomNav) {
+        if (bottomNav != null) {
+            bottomNav.post(() -> {
+                Menu menu = bottomNav.getMenu();
+                for (int i = 0; i < menu.size(); i++) {
+                    menu.getItem(i).setChecked(false);
+                }
+            });
+        }
     }
 
     private void saveNickName(){
@@ -196,5 +249,15 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                 .replace(R.id.fragment_container, new RegisterFragment())
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.nav_accoutn) {
+            BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+            resetBottomNavigationSelection(bottomNav);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

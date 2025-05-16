@@ -42,13 +42,6 @@ public class Learn extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Установка лейбла
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getString(R.string.learn));
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-
         // Скрыть кнопку "Назад"
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
