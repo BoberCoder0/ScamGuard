@@ -38,7 +38,7 @@
 
     <!-- Тема для прозрачного Toolbar -->
     <style name="Theme.ScamGuard.TransparentToolbar" parent="Theme.ScamGuard">
-        <item name="android:background">#80000000</item> <!-- Полупрозрачный черный -->
+        <item name="android:background">@android:color/transparent</item> <!-- Полупрозрачный черный -->
         <item name="android:navigationBarColor">@color/transparent</item>
         <item name="android:customNavigationLayout">@color/transparent</item>
     </style>
