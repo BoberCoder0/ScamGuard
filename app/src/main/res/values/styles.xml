@@ -93,4 +93,9 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/center_color_app</item>
+        <item name="titleTextColor">@android:color/white</item> <!-- Цвет текста -->
+    </style>
+
 </resources>

@@ -30,7 +30,7 @@ public class Learn extends AppCompatActivity {
     private ScrollView scrollView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {  // TODO: доделать перенос в strings
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn);
         ActivityLearnBinding binding = ActivityLearnBinding.inflate(getLayoutInflater());
@@ -42,17 +42,17 @@ public class Learn extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Скрыть кнопку "Назад"
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            getSupportActionBar().setHomeButtonEnabled(false);
-        }
-
         // Установка лейбла
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getString(R.string.learn));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        // Скрыть кнопку "Назад"
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setHomeButtonEnabled(false);
         }
 
         // Находим ScrollView
@@ -107,13 +107,7 @@ public class Learn extends AppCompatActivity {
         TextView section1Content = findViewById(R.id.section1_content);
 
         // HTML-содержимое для раздела 1
-        String htmlContent = "<p>Мошенники звонят по телефону и присылают голосовые сообщения от имени родственников и друзей. С помощью специальных программ им удаётся менять голос.</p>"
-                + "<p><b>Что говорят мошенники в таких звонках и аудиосообщениях:</b></p>"
-                + "<ul>"
-                + "<li> Просят дать в долг деньги;</li>"
-                + "<li> Жалуются, что попали в неприятную ситуацию, и просят перевести деньги;</li>"
-                + "<li> Сообщают от имени полицейского, что родственник попал в беду. Этот же родственник просит экстренно перевести определённую сумму.</li>"
-                + "</ul>";
+        String htmlContent = getString(R.string.Chapter_1_RU);
 
         // Установка HTML-контента в TextView
         section1Content.setText(HtmlCompat.fromHtml(htmlContent, HtmlCompat.FROM_HTML_MODE_LEGACY));
@@ -121,7 +115,7 @@ public class Learn extends AppCompatActivity {
 
         // Установка содержимого для раздела 2
         TextView section2Content = findViewById(R.id.section2_content);
-        String section2Html = "<p>Мошенники звонят под видом начальника, чтобы обманом заставить вас выполнить их указания. Схема мошенников в этом случае строится так.</p>"
+        String section2Html = getString(R.string.Chapter_2_RU)
                 + "<ol>"
                 + "<li> Приходит сообщение от имени руководителя, который обращается по имени и предупреждает о звонке из контролирующей инстанции.</li>"
                 + "<li> Начальник просит следовать дальнейшим указаниям вышестоящего ведомства. Руководитель может сообщить, что к нему обратились из ведомства в связи с утечкой данных.</li>"

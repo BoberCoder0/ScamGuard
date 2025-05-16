@@ -25,7 +25,7 @@ public class InfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_info);
 
         // Устанавливаем верхний тулбар
@@ -43,7 +43,6 @@ public class InfoActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         // Переход по кнопкам в нижнем тулбаре
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
         // Set Home selected

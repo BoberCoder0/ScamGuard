@@ -4,17 +4,17 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/home"
-        android:title="@string/title_home" />
+        android:title="@string/HomeRU" />
 
     <item
         android:id="@+id/nav_learn"
         android:icon="@drawable/graduation_cap"
-        android:title="@string/title_dashboard" />
+        android:title="@string/LearnRU" />
 
     <item
         android:id="@+id/nav_search"
         android:icon="@drawable/search"
-        android:title="@string/title_notifications" />
+        android:title="@string/SearchRU" />
 
     <item
         android:id="@+id/nav_settings"
@@ -24,6 +24,6 @@
     <item
         android:id="@+id/nav_info"
         android:icon="@drawable/infoo"
-        android:title="@string/info" />
+        android:title="@string/InfoRU" />
 
 </menu>
