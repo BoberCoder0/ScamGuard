@@ -94,8 +94,15 @@
     </style>
 
     <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
-        <item name="android:background">@color/center_color_app</item>
-        <item name="titleTextColor">@android:color/white</item> <!-- Цвет текста -->
+        <item name="android:background">#FFFFFF</item>
+        <item name="titleTextColor">@color/black</item> <!-- Цвет текста -->
+    </style>
+
+    <style name="StatusBarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Для Android 5.0+ (API 21+) -->
+        <item name="android:statusBarColor">@color/center_color_app</item>
+        <!-- Для поддержки старых версий -->
+        <item name="colorPrimaryDark">@color/center_color_app</item>
     </style>
 
 </resources>

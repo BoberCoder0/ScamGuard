@@ -17,12 +17,9 @@
             android:name=".fragments.EmptyActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Account.EmptyActivity"
-            android:exported="false"
-            android:label="@string/title_activity_empty"
-            android:theme="@style/Theme.Testapp2" />
-        <activity
             android:name=".Activity.InfoActivity"
+            android:label="@string/info"
+            android:theme="@style/Theme.Testapp2"
             android:exported="false" /> <!-- Указываем активность AuthActivity как стартовую -->
         <activity
             android:name=".Activity.Account.AuthActivity"
