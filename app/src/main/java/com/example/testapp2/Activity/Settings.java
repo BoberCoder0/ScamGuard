@@ -3,26 +3,23 @@ package com.example.testapp2.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.core.content.ContextCompat;
 
 import com.example.testapp2.Activity.Account.AccountActivity;
 import com.example.testapp2.R; // Убедись, что путь до R правильный
-import com.example.testapp2.databinding.ActivitySettingsBinding;
 import com.example.testapp2.utils.ThemeHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -33,6 +30,8 @@ public class Settings extends AppCompatActivity {
     private Switch themeSwitch;
     private SharedPreferences sharedPreferences;
     private Button cleanCacheButton;
+    private ImageButton imageButtonDark, imageButtonLight;
+    private TextView textViewDarkThemeLabel, textViewLightThemeLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +53,17 @@ public class Settings extends AppCompatActivity {
         themeSwitch = findViewById(R.id.themeSwitch);
         cleanCacheButton = findViewById(R.id.CleanCashButton);
         sharedPreferences = getSharedPreferences("theme_pref", Context.MODE_PRIVATE);
+        // Инициализация элементов
+        imageButtonDark = findViewById(R.id.imageDark);
+        imageButtonLight = findViewById(R.id.imageLight);
+        textViewDarkThemeLabel = findViewById(R.id.DarkLabel);
+        textViewLightThemeLabel = findViewById(R.id.LightLabel);
 
         // Загружаем сохраненное состояние темы
         boolean isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false);
         themeSwitch.setChecked(isDarkMode);
-        setThemeMode(isDarkMode);
+        setThemeMode(isDarkMode);  /** нужон? */
+        updateThemeUI(isDarkMode); /** нужон? */ // Обновляем UI сразу
 
         // Обработчик кнопки очистки кеша
         cleanCacheButton.setOnClickListener(v -> {
@@ -66,6 +71,23 @@ public class Settings extends AppCompatActivity {
             Toast.makeText(this, "Кеш очищен", Toast.LENGTH_SHORT).show();
             restartApplication();
         });
+
+        /*// Обработчики кликов на ImageButton
+        imageButtonDark.setOnClickListener(v -> {
+            setThemeMode(true);
+            updateThemeLabels(true);
+            restartActivity();
+        });
+
+        imageButtonLight.setOnClickListener(v -> {
+            setThemeMode(false);
+            updateThemeLabels(false);
+            restartActivity();
+        });*/
+
+        // Обработчики кликов
+        imageButtonDark.setOnClickListener(v -> setDarkTheme(true));
+        imageButtonLight.setOnClickListener(v -> setDarkTheme(false));
 
 
 //        themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -76,7 +98,7 @@ public class Settings extends AppCompatActivity {
 //            editor.apply();
 //            recreate(); // Просто пересоздаём активность
 //        });
-        themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        /*themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // Сохраняем состояние темы
             ThemeHelper.saveThemeChoice(this, isChecked);
             ThemeHelper.applyTheme(this); // применяем тему сразу
@@ -87,7 +109,7 @@ public class Settings extends AppCompatActivity {
             overridePendingTransition(0, 0); // убрать анимацию при выходе
             startActivity(intent);
             overridePendingTransition(0, 0); // убрать анимацию при входе
-        });
+        });*/
 
         // Переход по кнопкам в нижнем тулбаре
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -123,6 +145,31 @@ public class Settings extends AppCompatActivity {
         });
     }
 
+    private void setDarkTheme(boolean isDarkMode) {
+        // Сохраняем выбор темы
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("is_dark_mode", isDarkMode);
+        editor.apply();
+
+        // Применяем тему
+        ThemeHelper.applyTheme(this);
+
+        // Обновляем UI
+        updateThemeUI(isDarkMode);
+
+        // Перезапускаем активность
+        restartActivity();
+    }
+
+    private void updateThemeUI(boolean isDarkMode) {
+        // Обновляем цвет текста
+        int activeColor = ContextCompat.getColor(this, R.color.center_color_app);
+        int inactiveColor = ContextCompat.getColor(this, R.color.light_gray);
+
+        textViewDarkThemeLabel.setTextColor(isDarkMode ? activeColor : inactiveColor);
+        textViewLightThemeLabel.setTextColor(isDarkMode ? inactiveColor : activeColor);
+    }
+
     // Для перехода по иконке аккаунта
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -140,7 +187,14 @@ public class Settings extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Обновляем цвет текста в зависимости от темы
+    private void updateThemeLabels(boolean isDarkMode) {
+        int activeColor = ContextCompat.getColor(this, R.color.center_color_app); // Синий цвет
+        int inactiveColor = ContextCompat.getColor(this, R.color.gray); // Серый цвет
 
+        textViewDarkThemeLabel.setTextColor(isDarkMode ? activeColor : inactiveColor);
+        textViewLightThemeLabel.setTextColor(isDarkMode ? inactiveColor : activeColor);
+    }
     // Метод для установки режима темы
     private void setThemeMode(boolean isDarkMode) {
         if (isDarkMode) {
@@ -148,6 +202,14 @@ public class Settings extends AppCompatActivity {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+    }
+
+    // Перезапуск активности без анимации
+    private void restartActivity() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 
 // Метод для очистки кеша приложения
