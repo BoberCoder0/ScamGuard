@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Switch;
@@ -32,6 +33,7 @@ public class Settings extends AppCompatActivity {
     private Button cleanCacheButton;
     private ImageButton imageButtonDark, imageButtonLight;
     private TextView textViewDarkThemeLabel, textViewLightThemeLabel;
+    private View lineDark, lineLight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +60,16 @@ public class Settings extends AppCompatActivity {
         imageButtonLight = findViewById(R.id.imageLight);
         textViewDarkThemeLabel = findViewById(R.id.DarkLabel);
         textViewLightThemeLabel = findViewById(R.id.LightLabel);
+        lineDark = findViewById(R.id.line_dark);
+        lineLight = findViewById(R.id.line_light);
 
         // Загружаем сохраненное состояние темы
         boolean isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false);
         themeSwitch.setChecked(isDarkMode);
         setThemeMode(isDarkMode);  /** нужон? */
         updateThemeUI(isDarkMode); /** нужон? */ // Обновляем UI сразу
+        // Показываем соответствующую линию в зависимости от темы
+        updateThemeLines(isDarkMode);
 
         // Обработчик кнопки очистки кеша
         cleanCacheButton.setOnClickListener(v -> {
@@ -143,6 +149,17 @@ public class Settings extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    // обводка
+    private void updateThemeLines(boolean isDarkMode) {
+        if (isDarkMode) {
+            lineDark.setVisibility(View.VISIBLE);
+            lineLight.setVisibility(View.GONE);
+        } else {
+            lineDark.setVisibility(View.GONE);
+            lineLight.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setDarkTheme(boolean isDarkMode) {
