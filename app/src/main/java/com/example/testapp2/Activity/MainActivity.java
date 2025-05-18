@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.testapp2.Activity.Account.AccountActivity;
 import com.example.testapp2.Activity.Account.AuthActivity;
+import com.example.testapp2.Activity.Account.SearchHistoryActivity;
 import com.example.testapp2.Data.database.DatabaseHelper;
 import com.example.testapp2.R;
 import com.example.testapp2.app.dataBaseApp;
@@ -85,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
                     overridePendingTransition(0, 0);
                     return true;
                 }
-                else if (id == R.id.nav_info) {
-                    startActivity(new Intent(getApplicationContext(), InfoActivity.class));
+                else if (id == R.id.nav_history) {
+                    startActivity(new Intent(getApplicationContext(), SearchHistoryActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
                 }

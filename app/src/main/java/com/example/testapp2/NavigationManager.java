@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
+import com.example.testapp2.Activity.Account.SearchHistoryActivity;
 import com.example.testapp2.Activity.Learn;
 import com.example.testapp2.Activity.MainActivity;
 import com.example.testapp2.Activity.Search;
@@ -33,8 +34,8 @@ public class NavigationManager {
             intent = new Intent(context, Search.class);
         } else if (id == R.id.nav_settings) {
             intent = new Intent(context, Settings.class);
-        } else if (id == R.id.nav_info) {
-            intent = new Intent(context, InfoActivity.class);
+        } else if (id == R.id.nav_history) {
+            intent = new Intent(context, SearchHistoryActivity.class);
         }
 
         if (intent != null) {
@@ -49,7 +50,7 @@ public class NavigationManager {
         if (context instanceof Learn && id == R.id.nav_learn) return true;
         if (context instanceof Search && id == R.id.nav_search) return true;
         if (context instanceof Settings && id == R.id.nav_settings) return true;
-        if (context instanceof InfoActivity && id == R.id.nav_info) return true;
+        if (context instanceof InfoActivity && id == R.id.nav_history) return true;
         return false;
     }
 

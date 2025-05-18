@@ -43,7 +43,7 @@
             android:label="@string/info"
             android:theme="@style/Theme.Testapp2" />
         <activity
-            android:name=".Activity.Account.History"
+            android:name=".Activity.Account.SearchHistoryActivity"
             android:exported="false"
             android:label="@string/history_a"
             android:theme="@style/Theme.TestApp2.Settings" />

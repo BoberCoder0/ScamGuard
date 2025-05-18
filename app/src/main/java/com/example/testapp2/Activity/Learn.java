@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.text.HtmlCompat;
 
 import com.example.testapp2.Activity.Account.AccountActivity;
+import com.example.testapp2.Activity.Account.SearchHistoryActivity;
 import com.example.testapp2.NavigationManager;
 import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityAccountBinding;
@@ -83,8 +84,8 @@ public class Learn extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), Settings.class));
                     overridePendingTransition(0, 0);
                     return true;
-                } else if (id == R.id.nav_info) {
-                    startActivity(new Intent(getApplicationContext(), InfoActivity.class));
+                } else if (id == R.id.nav_history) {
+                    startActivity(new Intent(getApplicationContext(), SearchHistoryActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
                 } else if (id == R.id.nav_home) {

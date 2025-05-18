@@ -22,8 +22,8 @@
         android:title="@string/settings" />
 
     <item
-        android:id="@+id/nav_info"
-        android:icon="@drawable/infoo"
-        android:title="@string/InfoRU" />
+        android:id="@+id/nav_history"
+        android:icon="@drawable/history_icon"
+        android:title="История" />
 
 </menu>

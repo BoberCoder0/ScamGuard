@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.example.testapp2.Activity.Account.AccountActivity;
+import com.example.testapp2.Activity.Account.SearchHistoryActivity;
 import com.example.testapp2.R; // Убедись, что путь до R правильный
 import com.example.testapp2.utils.ThemeHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -137,8 +138,8 @@ public class Settings extends AppCompatActivity {
                     return true;
                 } else if (id == R.id.nav_settings) {
                     return true;
-                } else if (id == R.id.nav_info) {
-                    startActivity(new Intent(getApplicationContext(), InfoActivity.class));
+                } else if (id == R.id.nav_history) {
+                    startActivity(new Intent(getApplicationContext(), SearchHistoryActivity.class));
                     overridePendingTransition(0, 0);
                     return true;
                 } else if (id == R.id.nav_home) {

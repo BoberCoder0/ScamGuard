@@ -48,7 +48,7 @@ public class InfoActivity extends AppCompatActivity {
         // Переход по кнопкам в нижнем тулбаре
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
         // Set Home selected
-        bottomNavigationView.setSelectedItemId(R.id.nav_info);
+        bottomNavigationView.setSelectedItemId(R.id.nav_history);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -70,7 +70,7 @@ public class InfoActivity extends AppCompatActivity {
                     overridePendingTransition(0, 0);
                     return true;
                 }
-                else if (id == R.id.nav_info) {
+                else if (id == R.id.nav_history) {
                     return true;
                 }
                 else if (id == R.id.nav_home) {

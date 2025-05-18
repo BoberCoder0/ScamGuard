@@ -16,12 +16,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.testapp2.Activity.Account.AccountActivity;
+import com.example.testapp2.Activity.Account.SearchHistoryActivity;
+import com.example.testapp2.Data.models.SearchHistoryItem;
 import com.example.testapp2.R;
 import com.example.testapp2.SearchViewModel;
 import com.example.testapp2.databinding.ActivitySearchBinding;
 import com.example.testapp2.utils.PhoneNumberFormattingTextWatcher;
 import com.example.testapp2.utils.ThemeHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Search extends AppCompatActivity {
 
@@ -63,14 +69,31 @@ public class Search extends AppCompatActivity {
 
 
             // Обработчик кнопки поиска
-            searchButton.setOnClickListener(v -> {
-                String phoneNumber = phoneNumberInput.getText().toString().trim();
-                if (TextUtils.isEmpty(phoneNumber)) {
-                    searchResult.setText("Введите корректный номер!");
-                    return;
+        searchButton.setOnClickListener(v -> {
+            String phoneNumber = phoneNumberInput.getText().toString().trim();
+            if (TextUtils.isEmpty(phoneNumber)) {
+                searchResult.setText("Введите корректный номер!");
+                return;
+            }
+
+            // Выполняем поиск номера
+            searchViewModel.searchPhoneNumber(phoneNumber);
+
+            // Сохраняем в историю, если пользователь авторизован
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                String uid = user.getUid();
+                DatabaseReference ref = FirebaseDatabase.getInstance()
+                        .getReference("search_history")
+                        .child(uid);
+
+                String key = ref.push().getKey(); // создаём уникальный ключ
+                if (key != null) {
+                    SearchHistoryItem item = new SearchHistoryItem(phoneNumber, System.currentTimeMillis());
+                    ref.child(key).setValue(item);
                 }
-                searchViewModel.searchPhoneNumber(phoneNumber);
-            });
+            }
+        });
 
             // Наблюдение за LiveData
             searchViewModel.getSearchResult().observe(this, scamInfo -> {
@@ -118,8 +141,8 @@ public class Search extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), Settings.class));
                         overridePendingTransition(0, 0);
                         return true;
-                    } else if (id == R.id.nav_info) {
-                        startActivity(new Intent(getApplicationContext(), InfoActivity.class));
+                    } else if (id == R.id.nav_history) {
+                        startActivity(new Intent(getApplicationContext(), SearchHistoryActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
                     } else if (id == R.id.nav_home) {
