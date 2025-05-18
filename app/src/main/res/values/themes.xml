@@ -18,6 +18,7 @@
         <item name="windowNoTitle">true</item>
 
         <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <!-- NoActionBar стиль -->

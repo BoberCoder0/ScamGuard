@@ -50,7 +50,7 @@
         <activity
             android:name=".Activity.Account.AccountActivity"
             android:exported="false"
-            android:label="@string/account"
+            android:label=""
             android:theme="@style/Theme.TestApp2.Settings" />
         <activity
             android:name=".Activity.Settings"
