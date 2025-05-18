@@ -1,10 +1,9 @@
 package com.example.testapp2.Activity.Account;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,24 +12,24 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import com.example.testapp2.Activity.InfoActivity;
-import com.example.testapp2.Activity.Learn;
-import com.example.testapp2.Activity.MainActivity;
-import com.example.testapp2.Activity.Search;
-import com.example.testapp2.Activity.Settings;
 import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityAccountBinding;
 import com.example.testapp2.fragments.DellAccountFragment;
 import com.example.testapp2.fragments.LoginFragment;
 import com.example.testapp2.fragments.RegisterFragment;
 import com.example.testapp2.ui.AuthNavigator;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -47,6 +46,9 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseFirestore db;
+    private GoogleSignInClient googleSignInClient;
+    private static final int RC_GOOGLE_SIGN_IN = 123;
+    private static final int RC_GITHUB_SIGN_IN = 420;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,118 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
             showAuthorizedUI();
             loadUserData();
         }
+
+        // Настройка Google Sign-In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        // Обработчики для кнопок входа через соцсети
+        findViewById(R.id.signInWithGoogle).setOnClickListener(v -> signInWithGoogle());
+        findViewById(R.id.signInWithGitHub).setOnClickListener(v -> signInWithGitHub());
+
+        // Инициализация Firebase
+        db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
+        // Проверка авторизации пользователя
+        if (user == null) {
+            showUnauthorizedUI(login, register);
+        } else {
+            showAuthorizedUI();
+            loadUserData();
+        }
+    }
+
+    private void signInWithGoogle() {
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN);
+    }
+
+    private void signInWithGitHub() {
+        // Создайте Intent для аутентификации через GitHub
+        // Это может быть через WebView или через библиотеку OAuth
+        String githubClientId = "ваш_client_id";
+        String githubRedirectUri = "ваш_redirect_uri";
+
+        Uri.Builder uriBuilder = new Uri.Builder()
+                .scheme("https")
+                .authority("github.com")
+                .appendPath("login")
+                .appendPath("oauth")
+                .appendPath("authorize")
+                .appendQueryParameter("client_id", githubClientId)
+                .appendQueryParameter("redirect_uri", githubRedirectUri)
+                .appendQueryParameter("scope", "user:email");
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, uriBuilder.build());
+        startActivityForResult(intent, RC_GITHUB_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_GOOGLE_SIGN_IN) {
+            // Обработка Google Sign-In
+        } else if (requestCode == RC_GITHUB_SIGN_IN) {
+            // Обработка GitHub Sign-In
+            if (data != null && data.getData() != null) {
+                Uri uri = data.getData();
+                if (uri.toString().startsWith("ваш_redirect_uri")) {
+                    String code = uri.getQueryParameter("code");
+                    if (code != null) {
+                        exchangeCodeForToken(code);
+                    } else if (uri.getQueryParameter("error") != null) {
+                        Toast.makeText(this, "GitHub login failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }
+    }
+
+    private void exchangeCodeForToken(String code) {
+        // Здесь реализуйте обмен кода на токен доступа
+        // Затем используйте токен для аутентификации в Firebase
+        // AuthCredential credential = GithubAuthProvider.getCredential(token);
+        // auth.signInWithCredential(credential)...
+    }
+
+    private void firebaseAuthWithGoogle(String idToken) {
+        progressBar.setVisibility(View.VISIBLE);
+        progressView.setVisibility(View.VISIBLE);
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this, task -> {
+                    progressBar.setVisibility(View.GONE);
+                    progressView.setVisibility(View.GONE);
+
+                    if (task.isSuccessful()) {
+                        user = auth.getCurrentUser();
+                        saveUserToFirestore(user);
+                        showAuthorizedUI();
+                        loadUserData();
+                    } else {
+                        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        Log.w("AccountActivity", "signInWithCredential:failure", task.getException());
+                    }
+                });
+    }
+
+    private void saveUserToFirestore(FirebaseUser user) {
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("email", user.getEmail());
+        userData.put("name", user.getDisplayName());
+        userData.put("photoUrl", user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : "");
+
+        db.collection("users").document(user.getUid())
+                .set(userData)
+                .addOnSuccessListener(aVoid -> Log.d("AccountActivity", "User data saved to Firestore"))
+                .addOnFailureListener(e -> Log.e("AccountActivity", "Error saving user data", e));
     }
 
     private void showUnauthorizedUI(Button login, Button register) {

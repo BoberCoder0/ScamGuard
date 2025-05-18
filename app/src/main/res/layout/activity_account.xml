@@ -179,10 +179,13 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="45dp"
         android:text="Аккаунт"
         android:textSize="20dp"
-        tools:layout_editor_absoluteX="23dp"
-        tools:layout_editor_absoluteY="118dp" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/view_white" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -207,7 +210,7 @@
         app:layout_constraintTop_toTopOf="@+id/view3" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/google_icon"
         android:layout_width="65dp"
         android:layout_height="65dp"
         app:layout_constraintBottom_toBottomOf="@+id/view5"
@@ -216,7 +219,31 @@
         app:layout_constraintTop_toTopOf="@+id/view5"
         app:srcCompat="@drawable/google_icon" />
 
-    <View
+    <Button
+        android:id="@+id/signInWithGitHub"
+        android:layout_width="160dp"
+        android:layout_height="78dp"
+        android:layout_marginBottom="3dp"
+        android:padding="0dp"
+        android:background="@color/transparent"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/nick_name_input"
+        app:layout_constraintEnd_toEndOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="@+id/view3" />
+
+    <Button
+        android:id="@+id/signInWithGoogle"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:padding="0dp"
+        android:background="@color/transparent"
+        app:cornerRadius="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/google_icon"
+        app:layout_constraintEnd_toEndOf="@+id/google_icon"
+        app:layout_constraintStart_toStartOf="@+id/google_icon"
+        app:layout_constraintTop_toTopOf="@+id/google_icon" />
+
+    <!--<View
         android:id="@+id/view6"
         android:layout_width="159dp"
         android:layout_height="76dp"
@@ -234,8 +261,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/view3"
         app:layout_constraintStart_toEndOf="@+id/view3"
         app:layout_constraintTop_toTopOf="@+id/view3"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintVertical_bias="0.0" />-->
 
     <View
         android:id="@+id/progressView"

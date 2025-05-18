@@ -53,7 +53,6 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.activity)
-    // implementation(libs.mediarouter) // Необходима ли она?
     implementation(libs.poi.ooxml)
 
     // Firebase BOM (используем только одну строку!)
@@ -61,7 +60,6 @@ dependencies {
 
     // для Cloud Firestore
     implementation("com.google.firebase:firebase-firestore") // Без версии - будет использоваться версия из BOM
-
 
     // Firebase Authentication
     implementation("com.google.firebase:firebase-auth")
@@ -78,6 +76,9 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("com.firebaseui:firebase-ui-auth:8.0.2")
+    // implementation(libs.mediarouter) // Необходима ли она?
     implementation(libs.firebase.database)
 
     testImplementation(libs.junit)

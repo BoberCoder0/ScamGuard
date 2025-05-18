@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.ScrollView;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,11 +36,11 @@ public class Learn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {  // TODO: доделать перенос в strings
         ThemeHelper.applyTheme(this); // 👈 обязательно ДО super.onCreate
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_learn);
+        //setContentView(R.layout.activity_learn);
         ActivityLearnBinding binding = ActivityLearnBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //Toolbar toolbar = binding.toolbar;
-        //setSupportActionBar(toolbar);
+        /*Toolbar toolbar = binding.toolbar;
+        setSupportActionBar(toolbar);*/
 
         // Устанавливаем верхний тулбар
         Toolbar toolbar = findViewById(R.id.toolbar);

@@ -9,6 +9,15 @@
     tools:context=".Activity.Learn"
     android:background="@drawable/background_learn">
 
+    <Button
+        android:id="@+id/ghost_acc_button"
+        android:layout_width="71dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <include layout="@layout/app_bar_main"/>
 
     <androidx.constraintlayout.widget.Guideline
@@ -50,6 +59,12 @@
                 android:text="Содержание:"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
 
             <TextView
                 android:id="@+id/learn_content_1"
