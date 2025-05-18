@@ -13,11 +13,17 @@ public class SearchHistoryItem {
         this.timestamp = timestamp;
     }
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     public long getTimestamp() {
         return timestamp;
+    }
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }
