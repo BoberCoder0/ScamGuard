@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.testapp2.R;
@@ -95,6 +96,8 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         user = auth.getCurrentUser();
         storageRef = FirebaseStorage.getInstance().getReference("profile_images");
 
+        dellAcount.setOnClickListener(v -> deleteAccount());
+
         // Проверка авторизации пользователя
         if (user == null) {
             showUnauthorizedUI(login, register);
@@ -141,7 +144,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                 .start(this);
     }*/
 
-    private void uploadImageToFirebase() {
+    /*private void uploadImageToFirebase() {
         if (imageUri != null && user != null) {
             progressBar.setVisibility(View.VISIBLE);
             progressView.setVisibility(View.VISIBLE);
@@ -164,7 +167,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                         Toast.makeText(this, "Ошибка загрузки: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
         }
-    }
+    }*/
 
     private void updateUserAvatar(String imageUrl) {
         db.collection("users").document(user.getUid())
@@ -208,7 +211,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         }*/
     }
 
-    // Класс для круглого преобразования изображения
+   /* // Класс для круглого преобразования изображения
     public static class CircleTransform implements Transformation {
         @Override
         public Bitmap transform(Bitmap source) {
@@ -242,7 +245,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         public String key() {
             return "circle";
         }
-    }
+    }*/
 
     // Остальные методы класса остаются без изменений
     private void checkProviderStatus() {
@@ -265,6 +268,8 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
     private void signInWithGoogle() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN);
+        googleStatusText.setText("Подключено");
+
     }
 
     private void signInWithGitHub() {
@@ -283,6 +288,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
 
         Intent intent = new Intent(Intent.ACTION_VIEW, uriBuilder.build());
         startActivityForResult(intent, RC_GITHUB_SIGN_IN);
+        googleStatusText.setText("Подключено");
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
@@ -382,7 +388,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                             if (photoUrl != null && !photoUrl.isEmpty()) {
                                 Picasso.get()
                                         .load(photoUrl)
-                                        .transform(new CircleTransform())
+                                        //.transform(new CircleTransform())
                                         .into(avaButton);
                             }
                         }
@@ -444,6 +450,65 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                         Toast.makeText(this, "Не удалось обновить данные", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    // Метод для удаления аккаунта
+    private void deleteAccount() {
+        if (user == null) {
+            Toast.makeText(this, "Пользователь не авторизован", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Показать диалог подтверждения удаления аккаунта
+        new AlertDialog.Builder(this)
+                .setTitle("Удаление аккаунта")
+                .setMessage("Вы уверены, что хотите удалить свой аккаунт? Это действие нельзя будет отменить.")
+                .setPositiveButton("Да", (dialog, which) -> {
+                    progressBar.setVisibility(View.VISIBLE);
+                    progressView.setVisibility(View.VISIBLE);
+
+                    // Удаление данных пользователя из Firestore
+                    db.collection("users").document(user.getUid())
+                            .delete()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    // Удаление аккаунта из Firebase Authentication
+                                    user.delete()
+                                            .addOnCompleteListener(deleteTask -> {
+                                                progressBar.setVisibility(View.GONE);
+                                                progressView.setVisibility(View.GONE);
+
+                                                if (deleteTask.isSuccessful()) {
+                                                    Toast.makeText(this, "Аккаунт успешно удален", Toast.LENGTH_SHORT).show();
+                                                    // Переход на фрагмент входа
+                                                    navigateToLoginFragment();
+                                                } else {
+                                                    Toast.makeText(this, "Ошибка удаления аккаунта", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                } else {
+                                    progressBar.setVisibility(View.GONE);
+                                    progressView.setVisibility(View.GONE);
+                                    Toast.makeText(this, "Ошибка удаления данных пользователя", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                })
+                .setNegativeButton("Нет", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    // Метод для перехода к фрагменту входа
+    private void navigateToLoginFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new LoginFragment())
+                .commit();
+    }
+
+    // Метод для перехода к фрагменту регистрации
+    private void navigateToRegisterFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new RegisterFragment())
+                .commit();
     }
 
     @Override

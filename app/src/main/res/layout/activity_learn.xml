@@ -25,13 +25,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_begin="16dp" />
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_width="410dp"
+        android:layout_height="632dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginBottom="10dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,13 +49,13 @@
                 android:id="@+id/learn_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="15dp"
                 android:layout_marginBottom="16dp"
+                android:background="@drawable/transparent_background_for_text"
                 android:gravity="center"
+                android:paddingVertical="15dp"
                 android:text="Популярные схемы мошенничества в 2024 году"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:background="@drawable/transparent_background_for_text"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/learn_content"

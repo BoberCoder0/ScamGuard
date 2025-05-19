@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -204,15 +205,6 @@ public class Settings extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    // Обновляем цвет текста в зависимости от темы
-    private void updateThemeLabels(boolean isDarkMode) {
-        int activeColor = ContextCompat.getColor(this, R.color.center_color_app); // Синий цвет
-        int inactiveColor = ContextCompat.getColor(this, R.color.gray); // Серый цвет
-
-        textViewDarkThemeLabel.setTextColor(isDarkMode ? activeColor : inactiveColor);
-        textViewLightThemeLabel.setTextColor(isDarkMode ? inactiveColor : activeColor);
-    }
     // Метод для установки режима темы
     private void setThemeMode(boolean isDarkMode) {
         if (isDarkMode) {
@@ -269,6 +261,12 @@ private void clearApplicationCache() {
         startActivity(intent);
         finish();
         Runtime.getRuntime().exit(0); // Гарантированное завершение процесса
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        Log.d("LAYOUT", "DarkLabel position: " + textViewDarkThemeLabel.getTop());
     }
 
     protected int getSelectedMenuItemId() {

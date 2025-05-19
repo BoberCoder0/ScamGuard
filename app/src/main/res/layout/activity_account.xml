@@ -216,7 +216,7 @@
         app:srcCompat="@drawable/cross" />
 
     <Button
-        android:id="@+id/signInWithGitHub"
+        android:id="@+id/signInWithGoogle"
         android:layout_width="160dp"
         android:layout_height="45dp"
         android:padding="0dp"
@@ -228,7 +228,7 @@
         app:layout_constraintTop_toTopOf="@+id/view4" />
 
     <Button
-        android:id="@+id/signInWithGoogle"
+        android:id="@+id/signInWithGitHub"
         android:layout_width="160dp"
         android:layout_height="44dp"
         android:padding="0dp"
