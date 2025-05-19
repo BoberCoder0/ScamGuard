@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.testapp2">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -37,6 +39,9 @@
         <activity
             android:name=".fragments.EmptyActivity"
             android:exported="false" />
+        <!--<activity
+            android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Theme.Crop" />-->
         <activity
             android:name=".Activity.InfoActivity"
             android:exported="false"

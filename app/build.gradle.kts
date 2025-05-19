@@ -80,6 +80,12 @@ dependencies {
     implementation("com.firebaseui:firebase-ui-auth:8.0.2")
     // implementation(libs.mediarouter) // Необходима ли она?
     implementation(libs.firebase.database)
+    implementation ("com.squareup.picasso:picasso:2.71828")
+    implementation ("com.google.firebase:firebase-storage:20.0.0")
+    /*implementation ("com.theartofdev.edmodo:android-image-cropper:2.8.+")*/
+    implementation ("com.google.firebase:firebase-database:20.0.4")
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("com.google.android.material:material:1.6.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
