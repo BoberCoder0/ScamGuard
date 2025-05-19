@@ -6,3 +6,4 @@
 .classpath
 .project
 local.properties
+*.log text eol=lf

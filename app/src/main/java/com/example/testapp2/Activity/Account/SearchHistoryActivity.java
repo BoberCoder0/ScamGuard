@@ -48,34 +48,34 @@ public class SearchHistoryActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            DatabaseReference ref = FirebaseDatabase.getInstance()
-                    .getReference("search_history")
-                    .child(user.getUid());
-
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    historyList.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        SearchHistoryItem item = dataSnapshot.getValue(SearchHistoryItem.class);
-                        if (item != null) {
-                            historyList.add(item);
-                        }
-                    }
-                    Collections.reverse(historyList); // последние сверху
-                    adapter.notifyDataSetChanged();
-
-                    Toast.makeText(SearchHistoryActivity.this, "Loaded items: " + historyList.size(), Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(SearchHistoryActivity.this, "Ошибка загрузки истории", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            DatabaseReference ref = FirebaseDatabase.getInstance()
+//                    .getReference("search_history")
+//                    .child(user.getUid());
+//
+//            ref.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    historyList.clear();
+//                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                        SearchHistoryItem item = dataSnapshot.getValue(SearchHistoryItem.class);
+//                        if (item != null) {
+//                            historyList.add(item);
+//                        }
+//                    }
+//                    Collections.reverse(historyList); // последние сверху
+//                    adapter.notifyDataSetChanged();
+//
+//                    Toast.makeText(SearchHistoryActivity.this, "Loaded items: " + historyList.size(), Toast.LENGTH_SHORT).show();
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                    Toast.makeText(SearchHistoryActivity.this, "Ошибка загрузки истории", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
 
         // Переход по кнопкам в нижнем тулбаре
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);

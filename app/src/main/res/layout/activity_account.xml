@@ -1,303 +1,296 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Base.Theme.Testapp2"
-    tools:context=".Activity.Account.AccountActivity"
-    android:background="@color/transparent">
+    android:background="@color/transparent"
+    tools:context=".Activity.Account.AccountActivity">
 
-
+    <!-- Затемнённый фон -->
     <View
         android:id="@+id/view_background"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="#7A040303"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <View
+    <!-- Основная карточка -->
+    <androidx.cardview.widget.CardView
         android:id="@+id/view_white"
-        android:layout_width="375dp"
-        android:layout_height="500dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/rounded_corners"
-        app:layout_constraintEnd_toEndOf="@+id/view_background"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="256dp"
-        android:layout_height="353dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view_white"
-        app:layout_constraintEnd_toEndOf="@+id/view_white"
-        app:srcCompat="@drawable/b_y_down" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="232dp"
-        android:layout_height="334dp"
-        app:layout_constraintStart_toStartOf="@+id/view_white"
-        app:layout_constraintTop_toTopOf="@+id/view_white"
-        app:srcCompat="@drawable/b_g_top" />
 
-    <View
-        android:id="@+id/view4"
-        android:layout_width="160dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/custom_track"
-        app:layout_constraintStart_toStartOf="@+id/view_white"
-        app:layout_constraintTop_toBottomOf="@+id/password_input" />
 
-    <EditText
-        android:id="@+id/nick_name_input"
-        style="@android:style/Widget.Material.EditText"
-        android:layout_width="350dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="190dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:maxLength="20"
-        android:singleLine="false"
-        app:layout_constraintEnd_toEndOf="@+id/view_white"
-        app:layout_constraintStart_toStartOf="@+id/view_white"
-        app:layout_constraintTop_toTopOf="@+id/view_white" />
+            <!-- Заголовок и крестик -->
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Аккаунт"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/view6"
-        android:layout_width="160dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/custom_track_black"
-        app:layout_constraintEnd_toEndOf="@+id/view_white"
-        app:layout_constraintTop_toBottomOf="@+id/password_input" />
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/cross"
+                android:contentDescription="Закрыть"
+                app:layout_constraintTop_toTopOf="@+id/textView4"
+                app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Подключено"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/view6"
-        app:layout_constraintEnd_toEndOf="@+id/view6"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toTopOf="@+id/view6" />
+            <!-- Аватар -->
+            <ImageButton
+                android:id="@+id/avaButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/transparent_background_for_text"
+                android:src="@drawable/account"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <EditText
-        android:id="@+id/email_input"
-        android:layout_width="350dp"
-        android:layout_height="45dp"
-        android:ems="10"
-        android:hint="Введите новый email"
-        android:inputType="textEmailAddress"
-        android:maxLength="30"
-        app:layout_constraintEnd_toEndOf="@+id/view_white"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="@+id/view_white"
-        app:layout_constraintTop_toBottomOf="@+id/nick_name_input" />
+            <!-- Имя -->
+            <EditText
+                android:id="@+id/nick_name_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Ваш nick name"
+                android:inputType="textPersonName"
+                android:maxLength="20"
+                app:layout_constraintTop_toBottomOf="@+id/avaButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
 
-    <EditText
-        android:id="@+id/password_input"
-        android:layout_width="350dp"
-        android:layout_height="45dp"
-        android:ems="10"
-        android:hint="Введите новый пароль"
-        android:inputType="textPassword"
-        android:maxLength="30"
-        app:layout_constraintEnd_toEndOf="@+id/view_white"
-        app:layout_constraintStart_toStartOf="@+id/view_white"
-        app:layout_constraintTop_toBottomOf="@+id/email_input" />
+            <!-- Email -->
+            <EditText
+                android:id="@+id/email_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Введите новый email"
+                android:inputType="textEmailAddress"
+                android:maxLength="30"
+                app:layout_constraintTop_toBottomOf="@+id/nick_name_input"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp" />
 
-    <Button
-        android:id="@+id/save_button"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/green_dark"
-        android:text="Сохранить"
-        app:layout_constraintBottom_toTopOf="@+id/dell_account"
-        app:layout_constraintEnd_toEndOf="@+id/view_white" />
+            <!-- Пароль -->
+            <EditText
+                android:id="@+id/password_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Введите новый пароль"
+                android:inputType="textPassword"
+                android:maxLength="30"
+                app:layout_constraintTop_toBottomOf="@+id/email_input"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp" />
 
-    <Button
-        android:id="@+id/save_button2"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginEnd="59dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/gray"
-        android:text="Сбросить изменения"
-        app:layout_constraintBottom_toTopOf="@+id/dell_account"
-        app:layout_constraintEnd_toStartOf="@+id/save_button"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/view_white" />
+            <!-- Кнопки подключения -->
+            <!-- Google -->
+            <LinearLayout
+                android:id="@+id/google_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/custom_track"
+                android:padding="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/password_input"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/git_layout"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp">
 
-    <Button
-        android:id="@+id/dell_account"
-        android:layout_width="350dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#928F8F"
-        android:text=" Удалить Аккаунт"
-        app:layout_constraintBottom_toBottomOf="@+id/view_white"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="@+id/view_white" />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/google_icon" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:text="Аккаунт"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="@+id/view_white"
-        app:layout_constraintTop_toTopOf="@+id/view_white" />
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Подключено"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view4"
-        app:layout_constraintStart_toStartOf="@+id/view4"
-        app:layout_constraintTop_toTopOf="@+id/view4"
-        app:srcCompat="@drawable/google_icon" />
+            <Button
+                android:id="@+id/signInWithGoogle"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toTopOf="@+id/google_layout"
+                app:layout_constraintBottom_toBottomOf="@+id/google_layout"
+                app:layout_constraintStart_toStartOf="@+id/google_layout"
+                app:layout_constraintEnd_toEndOf="@+id/google_layout" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view6"
-        app:layout_constraintStart_toStartOf="@+id/view6"
-        app:layout_constraintTop_toTopOf="@+id/view6"
-        app:srcCompat="@drawable/git_icon" />
+            <!-- GitHub -->
+            <LinearLayout
+                android:id="@+id/git_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/custom_track_black"
+                android:padding="8dp"
+                app:layout_constraintTop_toTopOf="@+id/google_layout"
+                app:layout_constraintStart_toEndOf="@+id/google_layout"
+                app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Подключено"
-        app:layout_constraintBottom_toBottomOf="@+id/view4"
-        app:layout_constraintEnd_toEndOf="@+id/view4"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/view4" />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/git_icon" />
 
-    <ImageButton
-        android:id="@+id/avaButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        android:background="@drawable/transparent_background_for_text"
-        android:padding="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/nick_name_input"
-        app:layout_constraintEnd_toEndOf="@+id/view_white"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="@+id/view_white"
-        app:srcCompat="@drawable/account" />
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Подключено"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginStart="238dp"
-        android:background="@color/transparent"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/textView4"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="@+id/textView4"
-        app:srcCompat="@drawable/cross" />
+            <Button
+                android:id="@+id/signInWithGitHub"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toTopOf="@+id/git_layout"
+                app:layout_constraintBottom_toBottomOf="@+id/git_layout"
+                app:layout_constraintStart_toStartOf="@+id/git_layout"
+                app:layout_constraintEnd_toEndOf="@+id/git_layout" />
 
-    <Button
-        android:id="@+id/signInWithGoogle"
-        android:layout_width="160dp"
-        android:layout_height="45dp"
-        android:padding="0dp"
-        android:background="@color/transparent"
-        app:cornerRadius="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view4"
-        app:layout_constraintEnd_toEndOf="@+id/view4"
-        app:layout_constraintStart_toStartOf="@+id/view4"
-        app:layout_constraintTop_toTopOf="@+id/view4" />
+            <!-- Управление аккаунтом -->
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Сохранить"
+                android:backgroundTint="@color/green_dark"
+                app:layout_constraintTop_toBottomOf="@+id/google_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
 
-    <Button
-        android:id="@+id/signInWithGitHub"
-        android:layout_width="160dp"
-        android:layout_height="44dp"
-        android:padding="0dp"
-        app:cornerRadius="18dp"
-        android:background="@color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/view6"
-        app:layout_constraintEnd_toEndOf="@+id/view6"
-        app:layout_constraintStart_toStartOf="@+id/view6"
-        app:layout_constraintTop_toTopOf="@+id/view6" />
+            <Button
+                android:id="@+id/save_button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Сбросить"
+                android:backgroundTint="@color/gray"
+                app:layout_constraintTop_toTopOf="@+id/save_button"
+                app:layout_constraintStart_toStartOf="parent" />
 
+            <Button
+                android:id="@+id/dell_account"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Удалить аккаунт"
+                android:backgroundTint="#928F8F"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/save_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/log_out"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Выйти"
+                android:backgroundTint="#928F8F"
+                app:layout_constraintTop_toBottomOf="@+id/dell_account"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Кнопки для неавторизованных -->
+            <Button
+                android:id="@+id/buttonLogin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Вход"
+                android:backgroundTint="@color/green_dark"
+                android:textColor="@android:color/white"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="48dp" />
+
+            <Button
+                android:id="@+id/buttonRegister"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Регистрация"
+                android:backgroundTint="@color/green_dark"
+                android:textColor="@android:color/white"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Прогресс при загрузке -->
     <View
         android:id="@+id/progressView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#7A040303"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:progressBackgroundTintMode="@color/center_color_app"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/buttonLogin"
-        android:layout_width="112dp"
-        android:layout_height="57dp"
-        android:paddingStart="32dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="32dp"
-        android:paddingBottom="16dp"
-        android:backgroundTint="@color/green_dark"
-        android:text="Вход"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:visibility="gone" />
 
-    <Button
-        android:id="@+id/buttonRegister"
-        android:layout_width="173dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/green_dark"
-        android:paddingStart="32dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="32dp"
-        android:paddingBottom="16dp"
-        android:text="Регистрация"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonLogin"
-        app:layout_constraintVertical_bias="0.015" />
-
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

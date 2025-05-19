@@ -80,19 +80,19 @@ public class Search extends AppCompatActivity {
             searchViewModel.searchPhoneNumber(phoneNumber);
 
             // Сохраняем в историю, если пользователь авторизован
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user != null) {
-                String uid = user.getUid();
-                DatabaseReference ref = FirebaseDatabase.getInstance()
-                        .getReference("search_history")
-                        .child(uid);
-
-                String key = ref.push().getKey(); // создаём уникальный ключ
-                if (key != null) {
-                    SearchHistoryItem item = new SearchHistoryItem(phoneNumber, System.currentTimeMillis());
-                    ref.child(key).setValue(item);
-                }
-            }
+//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//            if (user != null) {
+//                String uid = user.getUid();
+//                DatabaseReference ref = FirebaseDatabase.getInstance()
+//                        .getReference("search_history")
+//                        .child(uid);
+//
+//                String key = ref.push().getKey(); // создаём уникальный ключ
+//                if (key != null) {
+//                    SearchHistoryItem item = new SearchHistoryItem(phoneNumber, System.currentTimeMillis());
+//                    ref.child(key).setValue(item);
+//                }
+//            }
         });
 
             // Наблюдение за LiveData
