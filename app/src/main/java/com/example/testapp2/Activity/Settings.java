@@ -54,7 +54,7 @@ public class Settings extends AppCompatActivity {
         }
 
         // Инициализация элементов UI
-        themeSwitch = findViewById(R.id.themeSwitch);
+        //themeSwitch = findViewById(R.id.themeSwitch);
         cleanCacheButton = findViewById(R.id.CleanCashButton);
         sharedPreferences = getSharedPreferences("theme_pref", Context.MODE_PRIVATE);
         // Инициализация элементов
@@ -67,7 +67,7 @@ public class Settings extends AppCompatActivity {
 
         // Загружаем сохраненное состояние темы
         boolean isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false);
-        themeSwitch.setChecked(isDarkMode);
+        //themeSwitch.setChecked(isDarkMode);
         setThemeMode(isDarkMode);  /** нужон? */
         updateThemeUI(isDarkMode); /** нужон? */ // Обновляем UI сразу
         // Показываем соответствующую линию в зависимости от темы
@@ -180,12 +180,13 @@ public class Settings extends AppCompatActivity {
         restartActivity();
     }
 
+    // Обновляем цвет текста
     private void updateThemeUI(boolean isDarkMode) {
-        // Обновляем цвет текста
         int activeColor = ContextCompat.getColor(this, R.color.center_color_app);
         int inactiveColor = ContextCompat.getColor(this, R.color.light_gray);
+        int activeColor2 = ContextCompat.getColor(this, R.color.center_color_app_dark); /// не удалять!
 
-        textViewDarkThemeLabel.setTextColor(isDarkMode ? activeColor : inactiveColor);
+        textViewDarkThemeLabel.setTextColor(isDarkMode ? activeColor2 : inactiveColor);
         textViewLightThemeLabel.setTextColor(isDarkMode ? inactiveColor : activeColor);
     }
 

@@ -9,6 +9,7 @@
     <color name="gray2">#E95D5D5D</color>
     <color name="light_gray">#E9A2A2A2</color>
     <color name="center_color_app">#003FCF</color>
+    <color name="center_color_app_dark">#0132A0</color>
     <color name="text_color_light">#000000</color>
     <color name="text_color_dark">#FFFFFF</color>
     <color name="transparent">#00000000</color>

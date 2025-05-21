@@ -13,7 +13,7 @@
 
     <include layout="@layout/navigation_bar"/>
 
-    <Switch
+    <!--<Switch
         android:id="@+id/themeSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         app:layout_constraintBottom_toTopOf="@+id/CleanCashButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />-->
 
 
     <Button
@@ -60,6 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Светлая тема"
+        android:textAlignment="center"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/imageLight"
         app:layout_constraintStart_toStartOf="@id/imageLight"
         app:layout_constraintEnd_toEndOf="@id/imageLight"
@@ -67,49 +69,46 @@
 
     <ImageView
         android:id="@+id/line_dark"
-        android:layout_width="167dp"
-        android:layout_height="198dp"
-        android:layout_marginStart="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.146"
+        android:layout_width="187dp"
+        android:layout_height="218dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageDark"
+        app:layout_constraintEnd_toEndOf="@+id/imageDark"
+        app:layout_constraintStart_toStartOf="@+id/imageDark"
+        app:layout_constraintTop_toTopOf="@+id/imageDark"
         app:srcCompat="@drawable/line_choice" />
 
     <ImageView
         android:id="@+id/line_light"
-        android:layout_width="167dp"
-        android:layout_height="198dp"
-        android:layout_marginStart="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.553"
+        android:layout_width="187dp"
+        android:layout_height="218dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageLight"
+        app:layout_constraintEnd_toEndOf="@+id/imageLight"
+        app:layout_constraintStart_toStartOf="@+id/imageLight"
+        app:layout_constraintTop_toTopOf="@+id/imageLight"
         app:srcCompat="@drawable/line_choice" />
 
     <ImageButton
         android:id="@+id/imageDark"
-        android:layout_width="154dp"
-        android:layout_height="180dp"
+        android:layout_width="174dp"
+        android:layout_height="203dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="70dp"
         android:background="@color/transparent"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/line_dark"
-        app:layout_constraintEnd_toEndOf="@+id/line_dark"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="@+id/line_dark"
-        app:layout_constraintTop_toTopOf="@+id/line_dark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/night_city_r" />
 
     <ImageButton
         android:id="@+id/imageLight"
-        android:layout_width="154dp"
-        android:layout_height="180dp"
+        android:layout_width="174dp"
+        android:layout_height="203dp"
+        android:layout_marginEnd="18dp"
         android:background="@color/transparent"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/line_light"
-        app:layout_constraintEnd_toEndOf="@+id/line_light"
-        app:layout_constraintStart_toStartOf="@+id/line_light"
-        app:layout_constraintTop_toTopOf="@+id/line_light"
+        app:layout_constraintBottom_toBottomOf="@+id/imageDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageDark"
         app:srcCompat="@drawable/day_city_r" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
