@@ -9,17 +9,6 @@
     tools:context=".Activity.Learn"
     android:background="@drawable/background_learn">
 
-    <Button
-        android:id="@+id/ghost_acc_button"
-        android:layout_width="55dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <include layout="@layout/app_bar_main"/>
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
@@ -223,8 +212,22 @@
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="left" />
+        app:barrierDirection="left"
+        app:constraint_referenced_ids="include" />
 
-    <include layout="@layout/navigation_bar"/>
+    <Button
+        android:id="@+id/ghost_acc_button"
+        android:layout_width="55dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include layout="@layout/navigation_bar" />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/app_bar_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

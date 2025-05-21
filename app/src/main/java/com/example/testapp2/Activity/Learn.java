@@ -6,6 +6,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Learn extends AppCompatActivity {
 
     private ScrollView scrollView;
+    private Button accButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,14 +172,14 @@ public class Learn extends AppCompatActivity {
         return true;
     }
 
-    /*@Override
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.nav_account) {
+        if (item.getItemId() == R.id.nav_accoutn) {
             startActivity(new Intent(getApplicationContext(), AccountActivity.class));
             overridePendingTransition(0, 0);
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 }
 

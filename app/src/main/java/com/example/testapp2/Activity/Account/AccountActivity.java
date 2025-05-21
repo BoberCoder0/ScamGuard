@@ -50,6 +50,7 @@ import com.squareup.picasso.Transformation;
 //import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -129,7 +130,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         resetButton.setOnClickListener(v -> resetChanges());
 //      // Обработка кнопки аватарки
         avaButton.setOnClickListener(v -> openImageChooser());
-        binding.imageButton2.setOnClickListener(v -> finish());
+        binding.crossButton.setOnClickListener(v -> finish());
         saveButton.setOnClickListener(v -> saveUserData());
 
         // Обработка кнопки "Выход"
@@ -165,30 +166,56 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
     }
 
     private void uploadImageToFirebase() {
-        if (imageUri != null && user != null) {
-            progressBar.setVisibility(View.VISIBLE);
-            progressView.setVisibility(View.VISIBLE);
+        // Проверка на null и доступность imageUri
+        if (imageUri == null) {
+            Toast.makeText(this, "Фото не выбрано", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            StorageReference fileReference = storageRef.child("avatars/" + user.getUid() + ".jpg");
+        // Проверка авторизации пользователя
+        if (user == null) {
+            Toast.makeText(this, "Пользователь не авторизован", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            fileReference.putFile(imageUri)
-                    .addOnSuccessListener(taskSnapshot -> fileReference.getDownloadUrl()
-                            .addOnSuccessListener(uri -> {
-                                String imageUrl = uri.toString();
-                                updateUserAvatar(imageUrl);
-                                Picasso.get().load(imageUrl).transform(new CircleTransform()).into(avaButton);
-                            }))
-                    .addOnFailureListener(e -> {
+        progressBar.setVisibility(View.VISIBLE);
+        progressView.setVisibility(View.VISIBLE);
+
+        // Формируем путь в Storage (avatars/userUID.jpg)
+        StorageReference fileReference = storageRef.child("avatars/" + user.getUid() + ".jpg");
+
+        // Загрузка файла с обработчиками успеха/ошибки
+        fileReference.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    Log.d("FirebaseStorage", "Фото загружено успешно");
+
+                    // Получаем URL загруженного изображения
+                    fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                        String imageUrl = uri.toString();
+                        updateUserAvatar(imageUrl); // Обновляем в Firestore
+                        Picasso.get()
+                                .load(imageUrl)
+                                .transform(new CircleTransform())
+                                .into(avaButton);
+
                         progressBar.setVisibility(View.GONE);
                         progressView.setVisibility(View.GONE);
-                        Toast.makeText(this, "Ошибка загрузки: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
-        }
+                })
+                .addOnFailureListener(e -> {
+                    progressBar.setVisibility(View.GONE);
+                    progressView.setVisibility(View.GONE);
+
+                    Log.e("FirebaseStorage", "Ошибка загрузки: " + e.getMessage());
+                    Toast.makeText(this,
+                            "Ошибка загрузки: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                });
     }
 
     private void updateUserAvatar(String imageUrl) {
         db.collection("users").document(user.getUid())
-                .update("photoUrl", imageUrl)
+                .update("avatarUrl", imageUrl)
                 .addOnCompleteListener(task -> {
                     progressBar.setVisibility(View.GONE);
                     progressView.setVisibility(View.GONE);
@@ -312,6 +339,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         Map<String, Object> userData = new HashMap<>();
         userData.put("email", user.getEmail());
         userData.put("name", user.getDisplayName());
+        userData.put("avatarUrl", ""); // ава
         userData.put("photoUrl", user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : "");
 
         db.collection("users").document(user.getUid())
@@ -366,10 +394,13 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                             nickNameInput.setText((String) userData.getOrDefault("nickname", "введите никнеим"));
                             emailInput.setText((String) userData.get("email"));
 
-                            String photoUrl = (String) userData.get("photoUrl");
-                            if (photoUrl != null && !photoUrl.isEmpty()) {
+                            String avatarUrl = (String) userData.get("avatarUrl");
+                            if (avatarUrl != null && !avatarUrl.isEmpty()) {
+                                Picasso.get().load(avatarUrl).transform(new CircleTransform()).into(avaButton);
+                            } /*else if (photoUrl != null && !photoUrl.isEmpty()) {
+                                // Резервная аватарка из Google или предыдущей регистрации
                                 Picasso.get().load(photoUrl).transform(new CircleTransform()).into(avaButton);
-                            }
+                            }*/
                         }
                     } else {
                         Toast.makeText(this, "Ошибка загрузки данных", Toast.LENGTH_SHORT).show();
@@ -412,6 +443,10 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                     } else {
                         Toast.makeText(this, "Не удалось обновить данные", Toast.LENGTH_SHORT).show();
                     }
+                    if (user == null) {
+                        Toast.makeText(this, "Пользователь не аутентифицирован", Toast.LENGTH_SHORT).show();
+                    }
+
                 });
     }
 
