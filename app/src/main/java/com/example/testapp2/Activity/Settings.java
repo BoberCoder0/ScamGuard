@@ -183,11 +183,12 @@ public class Settings extends AppCompatActivity {
     // Обновляем цвет текста
     private void updateThemeUI(boolean isDarkMode) {
         int activeColor = ContextCompat.getColor(this, R.color.center_color_app);
-        int inactiveColor = ContextCompat.getColor(this, R.color.light_gray);
+        int inactiveColor = ContextCompat.getColor(this, R.color.soft_white);
         int activeColor2 = ContextCompat.getColor(this, R.color.center_color_app_dark); /// не удалять!
+        int inactiveColor3 = ContextCompat.getColor(this, R.color.black);
 
         textViewDarkThemeLabel.setTextColor(isDarkMode ? activeColor2 : inactiveColor);
-        textViewLightThemeLabel.setTextColor(isDarkMode ? inactiveColor : activeColor);
+        textViewLightThemeLabel.setTextColor(isDarkMode ? inactiveColor3 : activeColor);
     }
 
     // Для перехода по иконке аккаунта

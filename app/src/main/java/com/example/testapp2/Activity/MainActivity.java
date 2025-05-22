@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         databaseHelper = dataBaseApp.getDatabaseHelper();
 
         TextView textView = findViewById(R.id.textView2);

@@ -15,6 +15,8 @@
     <color name="transparent">#00000000</color>
     <color name="textColor">#000000</color>
     <color name="red">#FF0000</color>
+    <color name="soft_white">#F3EDF7</color>
+    <color name="soft_dark">#211f26</color>
     <color name="second_center_collor_app">#98FFFFFF</color>
 
     <!-- Добавляем background_color для светлой темы -->

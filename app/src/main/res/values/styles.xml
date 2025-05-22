@@ -41,6 +41,8 @@
         <item name="android:background">@android:color/transparent</item> <!-- Полупрозрачный черный -->
         <item name="android:navigationBarColor">@color/transparent</item>
         <item name="android:customNavigationLayout">@color/transparent</item>
+        <item name="android:textColorPrimary">@color/black</item> <!-- Цвет текста для светлой темы -->
+        <item name="actionMenuTextColor">@color/black</item> <!-- Цвет текста меню -->
     </style>
 
     <!-- Кнопки -->
@@ -123,6 +125,10 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="background">@android:color/transparent</item>
         <item name="elevation">0dp</item> <!-- убирает тень -->
+    </style>
+
+    <style name="MyMenuTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">
+        <item name="android:textColor">?android:textColorPrimary</item> <!-- Автоматически меняется в зависимости от темы -->
     </style>
 
     <style name="StatusBarTheme" parent="Theme.AppCompat.Light.DarkActionBar">

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="Theme.ScamGuard.TransparentToolbar" parent="Theme.ScamGuard">
+        <item name="android:background">@android:color/transparent</item> <!-- Полупрозрачный черный -->
+        <item name="android:navigationBarColor">@color/transparent</item>
+        <item name="android:customNavigationLayout">@color/transparent</item>
+        <item name="android:textColorPrimary">@color/white</item> <!-- Цвет текста для тёмной темы -->
+        <item name="actionMenuTextColor">@color/white</item> <!-- Цвет текста меню -->
+    </style>
+
+</resources>
