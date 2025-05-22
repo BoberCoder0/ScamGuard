@@ -52,6 +52,8 @@ public class NavigationManager {
         if (context instanceof Settings && id == R.id.nav_settings) return true;
         if (context instanceof InfoActivity && id == R.id.nav_history) return true;
         return false;
+
+
     }
 
     public static void resetNavigationSelection(BottomNavigationView bottomNav) {

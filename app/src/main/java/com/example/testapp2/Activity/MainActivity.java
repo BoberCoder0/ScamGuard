@@ -1,6 +1,9 @@
 package com.example.testapp2.Activity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
@@ -97,6 +100,35 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        /// неработает хотя должно (((  (не удалять)
+        /*BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        // Убираем фон выделения
+        bottomNav.setItemBackground(null);
+        // Убираем ripple-эффект (API 21+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            bottomNav.setItemRippleColor(null);
+        }*/
+
+        /// тоже не работает (не удалять)
+        /*BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+
+        // Создаем ColorStateList для отключения подсветки
+        int[][] states = new int[][] {
+                new int[] { android.R.attr.state_checked }, // Выбранный элемент
+                new int[] { -android.R.attr.state_checked } // Невыбранный
+        };
+
+        int[] colors = new int[] {
+                Color.TRANSPARENT, // Цвет для выбранного
+                Color.TRANSPARENT  // Цвет для невыбранного
+        };
+
+        ColorStateList transparentColor = new ColorStateList(states, colors);
+
+        // Применяем
+        bottomNav.setItemRippleColor(transparentColor);
+        bottomNav.setItemBackgroundResource(android.R.color.transparent);*/
     }
     // Для перехода по иконке аккаунта
     @Override
