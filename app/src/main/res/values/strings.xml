@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">ScamGuard</string>
+    <string name="app_name">Scam Guard</string>
+    <string name="default_web_client_id">Ваш_клиентский_ID_из_Google_Cloud_Console</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -18,6 +19,16 @@
 
 
     <string name="b_f_c">Button_for_click</string>
+
+    <string name="main_content">
+        &lt;b&gt;Ваш личный определитель номера&lt;/b&gt; — надёжный защитник от спама, мошенничества и нежелательных звонков.&lt;br/&gt;&lt;br/&gt;
+        &lt;b&gt;Это приложение - инструмент, предлагающий функции и возможности по выявлению телефонных мошенников:&lt;/b&gt;&lt;br/&gt;
+        &#8226; Описание основных схем мошенничества&lt;br/&gt;
+        &#8226; Распознавание телефонных мошенников&lt;br/&gt;
+        &#8226; Поиск информации о номере&lt;br/&gt;&lt;br/&gt;
+        Используйте приложение как инструмент для безопасного общения!
+    </string>
+
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
@@ -74,4 +85,18 @@
     <string name="history_a">История</string>
     <string name="about_us">о приложении</string>
     <string name="about_us_a">о приложении</string>
+    <string name="info">info</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_empty">EmptyActivity</string>
+    <string name="HomeRU">Дом</string>
+    <string name="LearnRU">Справка</string>
+    <string name="SearchRU">Поиск</string>
+    <string name="InfoRU">Инфо</string>
+    <string name="Chapter_1_RU"><![CDATA[<p>Мошенники звонят по телефону и присылают голосовые сообщения от имени родственников и друзей. С помощью специальных программ им удаётся менять голос.</p>]]>+ "<p><b>Что говорят мошенники в таких звонках и аудиосообщениях:</b></p>"
+                + "<ul>"
+                + "<li> Просят дать в долг деньги;</li>"
+                + "<li> Жалуются, что попали в неприятную ситуацию, и просят перевести деньги;</li>"
+                + "<li> Сообщают от имени полицейского, что родственник попал в беду. Этот же родственник просит экстренно перевести определённую сумму.</li>"
+                + "</ul>"</string>
 </resources>

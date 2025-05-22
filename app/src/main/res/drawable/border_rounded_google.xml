@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Основной цвет фона -->
+    <solid android:color="@color/transparent" /> <!-- Фиолетовый цвет -->
+
+    <!-- Граница -->
+    <stroke
+        android:width="3dp"
+        android:color="@color/center_color_app" /> <!-- Цвет границы (бирюзовый) -->
+
+    <!-- Закругление углов -->
+    <corners android:radius="20dp" /> <!-- Радиус для всех углов -->
+
+    <!-- Отступы внутри (опционально) -->
+    <padding
+        android:left="8dp"
+        android:top="8dp"
+        android:right="8dp"
+        android:bottom="8dp" />
+</shape>

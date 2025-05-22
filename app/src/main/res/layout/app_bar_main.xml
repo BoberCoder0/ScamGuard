@@ -4,22 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MainActivity">
+    tools:context=".Activity.MainActivity"
+    android:theme="@style/Theme.ScamGuard.TransparentToolbar"
+    android:background="@color/transparent"
+    app:itemBackground="@android:color/transparent"
+    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.Testapp2.AppBarOverlay">
+        android:theme="@style/Theme.Testapp2.NoActionBar"
+        android:background="@color/transparent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#003FD1"
+            style="@style/ToolbarStyle"
             app:popupTheme="@style/Theme.Testapp2.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <include layout="@layout/content_main" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

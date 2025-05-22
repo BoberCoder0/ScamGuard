@@ -6,43 +6,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.TestApp2.Settings"
-    tools:context=".Activity.Learn">
+    tools:context=".Activity.Learn"
+    android:background="@drawable/background_learn">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/center_color_app"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@color/white" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_width="402dp"
+        android:layout_height="794dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginBottom="10dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="80dp"> <!-- Отступ сверху 16dp -->>
-
-            <!-- Заголовок -->
-
-            <!-- Содержание -->
+            android:paddingTop="80dp">
 
             <TextView
                 android:id="@+id/learn_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:background="@drawable/transparent_background_for_text"
                 android:gravity="center"
+                android:paddingVertical="15dp"
                 android:text="Популярные схемы мошенничества в 2024 году"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -54,7 +53,8 @@
                 android:layout_marginBottom="16dp"
                 android:text="Содержание:"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/learn_content_1"
                 android:layout_width="wrap_content"
@@ -62,6 +62,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="1. Имитация голоса родных в аудиосообщениях"
                 android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/learn_content_2"
                 android:layout_width="wrap_content"
@@ -69,6 +70,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="2. Звонок или сообщение от «начальника»"
                 android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/learn_content_3"
                 android:layout_width="wrap_content"
@@ -76,6 +78,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="3. Звонки от псевдосотрудников госслужб и ведомств"
                 android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/learn_content_4"
                 android:layout_width="wrap_content"
@@ -83,6 +86,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="4. Звонки от лжесотрудников банков"
                 android:textSize="16sp" />
+
             <TextView
                 android:id="@+id/learn_content_5"
                 android:layout_width="wrap_content"
@@ -92,6 +96,7 @@
                 android:textSize="16sp" />
 
             <!-- Раздел 1 -->
+
             <TextView
                 android:id="@+id/section1"
                 android:layout_width="wrap_content"
@@ -108,8 +113,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:textSize="16sp"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="4dp"
+                android:textSize="16sp" />
 
             <!-- Раздел 2 -->
             <TextView
@@ -128,8 +133,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:textSize="16sp"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="4dp"
+                android:textSize="16sp" />
 
             <!-- Раздел 3 -->
             <TextView
@@ -148,8 +153,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:textSize="16sp"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="4dp"
+                android:textSize="16sp" />
 
             <!-- Раздел 4 -->
             <TextView
@@ -168,8 +173,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:textSize="16sp"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="4dp"
+                android:textSize="16sp" />
 
             <!-- Раздел 5 -->
             <TextView
@@ -188,18 +193,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:textSize="16sp"
-                android:lineSpacingExtra="4dp" />
+                android:lineSpacingExtra="4dp"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </ScrollView>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -207,12 +205,29 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="64dp"
+        app:layout_constraintGuide_end="731dp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="left" />
+        app:barrierDirection="left"
+        app:constraint_referenced_ids="include" />
+
+    <Button
+        android:id="@+id/ghost_acc_button"
+        android:layout_width="55dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include layout="@layout/navigation_bar" />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/app_bar_main" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

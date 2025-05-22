@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AppInsightsSettings">
-    <!--<option name="selectedTabId" value="Firebase Crashlytics" />-->
     <option name="tabSettings">
       <map>
         <entry key="Firebase Crashlytics">
@@ -9,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.testapp2" />
+                  <option name="mobileSdkAppId" value="1:559680751384:android:29006153506b670a58406d" />
+                  <option name="projectId" value="scamguard-3daf9" />
+                  <option name="projectNumber" value="559680751384" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

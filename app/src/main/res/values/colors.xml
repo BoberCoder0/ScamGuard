@@ -1,18 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
+    <color name="blue_dark">#091552</color>
+    <color name="green_dark">#013732</color>
+    <color name="text_back">#55FFFFFF</color>
     <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#505050</color>
     <color name="gray2">#E95D5D5D</color>
+    <color name="light_gray">#E9A2A2A2</color>
     <color name="center_color_app">#003FCF</color>
-    <color name="color_allocate">#FF4081</color>
+    <color name="center_color_app_dark">#0132A0</color>
     <color name="text_color_light">#000000</color>
     <color name="text_color_dark">#FFFFFF</color>
     <color name="transparent">#00000000</color>
-    <color name="textColor">#000000</color> <!-- Черный цвет для светлой темы --> <!--<color name="background_color">#00FFFFFF</color>  цвет для светлой темы -->
+    <color name="textColor">#000000</color>
+    <color name="red">#FF0000</color>
+    <color name="second_center_collor_app">#98FFFFFF</color>
+
+    <!-- Добавляем background_color для светлой темы -->
+    <color name="background_color">#FFFFFFFF</color> <!-- Белый фон -->
 </resources>

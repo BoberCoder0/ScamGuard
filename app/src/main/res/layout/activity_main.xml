@@ -1,46 +1,80 @@
-<FrameLayout
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".Activity.MainActivity"
+    android:background="@drawable/background_main">
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <!-- Верхний тулбар -->
+    <include layout="@layout/app_bar_main" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="39dp"
+        android:gravity="center"
+        android:text="@string/main_content"
+        android:textColor="@color/textColor"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/start_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/start_search"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="129dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/green_dark"
+        android:text="Начать поиск"
+        app:cornerRadius="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/learn_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/learn_button"
+        android:paddingVertical="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="347dp"
+        android:backgroundTint="@color/green_dark"
+        android:text="Изучить схемы мошенничества"
+        app:cornerRadius="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_search" />
+
+    <!-- Нижний навигационный тулбар -->
+    <include layout="@layout/navigation_bar"/>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:openDrawer="start">
+        android:layout_height="match_parent" />
 
-        <include
-            android:id="@+id/app_bar_main"
-            layout="@layout/app_bar_main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <com.example.testapp2.utils.SwipeDetectorView
-            android:id="@+id/swipeDetector"
-            android:layout_width="400dp"
-            android:layout_height="match_parent"
-            />
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nav_view"
-            style="@style/NavigationViewStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            android:background="@drawable/drawer_background"
-            app:headerLayout="@layout/nav_header_main"
-            app:itemTextAppearance="@style/TextViewStyleForNavigation"
-            app:menu="@menu/activity_main_drawer"
-            app:layout_insetEdge="none"/>
-    </androidx.drawerlayout.widget.DrawerLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

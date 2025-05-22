@@ -46,6 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Не используется, так как база данных уже готова
+        // TODO: добавить добавление номера пользователем
     }
 
     /**
