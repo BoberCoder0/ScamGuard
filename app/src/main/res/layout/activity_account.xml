@@ -249,7 +249,7 @@
                 android:id="@+id/buttonLogin"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/Entrance"
+                android:text="@string/SignIn"
                 android:backgroundTint="@color/green_dark"
                 android:textColor="@android:color/white"
                 android:visibility="gone"

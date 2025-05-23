@@ -136,4 +136,12 @@
     <string name="Confirm">Подтвердить</string>
     <string name="Password">Пароль</string>
     <string name="TextEnterPassword">Введите пароль для подтверждения удаления аккаунта:</string>
+    <string name="PopularFraudSchemesIn2024">Популярные схемы мошенничества в 2024 году</string>
+    <string name="Content">Содержание:</string>
+    <string name="ImitationOfTheVoiceOfRelativesInAudioMessages">1. Имитация голоса родных в аудиосообщениях</string>
+    <string name="CallOrMessageFromTheBoss">2. Звонок или сообщение от «начальника»</string>
+    <string name="CallsFromPseudoEmployeesOfGovernmentAgenciesAndDepartments">3. Звонки от псевдосотрудников госслужб и ведомств</string>
+    <string name="CallsFromBankEmployees">4. Звонки от лжесотрудников банков</string>
+    <string name="FakePollsAndContests">5. Фейковые опросы и конкурсы</string>
+    <string name="ImitationOfTheVoiceOfRelativesInAudio">1. Имитация голоса родных в аудиосообщениях</string>
 </resources>

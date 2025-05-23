@@ -138,4 +138,12 @@
     <string name="Confirm">Confirm</string>
     <string name="Password">Password</string>
     <string name="TextEnterPassword">Enter the password to confirm account deletion.:</string>
+    <string name="PopularFraudSchemesIn2024">Popular fraud schemes in 2024</string>
+    <string name="Content">Content:</string>
+    <string name="ImitationOfTheVoiceOfRelativesInAudioMessages">1. Imitation of the voice of relatives in audio messages</string>
+    <string name="CallOrMessageFromTheBoss">2. A call or message from the "boss"</string>
+    <string name="CallsFromPseudoEmployeesOfGovernmentAgenciesAndDepartments">3. Calls from pseudo-employees of government agencies and departments</string>
+    <string name="CallsFromBankEmployees">4. Calls from bank employees</string>
+    <string name="FakePollsAndContests">5. Fake polls and contests</string>
+    <string name="ImitationOfTheVoiceOfRelativesInAudio">1. Imitation of the voice of relatives in audio messages</string>
 </resources>
