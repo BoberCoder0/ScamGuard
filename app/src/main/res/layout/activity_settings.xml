@@ -27,18 +27,57 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />-->
 
+    <TextView
+        android:id="@+id/language_selection_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/language_label"
+        android:textSize="18sp"
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintTop_toBottomOf="@+id/DarkLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/language_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/language_selection_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <RadioButton
+            android:id="@+id/radio_russian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnSurface"
+            android:text="@string/language_russian" />
+
+        <RadioButton
+            android:id="@+id/radio_english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="?attr/colorOnSurface"
+            android:text="@string/language_english" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/CleanCashButton"
-        android:layout_width="378dp"
+        android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="105dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#54F44336"
-        android:text="Очитить кеш"
+        android:text="@string/CleanCash"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/language_radio_group"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -46,7 +85,8 @@
         android:id="@+id/DarkLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Темная тема"
+        android:text="@string/DarkTheme"
+        android:textColor="?attr/colorOnSurface"
         android:textAlignment="center"
         android:textSize="16sp"
         android:layout_marginTop="8dp"
@@ -60,7 +100,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Светлая тема"
+        android:text="@string/LightTheme"
+        android:textColor="?attr/colorOnSurface"
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/imageLight"

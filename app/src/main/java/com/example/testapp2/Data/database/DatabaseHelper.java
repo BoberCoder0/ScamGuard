@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.testapp2.Data.models.ScamInfo;
+import com.example.testapp2.utils.LocaleHelper; // Added import
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,7 +17,7 @@ import java.io.OutputStream;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "scammer_database.db"; // Имя вашей базы данных
+    private String DATABASE_NAME; // Changed to instance variable
     private static final int DATABASE_VERSION = 1; // Версия базы данных
     private static String DATABASE_PATH = ""; // Путь к базе данных
 
@@ -30,12 +31,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_COMMENT = "comment";
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        // Determine DATABASE_NAME before calling super constructor
+        // This requires a temporary solution or refactoring how super is called,
+        // as DATABASE_NAME is used in super().
+        // For now, we'll set it after super() and it will be used by other methods.
+        // This means the super() call might use a null or default DB name if the
+        // SQLiteOpenHelper constructor actually uses it internally before our methods.
+        // However, typical usage is that it's used later for getWritableDatabase etc.
+
+        super(context, determineDatabaseName(context), null, DATABASE_VERSION); // Pass dynamic name to super
         this.context = context;
+        this.DATABASE_NAME = determineDatabaseName(context); // Set for instance methods
 
         // Устанавливаем путь к базе данных
         DATABASE_PATH = context.getApplicationInfo().dataDir + "/databases/";
         copyDatabaseIfNeeded();
+    }
+
+    // Helper method to determine database name, used to avoid code duplication
+    // and to be callable by super() if it were possible directly before this.DATABASE_NAME assignment.
+    // Since super() must be the first statement, we call it here and in the super() call.
+    private static String determineDatabaseName(Context context) {
+        String currentLanguage = LocaleHelper.getCurrentLanguage(context);
+        if ("en".equals(currentLanguage)) {
+            return "scammer_database_eng.db";
+        } else {
+            return "scammer_database.db";
+        }
     }
 
     @Override
@@ -53,10 +75,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Копирует базу данных из папки assets в системный путь, если её там ещё нет.
      */
     public void copyDatabaseIfNeeded() {
-        File databaseFile = new File(DATABASE_PATH + DATABASE_NAME);
+        File databaseFile = new File(DATABASE_PATH + this.DATABASE_NAME); // Use instance variable
         if (!databaseFile.exists()) {
             try {
-                InputStream inputStream = context.getAssets().open(DATABASE_NAME);
+                InputStream inputStream = context.getAssets().open(this.DATABASE_NAME); // Use instance variable
                 File databaseFolder = new File(DATABASE_PATH);
                 if (!databaseFolder.exists()) {
                     databaseFolder.mkdirs(); // Создаем папку, если её нет
@@ -85,7 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @throws SQLException если база данных не может быть открыта
      */
     public void openDatabase() throws SQLException {
-        String path = DATABASE_PATH + DATABASE_NAME;
+        String path = DATABASE_PATH + this.DATABASE_NAME; // Use instance variable
         database = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
     }
     /**
@@ -140,6 +162,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return scamInfo;
+    }
+
+    /**
+     * Returns the name of the database file being used.
+     * @return The database name.
+     */
+    public String getDatabaseName() {
+        return this.DATABASE_NAME;
     }
 }
 

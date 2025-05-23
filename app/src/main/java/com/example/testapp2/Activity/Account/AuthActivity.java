@@ -11,6 +11,7 @@ import com.example.testapp2.fragments.LoginFragment;
 import com.example.testapp2.fragments.RegisterFragment;
 import com.example.testapp2.R;
 import com.example.testapp2.ui.AuthNavigator;
+import com.example.testapp2.utils.LocaleHelper;
 
 public class AuthActivity extends AppCompatActivity implements AuthNavigator {
 
@@ -20,6 +21,7 @@ public class AuthActivity extends AppCompatActivity implements AuthNavigator {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocaleHelper.loadLocale(this); // Added locale loading
         setContentView(R.layout.activity_auth);
 
         // Проверка, вошел ли пользователь ранее

@@ -19,11 +19,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import android.widget.RadioGroup;
+import android.widget.RadioButton;
 
 import com.example.testapp2.Activity.Account.AccountActivity;
 import com.example.testapp2.Activity.Account.SearchHistoryActivity;
 import com.example.testapp2.R; // Убедись, что путь до R правильный
 import com.example.testapp2.utils.ThemeHelper;
+import com.example.testapp2.utils.LocaleHelper;
+import com.example.testapp2.app.dataBaseApp; // Assuming dataBaseApp is in this package
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
@@ -36,6 +40,8 @@ public class Settings extends AppCompatActivity {
     private ImageButton imageButtonDark, imageButtonLight;
     private TextView textViewDarkThemeLabel, textViewLightThemeLabel;
     private View lineDark, lineLight;
+    private RadioGroup languageRadioGroup;
+    private RadioButton radioRussian, radioEnglish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +79,48 @@ public class Settings extends AppCompatActivity {
         // Показываем соответствующую линию в зависимости от темы
         updateThemeLines(isDarkMode);
 
+        // Инициализация элементов выбора языка
+        languageRadioGroup = findViewById(R.id.language_radio_group);
+        radioRussian = findViewById(R.id.radio_russian);
+        radioEnglish = findViewById(R.id.radio_english);
+
+        // Загрузка и установка текущего языка
+        String currentLanguage = LocaleHelper.getCurrentLanguage(this);
+        if ("ru".equals(currentLanguage)) {
+            radioRussian.setChecked(true);
+        } else if ("en".equals(currentLanguage)) {
+            radioEnglish.setChecked(true);
+        }
+
+        // Слушатель изменения выбора языка
+        languageRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            String selectedLanguage = null;
+            if (checkedId == R.id.radio_russian) {
+                selectedLanguage = "ru";
+            } else if (checkedId == R.id.radio_english) {
+                selectedLanguage = "en";
+            }
+
+            String savedLanguage = LocaleHelper.getCurrentLanguage(this);
+
+            if (selectedLanguage != null && !selectedLanguage.equals(savedLanguage)) {
+                LocaleHelper.setLocale(this, selectedLanguage);
+                dataBaseApp.reinitializeDatabaseHelper(this); // Предполагается, что этот метод существует
+
+                // Перезапуск приложения для применения изменений
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finishAffinity(); // Завершает все активности в текущей задаче
+            }
+        });
+
+
         // Обработчик кнопки очистки кеша
         cleanCacheButton.setOnClickListener(v -> {
             clearApplicationCache();
             Toast.makeText(this, "Кеш очищен", Toast.LENGTH_SHORT).show();
-            restartApplication();
+            restartApplication(); // This method uses System.exit(0)
         });
 
         /*// Обработчики кликов на ImageButton
@@ -224,23 +267,23 @@ public class Settings extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
-// Метод для очистки кеша приложения
-private void clearApplicationCache() {
-    try {
-        File cacheDir = getCacheDir();
-        File applicationDir = new File(cacheDir.getParent());
-        if (applicationDir.exists()) {
-            String[] children = applicationDir.list();
-            for (String child : children) {
-                if (!child.equals("lib")) {
-                    deleteDir(new File(applicationDir, child));
+    // Метод для очистки кеша приложения
+    private void clearApplicationCache() {
+        try {
+            File cacheDir = getCacheDir();
+            File applicationDir = new File(cacheDir.getParent());
+            if (applicationDir.exists()) {
+                String[] children = applicationDir.list();
+                for (String child : children) {
+                    if (!child.equals("lib")) {
+                        deleteDir(new File(applicationDir, child));
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
 
     // Вспомогательный метод для рекурсивного удаления директории
     private static boolean deleteDir(File dir) {

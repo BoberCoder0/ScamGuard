@@ -99,4 +99,41 @@
                 + "<li> Жалуются, что попали в неприятную ситуацию, и просят перевести деньги;</li>"
                 + "<li> Сообщают от имени полицейского, что родственник попал в беду. Этот же родственник просит экстренно перевести определённую сумму.</li>"
                 + "</ul>"</string>
+
+    <string name="language_label">Язык</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_english">English</string>
+    <string name="History">История</string>
+    <string name="GoSearch">Начать поиск</string>
+    <string name="GoHelp">Изучить схемы мошенничества</string>
+    <string name="InputNumber">Введите номер телефона</string>
+    <string name="SearchInActivity">Поиск</string>
+    <string name="CleanCash">Очитить кеш</string>
+    <string name="DarkTheme">Темная тема</string>
+    <string name="LightTheme">Светлая тема</string>
+    <string name="YourSearchHistory">Ваша история поисков</string>
+    <string name="Account">Аккаунт</string>
+    <string name="Close">Закрыть</string>
+    <string name="YourNickName">Ваш ник неим</string>
+    <string name="EnterNewEmail">Введите новый email</string>
+    <string name="EnterNewPassword">Введите новый пароль</string>
+    <string name="Connected">Подключено</string>
+    <string name="Safe">Сохранить</string>
+    <string name="Reset">Сбросить</string>
+    <string name="DellAccount">Удалить аккаунт</string>
+    <string name="Exit">Выйти</string>
+    <string name="Entrance">Вход</string>
+    <string name="Registration">Регистрация</string>
+    <string name="EnterEmail">Введите email</string>
+    <string name="EnterPassword">Введите пароль</string>
+    <string name="ErrorIncorrectData">Ошибка: Неверные данные</string>
+    <string name="Skip">Пропустить</string>
+    <string name="InputYourNickName">Введите свой ник</string>
+    <string name="RepeatThePassword">Повторите пароль</string>
+    <string name="EnterCode">введите код</string>
+    <string name="GetCode">Получить код</string>
+    <string name="SignIn">Зарегистрироваться</string>
+    <string name="Confirm">Подтвердить</string>
+    <string name="Password">Пароль</string>
+    <string name="TextEnterPassword">Введите пароль для подтверждения удаления аккаунта:</string>
 </resources>
