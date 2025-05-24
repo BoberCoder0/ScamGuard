@@ -13,10 +13,12 @@ import com.example.testapp2.R;
 import com.example.testapp2.ui.AuthNavigator;
 import com.example.testapp2.utils.LocaleHelper;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class AuthActivity extends AppCompatActivity implements AuthNavigator {
 
-    private static final String PREFS_NAME = "MyPrefsFile";
-    private static final String IS_LOGGED_IN = "isLoggedIn";
+    // private static final String PREFS_NAME = "MyPrefsFile"; // Removed
+    // private static final String IS_LOGGED_IN = "isLoggedIn"; // Removed
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +26,14 @@ public class AuthActivity extends AppCompatActivity implements AuthNavigator {
         LocaleHelper.loadLocale(this); // Added locale loading
         setContentView(R.layout.activity_auth);
 
-        // Проверка, вошел ли пользователь ранее
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        boolean isLoggedIn = settings.getBoolean(IS_LOGGED_IN, false);
-
-        if (isLoggedIn) {
-            // Если пользователь уже вошел, переходим к MainActivity
+        // Check Firebase Auth state directly
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            // User is signed in, navigate to MainActivity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-            finish(); // Закрываем AuthActivity
+            finish(); // Close AuthActivity
         } else {
-            // Иначе загружаем экран входа по умолчанию
+            // No user signed in, load LoginFragment by default
             if (savedInstanceState == null) {
                 loadFragment(new LoginFragment());
             }
@@ -59,19 +58,10 @@ public class AuthActivity extends AppCompatActivity implements AuthNavigator {
     }
 
     // Метод для сохранения состояния входа
-    public void saveLoginState(boolean isLoggedIn) {
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(IS_LOGGED_IN, isLoggedIn);
-        editor.apply();
-    }
+    // Метод для сохранения состояния входа - Removed
+    // public void saveLoginState(boolean isLoggedIn) { ... }
 
-    // Вызовите этот метод после успешного входа
-    public void onLoginSuccess() {
-        saveLoginState(true);
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish(); // Закрываем AuthActivity
-    }
+    // Вызовите этот метод после успешного входа - Removed
+    // public void onLoginSuccess() { ... }
 }
 

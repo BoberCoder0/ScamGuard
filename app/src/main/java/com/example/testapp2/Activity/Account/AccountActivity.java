@@ -46,8 +46,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
-//import com.theartofdev.edmodo.cropper.CropImage; // Закомментированный импорт, возможно, не используется
-//import com.theartofdev.edmodo.cropper.CropImageView; // Закомментированный импорт, возможно, не используется
 import com.example.testapp2.utils.LocaleHelper; // Импорт для управления локалью
 
 import java.io.File;
@@ -60,7 +58,7 @@ import java.util.Map;
 public class AccountActivity extends AppCompatActivity implements AuthNavigator {
 
     // Элементы пользовательского интерфейса
-    private EditText nickNameInput, emailInput, passwordInput;
+    private EditText nickNameInput, emailInput, passwordInput, currentPasswordInput;
     private TextView googleStatusText, githubStatusText;
     private ProgressBar progressBar; // Индикатор прогресса
     private View progressView; // Затемняющий фон для индикатора прогресса
@@ -105,6 +103,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         progressView = binding.progressView;
         emailInput = binding.emailInput;
         passwordInput = binding.passwordInput;
+        currentPasswordInput = binding.currentPasswordInput; // Initialize currentPasswordInput
         googleStatusText = binding.textView5;
         githubStatusText = binding.textView8;
 
@@ -273,16 +272,69 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         else if (requestCode == RC_GOOGLE_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Получаем аккаунт Google из результата
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                // Аутентифицируемся в Firebase с помощью Google ID токена
-                firebaseAuthWithGoogle(account.getIdToken());
+                if (account != null) {
+                    firebaseAuthWithGoogle(account.getIdToken());
+                } else {
+                    Log.w("AccountActivity", "GoogleSignIn.getSignedInAccountFromIntent returned null account.");
+                    Toast.makeText(this, getString(R.string.google_sign_in_error), Toast.LENGTH_SHORT).show();
+                }
             } catch (ApiException e) {
-                // Обработка ошибки входа через Google
-                Toast.makeText(this, getString(R.string.google_sign_in_error), Toast.LENGTH_SHORT).show();
+                Log.w("AccountActivity", "Google sign in failed", e);
+                Toast.makeText(this, getString(R.string.google_sign_in_error) + ": " + e.getStatusCode(), Toast.LENGTH_LONG).show();
+            }
+        }
+        // Обработка результата входа через GitHub
+        else if (requestCode == RC_GITHUB_SIGN_IN) {
+            showProgress();
+            Task<AuthResult> pendingResultTask = auth.getPendingAuthResult();
+            if (pendingResultTask != null) {
+                pendingResultTask
+                        .addOnSuccessListener(authResult -> {
+                            Log.d("AccountActivity", "GitHub sign-in or link successful via getPendingAuthResult.");
+                            FirebaseUser returnedUser = authResult.getUser();
+                            boolean isNewUser = authResult.getAdditionalUserInfo() != null && authResult.getAdditionalUserInfo().isNewUser();
+                            handleGitHubSignInSuccess(returnedUser, isNewUser);
+                        })
+                        .addOnFailureListener(this::handleGitHubSignInFailure);
+            } else {
+                Log.w("AccountActivity", "GitHub sign-in: No pending auth result. User might have cancelled.");
+                Toast.makeText(this, getString(R.string.sign_in_cancelled), Toast.LENGTH_LONG).show();
+                hideProgress();
             }
         }
     }
+
+    // Handles successful GitHub sign-in or linking
+    private void handleGitHubSignInSuccess(FirebaseUser returnedUser, boolean isNewUser) {
+        if (returnedUser != null) {
+            this.user = returnedUser; // Update current user reference
+            saveUserToFirestore(this.user);
+            showAuthorizedUI();
+            loadUserData();
+            checkProviderStatus();
+            if (isNewUser) {
+                Toast.makeText(this, getString(R.string.github_sign_in_success), Toast.LENGTH_SHORT).show();
+            } else {
+                // This could be a re-authentication or linking, if we can distinguish linking, use link_with_github_success
+                // For now, using general success. More specific context would be needed for precise linking message.
+                Toast.makeText(this, getString(R.string.github_sign_in_success), Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Log.e("AccountActivity", "handleGitHubSignInSuccess called with null user.");
+            Toast.makeText(this, getString(R.string.github_sign_in_error_generic), Toast.LENGTH_SHORT).show();
+        }
+        hideProgress();
+    }
+
+    // Handles GitHub sign-in failure
+    private void handleGitHubSignInFailure(Exception e) {
+        Log.e("AccountActivity", "GitHub Sign-In Error", e);
+        // Here you could check for specific exceptions like FirebaseAuthUserCollisionException for linking issues
+        Toast.makeText(this, String.format(getString(R.string.github_sign_in_failed), e.getMessage()), Toast.LENGTH_LONG).show();
+        hideProgress();
+    }
+
 
     // Класс для трансформации изображения в круглую форму (для аватара)
     public static class CircleTransform implements Transformation {
@@ -354,10 +406,14 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
 
     // Запускает процесс входа через GitHub (требует настройки GitHub OAuth)
     private void signInWithGitHub() {
-        // !!! ВАЖНО: client_id и redirect_uri должны быть получены из настроек вашего GitHub OAuth приложения
-        // и, возможно, храниться не напрямую в коде, а в ресурсах или секретах приложения.
-        String githubClientId = "ваш_client_id"; // Замените на ваш GitHub Client ID
-        String githubRedirectUri = "ваш_redirect_uri"; // Замените на ваш GitHub Redirect URI (например, https://YOUR_PROJECT_ID.firebaseapp.com/__/auth/handler)
+        // TODO: Replace "YOUR_GITHUB_CLIENT_ID" with your actual GitHub Client ID from your GitHub OAuth App settings.
+        // This ID should ideally be stored in a secure place, like gradle.properties or build config.
+        String githubClientId = "YOUR_GITHUB_CLIENT_ID"; // Placeholder
+
+        // TODO: Replace "<PROJECT_ID>" with your actual Firebase project ID.
+        // This redirect URI must be configured in your GitHub OAuth App settings under "Authorization callback URL".
+        // It follows the pattern Firebase uses to handle authentication redirects: https://<PROJECT_ID>.firebaseapp.com/__/auth/handler
+        String githubRedirectUri = "https://<PROJECT_ID>.firebaseapp.com/__/auth/handler"; // Placeholder
 
         // Формируем URI для авторизации GitHub OAuth
         Uri uri = new Uri.Builder()
@@ -380,31 +436,36 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
 
     // Аутентификация в Firebase с помощью Google ID токена
     private void firebaseAuthWithGoogle(String idToken) {
-        progressBar.setVisibility(View.VISIBLE); // Показываем прогресс
-        progressView.setVisibility(View.VISIBLE);
-
-        // Создаем учетные данные Firebase из Google ID токена
+        showProgress();
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        // Выполняем вход в Firebase с этими учетными данными
-        auth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    progressBar.setVisibility(View.GONE); // Скрываем прогресс
-                    progressView.setVisibility(View.GONE);
+        boolean isLinking = this.user != null; // Check if we are linking or signing in
 
-                    if (task.isSuccessful()) {
-                        // Вход успешен, получаем текущего пользователя
-                        user = auth.getCurrentUser();
-                        // Сохраняем/обновляем данные пользователя в Firestore
-                        saveUserToFirestore(user);
-                        // Показываем UI для авторизованного пользователя
-                        showAuthorizedUI();
-                        loadUserData(); // Загружаем данные пользователя
-                        checkProviderStatus(); // Проверяем провайдеров
-                    } else {
-                        // Ошибка аутентификации
-                        Toast.makeText(this, getString(R.string.auth_error), Toast.LENGTH_SHORT).show();
-                    }
-                });
+        Task<AuthResult> authTask = isLinking
+                ? this.user.linkWithCredential(credential)
+                : auth.signInWithCredential(credential);
+
+        authTask.addOnCompleteListener(this, task -> {
+            hideProgress();
+            if (task.isSuccessful()) {
+                this.user = task.getResult().getUser(); // Update the user reference
+                saveUserToFirestore(this.user);
+                showAuthorizedUI();
+                loadUserData();
+                checkProviderStatus();
+                if (isLinking) {
+                    Toast.makeText(AccountActivity.this, getString(R.string.link_with_google_success), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AccountActivity.this, getString(R.string.google_sign_in_success), Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Log.w("AccountActivity", "firebaseAuthWithGoogle failed (linking: " + isLinking + ")", task.getException());
+                if (isLinking) {
+                    Toast.makeText(AccountActivity.this, String.format(getString(R.string.link_with_google_failed), task.getException().getMessage()), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(AccountActivity.this, getString(R.string.auth_error) + ": " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     // Сохраняет или обновляет данные пользователя в коллекции "users" в Firestore
@@ -445,6 +506,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         // Если нужно установить программатически:
         // ((Button)findViewById(R.id.buttonLogin)).setText(getString(R.string.Entrance));
         // ((Button)findViewById(R.id.buttonRegister)).setText(getString(R.string.Registration));
+        hideProgress(); // Ensure progress is hidden when showing unauthorized UI
     }
 
     // Показывает элементы UI для авторизованного пользователя и скрывает элементы для неавторизованного
@@ -497,106 +559,214 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                         if (userData != null) {
                             // Устанавливаем текст в nickNameInput, используя значение из Firestore или дефолтную строку
                             nickNameInput.setText((String) userData.getOrDefault("nickname", getString(R.string.InputYourNickName)));
-                            // Устанавливаем текст в emailInput
-                            emailInput.setText((String) userData.get("email"));
+                            String emailFromStore = (String) userData.get("email");
+                            emailInput.setText(emailFromStore != null ? emailFromStore : (this.user != null ? this.user.getEmail() : ""));
 
-                            // Загружаем фото аватара, если оно есть
                             String photoUrl = (String) userData.get("photoUrl");
                             if (photoUrl != null && !photoUrl.isEmpty()) {
-                                // Используем Picasso с CircleTransform для загрузки и отображения круглого аватара
                                 Picasso.get().load(photoUrl).transform(new CircleTransform()).into(avaButton);
+                            } else if (this.user != null && this.user.getPhotoUrl() != null && !this.user.getPhotoUrl().toString().isEmpty()) {
+                                Picasso.get().load(this.user.getPhotoUrl().toString()).transform(new CircleTransform()).into(avaButton);
+                            } else {
+                                avaButton.setImageResource(R.drawable.default_avatar);
                             }
+                        } else if (this.user != null) {
+                            // No data in Firestore, but user exists (e.g. first time social sign in)
+                            nickNameInput.setText(this.user.getDisplayName() != null ? this.user.getDisplayName() : getString(R.string.InputYourNickName));
+                            emailInput.setText(this.user.getEmail());
+                            if (this.user.getPhotoUrl() != null && !this.user.getPhotoUrl().toString().isEmpty()) {
+                                Picasso.get().load(this.user.getPhotoUrl().toString()).transform(new CircleTransform()).into(avaButton);
+                            } else {
+                                avaButton.setImageResource(R.drawable.default_avatar);
+                            }
+                        } else {
+                            // Both userData and this.user are null. Should ideally not happen in authorized state.
+                            nickNameInput.setText(getString(R.string.InputYourNickName));
+                            emailInput.setText("");
+                            avaButton.setImageResource(R.drawable.default_avatar);
                         }
                     } else {
-                        // Ошибка загрузки данных
-                        Toast.makeText(this, getString(R.string.data_load_error), Toast.LENGTH_SHORT).show();
+                        Log.w("AccountActivity", "loadUserData:onComplete: Failed to load user data from Firestore.", task.getException());
+                        Toast.makeText(this, getString(R.string.data_load_error) + (task.getException() != null ? ": " + task.getException().getMessage() : ""), Toast.LENGTH_LONG).show();
+                        if (this.user != null) {
+                            // Firestore failed, but we have a Firebase user. Populate with that.
+                            nickNameInput.setText(this.user.getDisplayName() != null ? this.user.getDisplayName() : getString(R.string.InputYourNickName));
+                            emailInput.setText(this.user.getEmail());
+                            if (this.user.getPhotoUrl() != null && !this.user.getPhotoUrl().toString().isEmpty()) {
+                                Picasso.get().load(this.user.getPhotoUrl().toString()).transform(new CircleTransform()).into(avaButton);
+                            } else {
+                                avaButton.setImageResource(R.drawable.default_avatar);
+                            }
+                        } else {
+                            // No data anywhere
+                            nickNameInput.setText(getString(R.string.InputYourNickName));
+                            emailInput.setText("");
+                            avaButton.setImageResource(R.drawable.default_avatar);
+                        }
                     }
                 });
     }
 
     // Сохраняет данные пользователя (никнейм, email, пароль)
     private void saveUserData() {
-        String nickname = nickNameInput.getText().toString().trim(); // Получаем никнейм
-        String email = emailInput.getText().toString().trim(); // Получаем email
-        String password = passwordInput.getText().toString().trim(); // Получаем пароль
+        if (user == null) {
+            Toast.makeText(this, getString(R.string.user_not_signed_in), Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        // Проверка на пустое поле никнейма
-        if (nickname.isEmpty()) {
+        String newNickname = nickNameInput.getText().toString().trim();
+        String newEmail = emailInput.getText().toString().trim();
+        String newPassword = passwordInput.getText().toString().trim();
+        String currentPassword = currentPasswordInput.getText().toString().trim();
+
+        boolean nicknameChanged = !newNickname.equals(user.getDisplayName()) && !newNickname.isEmpty();
+        boolean emailChanged = !newEmail.equals(user.getEmail()) && !newEmail.isEmpty();
+        boolean passwordChanged = !newPassword.isEmpty();
+
+        if (!nicknameChanged && !emailChanged && !passwordChanged) {
+            Toast.makeText(this, getString(R.string.no_changes_to_save), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (nickNameInput.getText().toString().trim().isEmpty()){
             Toast.makeText(this, getString(R.string.enter_nickname), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        progressBar.setVisibility(View.VISIBLE); // Показываем прогресс
-        progressView.setVisibility(View.VISIBLE);
+        if (nicknameChanged && !emailChanged && !passwordChanged) {
+            showProgress();
+            Map<String, Object> updates = new HashMap<>();
+            updates.put("nickname", newNickname);
+            db.collection("users").document(user.getUid()).update(updates)
+                    .addOnCompleteListener(task -> {
+                        hideProgress();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(this, getString(R.string.nickname_update_success), Toast.LENGTH_SHORT).show();
+                            loadUserData();
+                        } else {
+                            Toast.makeText(this, String.format(getString(R.string.nickname_update_failed_reason), task.getException().getMessage()), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            return;
+        }
 
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("nickname", nickname); // Добавляем никнейм для обновления в Firestore
-
-        // Обновляем никнейм в Firestore
-        db.collection("users").document(user.getUid())
-                .update(updates)
-                .addOnCompleteListener(task -> {
-                    // После обновления никнейма, обрабатываем обновление email и пароля
-                    // Обработка обновления email в Firebase Auth
-                    if (!email.isEmpty() && user != null && !email.equals(user.getEmail())) {
-                        user.updateEmail(email)
-                                .addOnCompleteListener(emailUpdateTask -> {
-                                    // Передаем результат обновления email дальше
-                                    handleUserDataUpdates(task.isSuccessful(), emailUpdateTask.isSuccessful(), !password.isEmpty());
-                                });
-                    } else {
-                        // Если email не нужно обновлять, переходим сразу к обработке пароля и результата никнейма
-                        handleUserDataUpdates(task.isSuccessful(), true, !password.isEmpty());
-                    }
-                });
-    }
-
-    // Вспомогательный метод для обработки результатов нескольких асинхронных операций обновления данных
-    private void handleUserDataUpdates(boolean firestoreSuccess, boolean emailSuccess, boolean passwordExists) {
-        // Если есть пароль для обновления и пользователь существует
-        if (passwordExists && user != null) {
-            String password = passwordInput.getText().toString().trim();
-            if (!password.isEmpty()) {
-                // Обновляем пароль в Firebase Auth
-                user.updatePassword(password)
-                        .addOnCompleteListener(passwordUpdateTask -> {
-                            progressBar.setVisibility(View.GONE); // Скрываем прогресс
-                            progressView.setVisibility(View.GONE);
-                            // Показываем общий результат всех обновлений
-                            showUpdateResult(firestoreSuccess, emailSuccess, passwordUpdateTask.isSuccessful());
-                        });
-            } else {
-                // Если пароль был в поле, но оказался пустым после trim(), считаем, что обновление пароля не требовалось
-                progressBar.setVisibility(View.GONE);
-                progressView.setVisibility(View.GONE);
-                showUpdateResult(firestoreSuccess, emailSuccess, true); // Успех для пароля, т.к. не пытались обновить
+        if (emailChanged || passwordChanged) {
+            if (currentPassword.isEmpty()) {
+                Toast.makeText(this, getString(R.string.current_password_required_for_sensitive_changes), Toast.LENGTH_LONG).show();
+                currentPasswordInput.setError(getString(R.string.current_password_required_for_sensitive_changes)); // Using same string for error
+                currentPasswordInput.requestFocus();
+                return;
             }
-        } else {
-            // Если пароль не нужно обновлять, показываем результат обновления никнейма и email
-            progressBar.setVisibility(View.GONE);
-            progressView.setVisibility(View.GONE);
-            showUpdateResult(firestoreSuccess, emailSuccess, true); // Успех для пароля, т.к. не пытались обновить
+            showProgress();
+            AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), currentPassword);
+            user.reauthenticate(credential).addOnCompleteListener(reauthTask -> {
+                if (reauthTask.isSuccessful()) {
+                    Log.d("AccountActivity", "User re-authenticated successfully.");
+                    performSensitiveUpdates(newNickname, nicknameChanged, newEmail, emailChanged, newPassword, passwordChanged);
+                } else {
+                    hideProgress();
+                    Log.w("AccountActivity", "Re-authentication failed.", reauthTask.getException());
+                    Toast.makeText(this, getString(R.string.reauth_failed_incorrect_password), Toast.LENGTH_LONG).show();
+                    currentPasswordInput.setError(getString(R.string.reauth_failed_incorrect_password)); // Using same string for error
+                    currentPasswordInput.requestFocus();
+                }
+            });
+        } else if (nicknameChanged) {
+            showProgress();
+            Map<String, Object> updates = new HashMap<>();
+            updates.put("nickname", newNickname);
+            db.collection("users").document(user.getUid()).update(updates)
+                    .addOnCompleteListener(task -> {
+                        hideProgress();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(this, getString(R.string.nickname_update_success), Toast.LENGTH_SHORT).show();
+                            loadUserData();
+                        } else {
+                            Toast.makeText(this, String.format(getString(R.string.nickname_update_failed_reason), task.getException().getMessage()), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
 
-    // Показывает Toast сообщение с результатом обновления данных
-    private void showUpdateResult(boolean firestoreSuccess, boolean emailSuccess, boolean passwordSuccess) {
-        // Если все обновления прошли успешно
-        if (firestoreSuccess && emailSuccess && passwordSuccess) {
-            Toast.makeText(this, getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
-        } else {
-            // Если были ошибки, формируем более специфичное сообщение
-            StringBuilder errorMsg = new StringBuilder(getString(R.string.data_update_failed));
-            if (!firestoreSuccess) {
-                errorMsg.append(" (Firestore)"); // Указываем, что ошибка в Firestore
+    private void performSensitiveUpdates(String newNickname, boolean nicknameChanged, String newEmail, boolean emailChanged, String newPassword, boolean passwordChanged) {
+        Task<Void> nicknameUpdateTask = nicknameChanged ?
+                db.collection("users").document(user.getUid()).update("nickname", newNickname) :
+                com.google.android.gms.tasks.Tasks.forResult(null);
+
+        nicknameUpdateTask.addOnCompleteListener(firestoreTask -> {
+            boolean firestoreSuccess = firestoreTask.isSuccessful();
+            if (!firestoreSuccess && nicknameChanged) {
+                Log.w("AccountActivity", "Nickname update to Firestore failed.", firestoreTask.getException());
             }
-            if (!emailSuccess) {
-                errorMsg.append(" (Email)"); // Указываем, что ошибка обновления email
-            }
-            if (!passwordSuccess) {
-                errorMsg.append(" (Password)"); // Указываем, что ошибка обновления пароля
-            }
-            Toast.makeText(this, errorMsg.toString(), Toast.LENGTH_SHORT).show();
+
+            Task<Void> emailUpdateTask = emailChanged ?
+                    user.updateEmail(newEmail) :
+                    com.google.android.gms.tasks.Tasks.forResult(null);
+
+            emailUpdateTask.addOnCompleteListener(emailTask -> {
+                boolean emailSuccess = emailTask.isSuccessful();
+                if (!emailSuccess && emailChanged) {
+                    Log.w("AccountActivity", "Email update failed.", emailTask.getException());
+                }
+
+                Task<Void> passwordUpdateTask = passwordChanged ?
+                        user.updatePassword(newPassword) :
+                        com.google.android.gms.tasks.Tasks.forResult(null);
+
+                passwordUpdateTask.addOnCompleteListener(passwordTask -> {
+                    boolean passwordSuccess = passwordTask.isSuccessful();
+                    if (!passwordSuccess && passwordChanged) {
+                        Log.w("AccountActivity", "Password update failed.", passwordTask.getException());
+                    }
+                    hideProgress();
+                    showUpdateResult(firestoreSuccess || !nicknameChanged, emailSuccess || !emailChanged, passwordSuccess || !passwordChanged,
+                                     nicknameChanged, emailChanged, passwordChanged,
+                                     firestoreTask.getException(), emailTask.getException(), passwordTask.getException());
+                    loadUserData();
+                });
+            });
+        });
+    }
+
+    private void showUpdateResult(boolean firestoreSuccess, boolean emailSuccess, boolean passwordSuccess,
+                                  boolean nicknameAttempted, boolean emailAttempted, boolean passwordAttempted,
+                                  Exception firestoreEx, Exception emailEx, Exception passwordEx) {
+        StringBuilder resultMessage = new StringBuilder();
+        boolean anyOperationAttempted = nicknameAttempted || emailAttempted || passwordAttempted;
+
+        if (nicknameAttempted) {
+            resultMessage.append(getString(firestoreSuccess ? R.string.update_result_nickname_success_details : R.string.update_result_nickname_failed_details));
+            if (!firestoreSuccess && firestoreEx != null) resultMessage.append(": ").append(firestoreEx.getMessage());
+            resultMessage.append(" ");
+        }
+        if (emailAttempted) {
+            resultMessage.append(getString(emailSuccess ? R.string.update_result_email_success_details : R.string.update_result_email_failed_details));
+            if (!emailSuccess && emailEx != null) resultMessage.append(": ").append(emailEx.getMessage());
+            resultMessage.append(" ");
+        }
+        if (passwordAttempted) {
+            resultMessage.append(getString(passwordSuccess ? R.string.update_result_password_success_details : R.string.update_result_password_failed_details));
+            if (!passwordSuccess && passwordEx != null) resultMessage.append(": ").append(passwordEx.getMessage());
+            resultMessage.append(" ");
+        }
+
+        String finalMessage = resultMessage.toString().trim();
+
+        if (finalMessage.isEmpty() && !anyOperationAttempted) {
+            Toast.makeText(this, getString(R.string.no_changes_attempted), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+        boolean allSuccess = (!nicknameAttempted || firestoreSuccess) && 
+                             (!emailAttempted || emailSuccess) && 
+                             (!passwordAttempted || passwordSuccess);
+
+        if (allSuccess && anyOperationAttempted) {
+            Toast.makeText(this, getString(R.string.data_saved) + (finalMessage.isEmpty() ? "" : " (" + finalMessage + ")"), Toast.LENGTH_LONG).show();
+        } else if (!allSuccess) { // Some failure occurred
+            Toast.makeText(this, getString(R.string.data_update_failed) + ": " + finalMessage, Toast.LENGTH_LONG).show();
+        } else if (finalMessage.isEmpty() && anyOperationAttempted) { // All attempted operations were successful, but no specific message was generated (e.g. only nickname changed and it was successful)
+             Toast.makeText(this, getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         }
     }
 

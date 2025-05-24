@@ -65,9 +65,6 @@ dependencies {
     // Firebase Authentication
     implementation("com.google.firebase:firebase-auth")
 
-    // Firebase Firestore (если используешь)
-    implementation("com.google.firebase:firebase-firestore")
-
     // Firebase Analytics (если используешь)
     implementation("com.google.firebase:firebase-analytics")
     implementation(libs.lifecycle.runtime.ktx)
@@ -80,11 +77,11 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.firebaseui:firebase-ui-auth:8.0.2")
     // implementation(libs.mediarouter) // Необходима ли она?
-    implementation(libs.firebase.database)
+    implementation(libs.firebase.database) // Managed by version catalog (libs.versions.toml) - GOOD
     implementation ("com.squareup.picasso:picasso:2.71828")
-    implementation ("com.google.firebase:firebase-storage:20.0.0")
+    implementation ("com.google.firebase:firebase-storage") // Version managed by BOM - GOOD
     /*implementation ("com.theartofdev.edmodo:android-image-cropper:2.8.+")*/
-    implementation ("com.google.firebase:firebase-database:20.0.4")
+    // implementation ("com.google.firebase:firebase-database:20.0.4") // Removed, covered by libs.firebase.database or BOM
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
     implementation ("com.google.android.material:material:1.6.0")
 
