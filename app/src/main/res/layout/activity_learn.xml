@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/ImitationOfTheVoiceOfRelativesInAudio"
+                android:text="@string/ImitationOfTheVoiceOfRelativesInAudioMessages"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

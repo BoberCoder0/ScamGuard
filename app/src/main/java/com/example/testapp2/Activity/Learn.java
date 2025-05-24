@@ -102,9 +102,26 @@ public class Learn extends AppCompatActivity {
 
         // ============= Раздел 1 =============
         TextView section1Content = findViewById(R.id.section1_content);
-        // Используем строковый ресурс для первого раздела
-        String htmlContent = isRussian ? getString(R.string.Chapter_1_RU) : getString(R.string.Chapter_1_RU);
-        section1Content.setText(HtmlCompat.fromHtml(htmlContent, HtmlCompat.FROM_HTML_MODE_LEGACY));
+        String section1Html = isRussian ?
+                // Русская версия
+                "<p>Мошенники выдают себя за вашего начальника, чтобы обманом заставить вас следовать их инструкциям. Схема мошенничества обычно работает следующим образом:</p>"
+                        + "<ol>"
+                        + "<li>Вы получаете сообщение, предположительно от вашего менеджера, в котором к вам обращаются по имени и предупреждают о предстоящем звонке из регулирующего органа.</li>"
+                        + "<li>'Начальник' инструктирует вас выполнять приказы вышестоящего начальства, возможно, утверждая, что с ним связались по поводу утечки данных.</li>"
+                        + "<li>Мошенники звонят с неизвестного номера и запрашивают персональные данные или денежные переводы. Целью этих мошеннических действий являются как нынешние, так и бывшие сотрудники.</li>"
+                        + "</ol>"
+                        + "<i>Альтернативный сценарий: Мошенники звонят, выдавая себя за вашего начальника в экстренной ситуации, и просят перевести деньги. Голос может быть сгенерирован искусственным интеллектом.</i>"
+                :
+                // Английская версия
+                "<p>Scammers impersonate your boss to trick you into following their instructions. The fraud scheme typically works as follows:</p>"
+                        + "<ol>"
+                        + "<li>You receive a message appearing to be from your manager, addressing you by name and warning about an upcoming call from a regulatory authority.</li>"
+                        + "<li>The 'boss' instructs you to follow orders from a higher authority, possibly claiming they were contacted about a data breach.</li>"
+                        + "<li>Scammers call from an unknown number requesting personal data or money transfers. These scams target both current and former employees.</li>"
+                        + "</ol>"
+                        + "<i>Alternative scenario: Scammers call pretending to be your boss in an emergency situation, asking for money transfers. The voice may be AI-generated.</i>";
+
+        section1Content.setText(HtmlCompat.fromHtml(section1Html, HtmlCompat.FROM_HTML_MODE_LEGACY));
         section1Content.setMovementMethod(LinkMovementMethod.getInstance());
 
         // ============= Раздел 2 (Мошенничество от имени начальства) =============

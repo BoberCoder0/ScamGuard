@@ -1,149 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="TEST_STRING">TEST_STRING</string>
+
+    <!-- App Basics -->
     <string name="app_name">Scam Guard</string>
-    <string name="default_web_client_id">Your_Client_ID_from_Google_Cloud_Console</string> <!-- Placeholder, user should replace -->
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="default_web_client_id">Your_Client_ID_from_Google_Cloud_Console</string>
     <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Search</string>
-    <string name="menu_learn">Learn</string>
-    <string name="menu_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="b_f_c">Button_for_click</string>
-
-    <string name="main_content">
-        &lt;b&gt;Your personal number identifier&lt;/b&gt; — a reliable protector against spam, fraud, and unwanted calls.&lt;br/&gt;&lt;br/&gt;
-        &lt;b&gt;This application is a tool offering features and capabilities for identifying phone scammers:&lt;/b&gt;&lt;br/&gt;
-        &#8226; Description of common fraud schemes&lt;br/&gt;
-        &#8226; Recognition of phone scammers&lt;br/&gt;
-        &#8226; Search for number information&lt;br/&gt;&lt;br/&gt;
-        Use the application as a tool for safe communication!
-    </string>
-
-    <string name="lorem_ipsum">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
-        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
-        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
-        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
-        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
-        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.
-
-
-        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
-        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
-        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
-        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
-        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
-        bibendum, vel congue leo egestas.
-
-
-        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
-        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
-        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
-        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
-        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
-        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
-        est.
-
-
-        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
-        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
-        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
-        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
-        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
-        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
-        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
-        convallis.
-
-
-        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
-        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
-        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
-        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
-        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
-        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
-        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
-    </string>
-    <string name="title_activity_test">testActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_test2">testActivity2</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="android_studio">Android Studio</string>
-    <string name="emailadress_gmail_com">emailadress@gmail.com</string>
-    <string name="account_toolbar">Account</string>
-    <string name="profile">Profile</string>
-    <string name="settings">Settings</string>
-    <string name="learn">Help</string>
-    <string name="search">Search</string>
-    <string name="account">Account</string>
-    <string name="history">History</string>
-    <string name="history_a">History</string>
-    <string name="about_us">About app</string>
-    <string name="about_us_a">About app</string>
-    <string name="info">Info</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_empty">EmptyActivity</string>
-    <string name="HomeRU">Home</string>
-    <string name="LearnRU">Help</string>
-    <string name="SearchRU">Search</string>
-    <string name="InfoRU">Info</string>
-    <string name="History">History</string>
-    <string name="Chapter_1_RU"><![CDATA[<p>Scammers call by phone and send voice messages pretending to be relatives or friends. They use special programs to change their voice.</p><p><b>What scammers say in such calls and audio messages:</b></p><ul><li>Ask to borrow money;</li><li>Complain about being in a difficult situation and ask to transfer money;</li><li>Report on behalf of a police officer that a relative is in trouble. The same relative asks to urgently transfer a certain amount.</li></ul>]]></string>
-
     <string name="language_label">Language</string>
     <string name="language_russian">Русский</string>
     <string name="language_english">English</string>
-    <string name="GoSearch">Go Search</string>
+
+    <!-- Navigation and Menu -->
+    <string name="navigation_drawer_open">Open menu</string>
+    <string name="navigation_drawer_close">Close menu</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Menu header</string>
+    <string name="menu_home">Search</string>
+    <string name="menu_learn">Help</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="account_toolbar">Account</string>
+    <string name="account">Account</string>
+    <string name="profile">Profile</string>
+    <string name="history">History</string>
+    <string name="about_us">About app</string>
+    <string name="info">Info</string>
+    <string name="search">Search</string>
+    <string name="learn">Help</string>
+    <string name="settings">Settings</string>
+
+    <!-- Account Screen -->
+    <string name="YourNickName">Your Nickname</string>
+    <string name="EnterNewEmail">Enter new email</string>
+    <string name="EnterEmail">Enter email</string>
+    <string name="EnterNewPassword">Enter new password</string>
+    <string name="EnterPassword">Enter password</string>
+    <string name="Connected">Connected</string>
+    <string name="NotConnected">Not connected</string>
+    <string name="Safe">Save</string>
+    <string name="Reset">Reset</string>
+    <string name="DellAccount">Delete account</string>
+    <string name="Exit">Exit</string>
+    <string name="Entrance">Login</string>
+    <string name="Registration">Registration</string>
+    <string name="Close">Close</string>
+    <string name="ErrorIncorrectData">Error: Incorrect data</string>
+    <string name="InputYourNickName">Enter your nickname</string>
+    <string name="RepeatThePassword">Repeat password</string>
+    <string name="Password">Password</string>
+    <string name="TextEnterPassword">Enter password to confirm account deletion:</string>
+    <string name="Confirm">Confirm</string>
+    <string name="GetCode">Get code</string>
+    <string name="EnterCode">Enter code</string>
+    <string name="SignIn">Sign up</string>
+    <string name="Skip">Skip</string>
+
+    <!-- Toast Messages -->
+    <string name="image_or_user_missing">Image or user missing</string>
+    <string name="unable_to_open_file">Unable to open file</string>
+    <string name="file_not_found">File not found: %s</string>
+    <string name="url_error">Error getting URL: %s</string>
+    <string name="upload_error">Upload error: %s</string>
+    <string name="avatar_updated">Avatar updated</string>
+    <string name="avatar_update_error">Error updating avatar</string>
+    <string name="google_sign_in_error">Google sign-in error</string>
+    <string name="changes_reset">Changes reset</string>
+    <string name="auth_error">Authentication error</string>
+    <string name="enter_nickname">Enter nickname</string>
+    <string name="data_saved">Data saved successfully!</string>
+    <string name="data_update_failed">Failed to update data</string>
+    <string name="data_load_error">Error loading data</string>
+
+    <!-- Search and History -->
+    <string name="GoSearch">Start search</string>
     <string name="GoHelp">Explore fraud schemes</string>
     <string name="InputNumber">Enter phone number</string>
     <string name="SearchInActivity">Search</string>
-    <string name="CleanCash">Clean cash</string>
+    <string name="YourSearchHistory">Your search history</string>
+    <string name="CleanCash">Clear cache</string>
+
+    <!-- Themes -->
     <string name="DarkTheme">Dark theme</string>
     <string name="LightTheme">Light theme</string>
-    <string name="YourSearchHistory">Your search history</string>
-    <string name="Account">Account</string>
-    <string name="Close">Close</string>
-    <string name="YourNickName">Your NickName</string>
-    <string name="EnterNewEmail">Enter new email</string>
-    <string name="EnterNewPassword">Enter new password</string>
-    <string name="Connected">Connected</string>
-    <string name="Safe">Safe</string>
-    <string name="Reset">Reset</string>
-    <string name="DellAccount">Dell account</string>
-    <string name="Exit">Exit</string>
-    <string name="Entrance">Entrance</string>
-    <string name="Registration">Registration</string>
-    <string name="EnterEmail">Enter email</string>
-    <string name="EnterPassword">Enter Password</string>
-    <string name="ErrorIncorrectData">Error: Incorrect data</string>
-    <string name="Skip">Skip</string>
-    <string name="InputYourNickName">Input your NickName</string>
-    <string name="RepeatThePassword">Repeat the password</string>
-    <string name="EnterCode">Enter code</string>
-    <string name="GetCode">Get code</string>
-    <string name="SignIn">Sign in</string>
-    <string name="Confirm">Confirm</string>
-    <string name="Password">Password</string>
-    <string name="TextEnterPassword">Enter the password to confirm account deletion.:</string>
+
+    <!-- Fraud Help -->
     <string name="PopularFraudSchemesIn2024">Popular fraud schemes in 2024</string>
     <string name="Content">Content:</string>
-    <string name="ImitationOfTheVoiceOfRelativesInAudioMessages">1. Imitation of the voice of relatives in audio messages</string>
-    <string name="CallOrMessageFromTheBoss">2. A call or message from the "boss"</string>
-    <string name="CallsFromPseudoEmployeesOfGovernmentAgenciesAndDepartments">3. Calls from pseudo-employees of government agencies and departments</string>
-    <string name="CallsFromBankEmployees">4. Calls from bank employees</string>
+    <string name="ImitationOfTheVoiceOfRelativesInAudioMessages">1. Imitation of relatives\' voices in audio messages</string>
+    <string name="CallOrMessageFromTheBoss">2. Call or message from the "boss"</string>
+    <string name="CallsFromPseudoEmployeesOfGovernmentAgenciesAndDepartments">3. Calls from pseudo-government employees</string>
+    <string name="CallsFromBankEmployees">4. Calls from fake bank employees</string>
     <string name="FakePollsAndContests">5. Fake polls and contests</string>
-    <string name="ImitationOfTheVoiceOfRelativesInAudio">1. Imitation of the voice of relatives in audio messages</string>
+
+    <!-- App Description -->
+    <string name="main_content">
+        <![CDATA[
+        <b>Your personal number identifier</b> — a reliable protector against spam, fraud, and unwanted calls.<br/><br/>
+        <b>This application is a tool offering features for identifying phone scammers:</b><br/>
+        &#8226; Description of common fraud schemes<br/>
+        &#8226; Recognition of phone scammers<br/>
+        &#8226; Number information lookup<br/><br/>
+        Use the app as a tool for safe communication!
+        ]]>
+    </string>
+
+    <!-- Learn -->
+    <string name="Chapter_1"><![CDATA[<p>Scammers make phone calls and send voice messages on behalf of relatives and friends. With the help of special programs, they manage to change their voice.</p>]]>+ "<p><b>Что говорят мошенники в таких звонках и аудиосообщениях:</b></p>"
+                + "<ul>"
+                + "<li> They ask for a loan of money;</li>"
+                + "<li> They complain that they got into an unpleasant situation and ask to transfer money.;</li>"
+                + "<li> They report on behalf of the policeman that a relative is in trouble. The same relative asks for an emergency transfer of a certain amount.</li>"
+                + "</ul>"</string>
 </resources>
