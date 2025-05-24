@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SearchHistoryActivity extends AppCompatActivity {
+public class SearchHistoryActivity extends AppCompatActivity implements SearchHistoryAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private SearchHistoryAdapter adapter;
@@ -45,6 +45,7 @@ public class SearchHistoryActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         adapter = new SearchHistoryAdapter(historyList);
+        adapter.setOnItemClickListener(this); // Set the listener
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -136,5 +137,15 @@ public class SearchHistoryActivity extends AppCompatActivity {
             return loginFragment.getEmail();
         }
         return null; // или возвращайте пустую строку, если email не найден
+    }
+
+    // Implementation of OnItemClickListener
+    @Override
+    public void onItemClick(SearchHistoryItem item) {
+        if (item != null && item.getPhoneNumber() != null) {
+            Intent intent = new Intent(this, Search.class);
+            intent.putExtra("SELECTED_PHONE_NUMBER", item.getPhoneNumber());
+            startActivity(intent);
+        }
     }
 }

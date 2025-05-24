@@ -18,6 +18,15 @@ import java.util.Locale;
 
 public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.ViewHolder> {
     private final List<SearchHistoryItem> items;
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(SearchHistoryItem item);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
 
     public SearchHistoryAdapter(List<SearchHistoryItem> items) {
         this.items = items;
@@ -28,7 +37,7 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_search_history, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, onItemClickListener, items);
     }
 
     @Override
@@ -46,10 +55,20 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView phoneText, timeText;
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, final OnItemClickListener listener, final List<SearchHistoryItem> items) {
             super(itemView);
             phoneText = itemView.findViewById(R.id.phone_text);
             timeText = itemView.findViewById(R.id.time_text);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(items.get(position));
+                    }
+                }
+            });
         }
     }
 }

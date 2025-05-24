@@ -69,6 +69,17 @@ public class Search extends AppCompatActivity {
             // Инициализация ViewModel
             searchViewModel = new SearchViewModel(this);
 
+            // Обработка входящего интента от истории поиска
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("SELECTED_PHONE_NUMBER")) {
+            String selectedPhoneNumber = intent.getStringExtra("SELECTED_PHONE_NUMBER");
+            phoneNumberInput.setText(selectedPhoneNumber);
+            // Программно вызываем клик по кнопке поиска,
+            // чтобы инициировать поиск с полученным номером
+            if (searchButton != null) { // Убедимся, что кнопка инициализирована
+                searchButton.performClick();
+            }
+        }
 
             // Обработчик кнопки поиска
         searchButton.setOnClickListener(v -> {
