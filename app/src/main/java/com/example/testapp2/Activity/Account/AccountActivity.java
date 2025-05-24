@@ -200,8 +200,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         }
 
         // Показываем индикатор прогресса
-        progressBar.setVisibility(View.VISIBLE);
-        progressView.setVisibility(View.VISIBLE);
+        showProgressIndicator();
 
         // Получаем ссылку на Firebase Storage и создаем путь для файла аватара
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
@@ -219,26 +218,32 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                                 // Загружаем и отображаем аватар с помощью Picasso и CircleTransform
                                 Picasso.get().load(imageUrl).transform(new CircleTransform()).into(avaButton);
                                 // Скрываем индикатор прогресса
-                                hideProgress();
+                                hideProgressIndicator();
                             })
                             .addOnFailureListener(e -> {
                                 // Обработка ошибки получения URL
                                 Toast.makeText(this, getString(R.string.url_error, e.getMessage()), Toast.LENGTH_SHORT).show();
-                                hideProgress();
+                                hideProgressIndicator();
                             });
                 })
                 .addOnFailureListener(e -> {
                     // Обработка ошибки загрузки файла
                     Toast.makeText(this, getString(R.string.upload_error, e.getMessage()), Toast.LENGTH_LONG).show();
                     Log.e("FirebaseUpload", "Ошибка", e); // Логируем ошибку
-                    hideProgress();
+                    hideProgressIndicator();
                 });
     }
 
     // Скрывает индикатор прогресса и затемняющий фон
-    private void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-        progressView.setVisibility(View.GONE);
+    public void hideProgressIndicator() { // Renamed and made public
+        if (progressBar != null) progressBar.setVisibility(View.GONE);
+        if (progressView != null) progressView.setVisibility(View.GONE);
+    }
+
+    // Показывает индикатор прогресса и затемняющий фон
+    public void showProgressIndicator() { // New public method, effectively replacing showProgress
+        if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
+        if (progressView != null) progressView.setVisibility(View.VISIBLE);
     }
 
     // Обновляет URL аватара пользователя в Firestore
@@ -247,8 +252,11 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         db.collection("users").document(user.getUid())
                 .update("photoUrl", imageUrl)
                 .addOnCompleteListener(task -> {
-                    progressBar.setVisibility(View.GONE); // Скрываем прогресс
-                    progressView.setVisibility(View.GONE); // Скрываем затемнение
+                    // progressBar.setVisibility(View.GONE); // Скрываем прогресс - Handled by hideProgressIndicator if still needed
+                    // progressView.setVisibility(View.GONE); // Скрываем затемнение - Handled by hideProgressIndicator if still needed
+                    // Note: updateUserAvatar is usually called after an upload which already hides progress.
+                    // If this method could be called standalone and needs progress, it should call show/hideProgressIndicator.
+                    // For now, assuming caller handles progress or it's not needed for this specific callback part.
                     if (task.isSuccessful()) {
                         Toast.makeText(this, getString(R.string.avatar_updated), Toast.LENGTH_SHORT).show();
                     } else {
@@ -286,7 +294,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         }
         // Обработка результата входа через GitHub
         else if (requestCode == RC_GITHUB_SIGN_IN) {
-            showProgress();
+            showProgressIndicator();
             Task<AuthResult> pendingResultTask = auth.getPendingAuthResult();
             if (pendingResultTask != null) {
                 pendingResultTask
@@ -300,7 +308,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
             } else {
                 Log.w("AccountActivity", "GitHub sign-in: No pending auth result. User might have cancelled.");
                 Toast.makeText(this, getString(R.string.sign_in_cancelled), Toast.LENGTH_LONG).show();
-                hideProgress();
+                hideProgressIndicator();
             }
         }
     }
@@ -324,7 +332,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
             Log.e("AccountActivity", "handleGitHubSignInSuccess called with null user.");
             Toast.makeText(this, getString(R.string.github_sign_in_error_generic), Toast.LENGTH_SHORT).show();
         }
-        hideProgress();
+        hideProgressIndicator();
     }
 
     // Handles GitHub sign-in failure
@@ -332,7 +340,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         Log.e("AccountActivity", "GitHub Sign-In Error", e);
         // Here you could check for specific exceptions like FirebaseAuthUserCollisionException for linking issues
         Toast.makeText(this, String.format(getString(R.string.github_sign_in_failed), e.getMessage()), Toast.LENGTH_LONG).show();
-        hideProgress();
+        hideProgressIndicator();
     }
 
 
@@ -436,7 +444,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
 
     // Аутентификация в Firebase с помощью Google ID токена
     private void firebaseAuthWithGoogle(String idToken) {
-        showProgress();
+        showProgressIndicator();
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         boolean isLinking = this.user != null; // Check if we are linking or signing in
 
@@ -445,7 +453,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                 : auth.signInWithCredential(credential);
 
         authTask.addOnCompleteListener(this, task -> {
-            hideProgress();
+            hideProgressIndicator();
             if (task.isSuccessful()) {
                 this.user = task.getResult().getUser(); // Update the user reference
                 saveUserToFirestore(this.user);
@@ -506,7 +514,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         // Если нужно установить программатически:
         // ((Button)findViewById(R.id.buttonLogin)).setText(getString(R.string.Entrance));
         // ((Button)findViewById(R.id.buttonRegister)).setText(getString(R.string.Registration));
-        hideProgress(); // Ensure progress is hidden when showing unauthorized UI
+        hideProgressIndicator(); // Ensure progress is hidden when showing unauthorized UI
     }
 
     // Показывает элементы UI для авторизованного пользователя и скрывает элементы для неавторизованного
@@ -543,15 +551,13 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
     private void loadUserData() {
         if (user == null) return; // Если пользователя нет, выходим
 
-        progressBar.setVisibility(View.VISIBLE); // Показываем прогресс
-        progressView.setVisibility(View.VISIBLE);
+        showProgressIndicator(); // Показываем прогресс
 
         // Получаем документ пользователя из коллекции "users" по его UID
         db.collection("users").document(user.getUid())
                 .get()
                 .addOnCompleteListener(task -> {
-                    progressBar.setVisibility(View.GONE); // Скрываем прогресс
-                    progressView.setVisibility(View.GONE);
+                    hideProgressIndicator(); // Скрываем прогресс
 
                     // Проверяем успешность выполнения задачи и наличие результата
                     if (task.isSuccessful() && task.getResult() != null) {
@@ -634,12 +640,12 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         }
 
         if (nicknameChanged && !emailChanged && !passwordChanged) {
-            showProgress();
+            showProgressIndicator();
             Map<String, Object> updates = new HashMap<>();
             updates.put("nickname", newNickname);
             db.collection("users").document(user.getUid()).update(updates)
                     .addOnCompleteListener(task -> {
-                        hideProgress();
+                        hideProgressIndicator();
                         if (task.isSuccessful()) {
                             Toast.makeText(this, getString(R.string.nickname_update_success), Toast.LENGTH_SHORT).show();
                             loadUserData();
@@ -657,14 +663,14 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                 currentPasswordInput.requestFocus();
                 return;
             }
-            showProgress();
+            showProgressIndicator();
             AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), currentPassword);
             user.reauthenticate(credential).addOnCompleteListener(reauthTask -> {
                 if (reauthTask.isSuccessful()) {
                     Log.d("AccountActivity", "User re-authenticated successfully.");
                     performSensitiveUpdates(newNickname, nicknameChanged, newEmail, emailChanged, newPassword, passwordChanged);
                 } else {
-                    hideProgress();
+                    hideProgressIndicator();
                     Log.w("AccountActivity", "Re-authentication failed.", reauthTask.getException());
                     Toast.makeText(this, getString(R.string.reauth_failed_incorrect_password), Toast.LENGTH_LONG).show();
                     currentPasswordInput.setError(getString(R.string.reauth_failed_incorrect_password)); // Using same string for error
@@ -672,12 +678,12 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                 }
             });
         } else if (nicknameChanged) {
-            showProgress();
+            showProgressIndicator();
             Map<String, Object> updates = new HashMap<>();
             updates.put("nickname", newNickname);
             db.collection("users").document(user.getUid()).update(updates)
                     .addOnCompleteListener(task -> {
-                        hideProgress();
+                        hideProgressIndicator();
                         if (task.isSuccessful()) {
                             Toast.makeText(this, getString(R.string.nickname_update_success), Toast.LENGTH_SHORT).show();
                             loadUserData();
@@ -718,7 +724,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                     if (!passwordSuccess && passwordChanged) {
                         Log.w("AccountActivity", "Password update failed.", passwordTask.getException());
                     }
-                    hideProgress();
+                    hideProgressIndicator();
                     showUpdateResult(firestoreSuccess || !nicknameChanged, emailSuccess || !emailChanged, passwordSuccess || !passwordChanged,
                                      nicknameChanged, emailChanged, passwordChanged,
                                      firestoreTask.getException(), emailTask.getException(), passwordTask.getException());
