@@ -55,7 +55,7 @@
     <string name="Confirm">Confirm</string>
     <string name="GetCode">Get code</string>
     <string name="EnterCode">Enter code</string>
-    <string name="SignIn">Sign up</string>
+    <string name="SignIn">Sign in</string>
     <string name="Skip">Skip</string>
 
     <!-- Toast Messages -->
@@ -115,4 +115,12 @@
                 + "<li> They report on behalf of the policeman that a relative is in trouble. The same relative asks for an emergency transfer of a certain amount.</li>"
                 + "</ul>"</string>
     <string name="home">Home</string>
+    <string name="SignUp">SignUp</string>
+    <string name="number_missing">The number is missing from the database.</string>
+    <string name="not_found">Not found</string>
+    <string name="enter_correct_number">Enter the correct number!</string>
+    <string name="category">"Category: "</string>
+    <string name="number_of_complaints">"Number of complaints: "</string>
+    <string name="user_comment">"User's comment: "</string>
+    <string name="text_search_115">Attention!\n\nThe number is in the database, it\'s possible they\'re scammers.</string>
 </resources>

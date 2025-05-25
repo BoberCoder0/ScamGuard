@@ -1,6 +1,7 @@
 package com.example.testapp2.Activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class Search extends AppCompatActivity {
@@ -46,6 +48,7 @@ public class Search extends AppCompatActivity {
         ThemeHelper.applyTheme(this);
         super.onCreate(savedInstanceState);
         LocaleHelper.loadLocale(this);
+        Configuration config = getResources().getConfiguration();
 
         setTitle(R.string.search);
         ActivitySearchBinding binding = ActivitySearchBinding.inflate(getLayoutInflater());
@@ -85,7 +88,7 @@ public class Search extends AppCompatActivity {
             Log.d("SearchHistory", "Search Activity запущен и я попала сюда при нажатии кнопки Поиск");
 
             if (TextUtils.isEmpty(phoneNumber)) {
-                searchResult.setText("Введите корректный номер!");
+                searchResult.setText(R.string.enter_correct_number);
                 return;
             }
 
@@ -105,13 +108,17 @@ public class Search extends AppCompatActivity {
                 commentView.setVisibility(View.VISIBLE);
                 searchResult.setVisibility(View.VISIBLE);
 
-                categoryView.setText("Категория: " + scamInfo.getCategory());
-                complaintsView.setText("Кол-во жалоб: " + scamInfo.getComplaints());
-                commentView.setText("Комментарий от пользователя: " + scamInfo.getComment());
-                searchResult.setText("Внимание!\n\nНомер находится в базе, возможно, это мошенники.");
+                categoryView.setText(getString(R.string.category) + scamInfo.getCategory());
+                complaintsView.setText(getString(R.string.number_of_complaints) + scamInfo.getComplaints());
+                commentView.setText(getString(R.string.user_comment) + scamInfo.getComment());
+                searchResult.setText(R.string.text_search_115);
                 searchResult.setBackgroundResource(R.drawable.red_border);
 
-                result = "Мошенник"; // или можно динамически в зависимости от категории
+                if (config.locale.getLanguage().equals("en")) {
+                    result = "Scammer";
+                } else {
+                    result = "Мошенник";
+                } // или можно динамически в зависимости от категории
             } else {
                 // Скрываем подробности
                 categoryView.setVisibility(View.GONE);
@@ -119,10 +126,9 @@ public class Search extends AppCompatActivity {
                 commentView.setVisibility(View.GONE);
                 searchResult.setVisibility(View.VISIBLE);
 
-                searchResult.setText("Номер в базе отсутствует.");
+                result = getString(R.string.not_found);
+                searchResult.setText(R.string.number_missing);
                 searchResult.setBackgroundResource(R.drawable.green_border);
-
-                result = "Не найден";
             }
 
             // Сохраняем в историю вместе с результатом

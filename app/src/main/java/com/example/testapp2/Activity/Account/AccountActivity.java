@@ -106,7 +106,10 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         progressView = binding.progressView;
         emailInput = binding.emailInput;
         passwordInput = binding.passwordInput;
-        currentPasswordInput = binding.currentPasswordInput; // Initialize currentPasswordInput
+
+        /// НЕ ТРОГАТЬ ОПАСНО ДЛЯ РОБОТОСПОСОБНОСТИ КОДА
+        //currentPasswordInput = binding.currentPasswordInput; // Initialize currentPasswordInput
+
         googleStatusText = binding.textView5;
         githubStatusText = binding.textView8;
 
@@ -292,7 +295,10 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                 }
             } catch (ApiException e) {
                 Log.w("AccountActivity", "Google sign in failed", e);
-                Toast.makeText(this, getString(R.string.google_sign_in_error) + ": " + e.getStatusCode(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Google sign in failed: " + e.getStatusCode() +
+                                ", message: " + e.getMessage() +
+                                ", cause: " + (e.getCause() != null ? e.getCause().getMessage() : "null"),
+                        Toast.LENGTH_LONG).show();
             }
         }
         // Обработка результата входа через GitHub
@@ -626,7 +632,6 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         String newNickname = nickNameInput.getText().toString().trim();
         String newEmail = emailInput.getText().toString().trim();
         String newPassword = passwordInput.getText().toString().trim();
-        String currentPassword = currentPasswordInput.getText().toString().trim();
 
         boolean nicknameChanged = !newNickname.equals(user.getDisplayName()) && !newNickname.isEmpty();
         boolean emailChanged = !newEmail.equals(user.getEmail()) && !newEmail.isEmpty();
@@ -642,59 +647,20 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
             return;
         }
 
-        if (nicknameChanged && !emailChanged && !passwordChanged) {
-            showProgressIndicator();
-            Map<String, Object> updates = new HashMap<>();
-            updates.put("nickname", newNickname);
-            db.collection("users").document(user.getUid()).update(updates)
-                    .addOnCompleteListener(task -> {
-                        hideProgressIndicator();
-                        if (task.isSuccessful()) {
-                            Toast.makeText(this, getString(R.string.nickname_update_success), Toast.LENGTH_SHORT).show();
-                            loadUserData();
-                        } else {
-                            Toast.makeText(this, String.format(getString(R.string.nickname_update_failed_reason), task.getException().getMessage()), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-            return;
-        }
+        showProgressIndicator();
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("nickname", newNickname);
 
-        if (emailChanged || passwordChanged) {
-            if (currentPassword.isEmpty()) {
-                Toast.makeText(this, getString(R.string.current_password_required_for_sensitive_changes), Toast.LENGTH_LONG).show();
-                currentPasswordInput.setError(getString(R.string.current_password_required_for_sensitive_changes)); // Using same string for error
-                currentPasswordInput.requestFocus();
-                return;
-            }
-            showProgressIndicator();
-            AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), currentPassword);
-            user.reauthenticate(credential).addOnCompleteListener(reauthTask -> {
-                if (reauthTask.isSuccessful()) {
-                    Log.d("AccountActivity", "User re-authenticated successfully.");
-                    performSensitiveUpdates(newNickname, nicknameChanged, newEmail, emailChanged, newPassword, passwordChanged);
-                } else {
+        db.collection("users").document(user.getUid()).update(updates)
+                .addOnCompleteListener(task -> {
                     hideProgressIndicator();
-                    Log.w("AccountActivity", "Re-authentication failed.", reauthTask.getException());
-                    Toast.makeText(this, getString(R.string.reauth_failed_incorrect_password), Toast.LENGTH_LONG).show();
-                    currentPasswordInput.setError(getString(R.string.reauth_failed_incorrect_password)); // Using same string for error
-                    currentPasswordInput.requestFocus();
-                }
-            });
-        } else if (nicknameChanged) {
-            showProgressIndicator();
-            Map<String, Object> updates = new HashMap<>();
-            updates.put("nickname", newNickname);
-            db.collection("users").document(user.getUid()).update(updates)
-                    .addOnCompleteListener(task -> {
-                        hideProgressIndicator();
-                        if (task.isSuccessful()) {
-                            Toast.makeText(this, getString(R.string.nickname_update_success), Toast.LENGTH_SHORT).show();
-                            loadUserData();
-                        } else {
-                            Toast.makeText(this, String.format(getString(R.string.nickname_update_failed_reason), task.getException().getMessage()), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, getString(R.string.nickname_update_success), Toast.LENGTH_SHORT).show();
+                        loadUserData();
+                    } else {
+                        Toast.makeText(this, String.format(getString(R.string.nickname_update_failed_reason), task.getException().getMessage()), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void performSensitiveUpdates(String newNickname, boolean nicknameChanged, String newEmail, boolean emailChanged, String newPassword, boolean passwordChanged) {

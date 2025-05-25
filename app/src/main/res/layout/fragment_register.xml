@@ -97,7 +97,7 @@
         android:paddingTop="12dp"
         android:paddingEnd="16dp"
         android:paddingBottom="12dp"
-        android:text="@string/SignIn"
+        android:text="@string/SignUp"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:theme="@style/Theme.TestApp2.Settings"

@@ -55,7 +55,7 @@
     <string name="Confirm">Подтвердить</string>
     <string name="GetCode">Получить код</string>
     <string name="EnterCode">Введите код</string>
-    <string name="SignIn">Зарегистрироваться</string>
+    <string name="SignIn">Войти</string>
     <string name="Skip">Пропустить</string>
     <string name="EnterCurrentPassword">Enter current password</string>
 
@@ -143,6 +143,16 @@
     <string name="update_result_email_failed_details">Email update failed</string> <!-- Reason will be appended in code -->
     <string name="update_result_password_success_details">Password updated.</string>
     <string name="update_result_password_failed_details">Password update failed</string>
-    <string name="home">Дом</string> <!-- Reason will be appended in code -->
+    <string name="home">Дом</string>
+    <string name="SignUp">Регистрация</string>
+    <string name="number_missing">Номер в базе отсутствует.</string>
+    <string name="not_found">Не найден</string>
+    <string name="enter_correct_number">Введите корректный номер!</string>
+    <string name="category">"Категория: "</string>
+    <string name="number_of_complaints">"кол-во жалоб: "</string>
+    <string name="user_comment">"Комментарий от пользователя: "</string>
+    <string name="text_search_115">Внимание!
+
+Номер находится в базе, возможно, это мошенники.</string> <!-- Reason will be appended in code -->
 
 </resources>
