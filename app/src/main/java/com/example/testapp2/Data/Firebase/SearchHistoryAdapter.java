@@ -44,6 +44,7 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SearchHistoryItem item = items.get(position);
         holder.phoneText.setText(item.getPhoneNumber());
+        holder.resultText.setText(item.getSearchResult());
         holder.timeText.setText(new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
                 .format(new Date(item.getTimestamp())));
     }
@@ -54,11 +55,12 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView phoneText, timeText;
+        TextView phoneText, timeText, resultText;
         public ViewHolder(@NonNull View itemView, final OnItemClickListener listener, final List<SearchHistoryItem> items) {
             super(itemView);
             phoneText = itemView.findViewById(R.id.phone_text);
             timeText = itemView.findViewById(R.id.time_text);
+            resultText = itemView.findViewById(R.id.result_text);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
