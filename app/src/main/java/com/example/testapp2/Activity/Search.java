@@ -3,6 +3,7 @@ package com.example.testapp2.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Search extends AppCompatActivity {
 
@@ -39,7 +44,7 @@ public class Search extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ThemeHelper.applyTheme(this); // 👈 обязательно ДО super.onCreate
+        ThemeHelper.applyTheme(this); // обязательно ДО super.onCreate
         super.onCreate(savedInstanceState);
         LocaleHelper.loadLocale(this); // Added locale loading
 //        setContentView(R.layout.activity_search);
@@ -82,9 +87,10 @@ public class Search extends AppCompatActivity {
             }
         }
 
-            // Обработчик кнопки поиска
+        // Обработчик кнопки поиска
         searchButton.setOnClickListener(v -> {
             String phoneNumber = phoneNumberInput.getText().toString().trim();
+            Log.d("SearchHistory", "Search Activity запущен и я попала сюда при нажатии кнопки Поиск");
             if (TextUtils.isEmpty(phoneNumber)) {
                 searchResult.setText("Введите корректный номер!");
                 return;
@@ -93,20 +99,8 @@ public class Search extends AppCompatActivity {
             // Выполняем поиск номера
             searchViewModel.searchPhoneNumber(phoneNumber);
 
-            // Сохраняем в историю, если пользователь авторизован
-//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//            if (user != null) {
-//                String uid = user.getUid();
-//                DatabaseReference ref = FirebaseDatabase.getInstance()
-//                        .getReference("search_history")
-//                        .child(uid);
-//
-//                String key = ref.push().getKey(); // создаём уникальный ключ
-//                if (key != null) {
-//                    SearchHistoryItem item = new SearchHistoryItem(phoneNumber, System.currentTimeMillis());
-//                    ref.child(key).setValue(item);
-//                }
-//            }
+            // Сохраняем в историю
+            saveSearchToHistory(phoneNumber);
         });
 
             // Наблюдение за LiveData
@@ -183,5 +177,35 @@ public class Search extends AppCompatActivity {
             }
             return super.onOptionsItemSelected(item);
         }
+
+    private void saveSearchToHistory(String phoneNumber) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null && !TextUtils.isEmpty(phoneNumber)) {
+            String uid = user.getUid();
+            Log.d("SearchHistory", "Current UID: " + uid);
+            Log.d("SearchHistory", "Сохраняем номер: " + phoneNumber);
+
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            // Можно сохранять историю в подколлекцию у пользователя
+            Map<String, Object> item = new HashMap<>();
+            item.put("phoneNumber", phoneNumber);
+            item.put("timestamp", System.currentTimeMillis());
+
+            db.collection("users")
+                    .document(uid)
+                    .collection("search_history")  // Подколлекция
+                    .add(item)
+                    .addOnSuccessListener(documentReference -> {
+                        Log.d("SearchHistory", "Успешно сохранено в Firestore");
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("SearchHistory", "Ошибка сохранения: " + e.getMessage());
+                    });
+        } else {
+            Log.w("SearchHistory", "Пользователь не авторизован или номер пустой");
+        }
+    }
 
 }

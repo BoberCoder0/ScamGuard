@@ -2,6 +2,7 @@ package com.example.testapp2.Activity.Account;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -27,6 +28,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,34 +53,31 @@ public class SearchHistoryActivity extends AppCompatActivity implements SearchHi
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (user != null) {
-//            DatabaseReference ref = FirebaseDatabase.getInstance()
-//                    .getReference("search_history")
-//                    .child(user.getUid());
-//
-//            ref.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    historyList.clear();
-//                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                        SearchHistoryItem item = dataSnapshot.getValue(SearchHistoryItem.class);
-//                        if (item != null) {
-//                            historyList.add(item);
-//                        }
-//                    }
-//                    Collections.reverse(historyList); // последние сверху
-//                    adapter.notifyDataSetChanged();
-//
-//                    Toast.makeText(SearchHistoryActivity.this, "Loaded items: " + historyList.size(), Toast.LENGTH_SHORT).show();
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//                    Toast.makeText(SearchHistoryActivity.this, "Ошибка загрузки истории", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//        }
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Log.d("SearchHistory", "Current UID: " + user.getUid());
+        if (user != null) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            String uid = user.getUid();
+
+            db.collection("users")
+                    .document(uid)
+                    .collection("search_history")
+                    .orderBy("timestamp", Query.Direction.DESCENDING)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        historyList.clear();
+                        for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                            SearchHistoryItem item = doc.toObject(SearchHistoryItem.class);
+                            if (item != null) {
+                                historyList.add(item);
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("SearchHistory", "Ошибка чтения истории: " + e.getMessage());
+                    });
+        }
 
         // Переход по кнопкам в нижнем тулбаре
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
