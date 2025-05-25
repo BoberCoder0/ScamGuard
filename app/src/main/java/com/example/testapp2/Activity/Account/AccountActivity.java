@@ -851,5 +851,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                 .replace(R.id.fragment_container, new RegisterFragment())
                 .addToBackStack(null) // Добавляем транзакцию в Back Stack
                 .commit(); // Применяем изменения
+
+        //TODO: что бы сделать комит
     }
 }
