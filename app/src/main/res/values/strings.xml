@@ -142,6 +142,7 @@
     <string name="update_result_email_success_details">Email updated.</string>
     <string name="update_result_email_failed_details">Email update failed</string> <!-- Reason will be appended in code -->
     <string name="update_result_password_success_details">Password updated.</string>
-    <string name="update_result_password_failed_details">Password update failed</string> <!-- Reason will be appended in code -->
+    <string name="update_result_password_failed_details">Password update failed</string>
+    <string name="home">Дом</string> <!-- Reason will be appended in code -->
 
 </resources>

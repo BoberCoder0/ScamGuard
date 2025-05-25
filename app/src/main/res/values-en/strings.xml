@@ -114,4 +114,5 @@
                 + "<li> They complain that they got into an unpleasant situation and ask to transfer money.;</li>"
                 + "<li> They report on behalf of the policeman that a relative is in trouble. The same relative asks for an emergency transfer of a certain amount.</li>"
                 + "</ul>"</string>
+    <string name="home">Home</string>
 </resources>

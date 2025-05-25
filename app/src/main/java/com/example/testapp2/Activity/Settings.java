@@ -47,6 +47,8 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         ThemeHelper.applyTheme(this); // 👈 обязательно ДО super.onCreate
         super.onCreate(savedInstanceState);
+        LocaleHelper.loadLocale(this); // Загрузка сохраненной локали (языка)
+        setTitle(R.string.settings); // Установите нужную строку из ресурсов
         setContentView(R.layout.activity_settings);
 
         // Устанавливаем верхний тулбар

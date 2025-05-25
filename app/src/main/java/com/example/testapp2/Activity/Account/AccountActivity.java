@@ -38,6 +38,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -81,8 +83,9 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Загрузка сохраненной локали (языка)
-        LocaleHelper.loadLocale(this);
+        LocaleHelper.loadLocale(this); // Загрузка сохраненной локали (языка)
+
+        setTitle(R.string.account); // Установите нужную строку из ресурсов
 
         // Использование View Binding для доступа к элементам макета
         ActivityAccountBinding binding = ActivityAccountBinding.inflate(getLayoutInflater());

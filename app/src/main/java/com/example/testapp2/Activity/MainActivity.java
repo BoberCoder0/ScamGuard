@@ -23,6 +23,7 @@ import com.example.testapp2.R;
 import com.example.testapp2.app.dataBaseApp;
 import com.example.testapp2.databinding.ActivityMainBinding;
 import com.example.testapp2.fragments.LoginFragment;
+import com.example.testapp2.utils.LocaleHelper;
 import com.example.testapp2.utils.ThemeHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         ThemeHelper.applyTheme(this); // 👈 обязательно ДО super.onCreate
         super.onCreate(savedInstanceState);
+        LocaleHelper.loadLocale(this); // Загрузка сохраненной локали (языка)
+        setTitle(com.firebase.ui.auth.R.string.app_name); // Установите нужную строку из ресурсов
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
