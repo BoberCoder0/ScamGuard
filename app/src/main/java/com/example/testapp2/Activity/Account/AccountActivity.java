@@ -852,6 +852,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                 .addToBackStack(null) // Добавляем транзакцию в Back Stack
                 .commit(); // Применяем изменения
 
-        //TODO: что бы сделать комит
-    }
+        // TODO: что бы сделать комит
+        // TODO: 2
+            }
 }
