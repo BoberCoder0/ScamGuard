@@ -43,6 +43,7 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         LocaleHelper.loadLocale(this); // Added locale loading
 //        setContentView(R.layout.activity_search);
+        setTitle(R.string.search); // Установите нужную строку из ресурсов
         ActivitySearchBinding binding = ActivitySearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         // Устанавливаем верхний тулбар

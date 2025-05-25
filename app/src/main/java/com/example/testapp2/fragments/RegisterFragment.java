@@ -23,13 +23,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Random;
 
+// TODO: Implement proper email verification (e.g., using Firebase Functions to send a verification email or a unique link).
 public class RegisterFragment extends Fragment {
 
-    private EditText emailField, passwordField, confirmPasswordField,nickName, codeField;
+    private EditText emailField, passwordField, confirmPasswordField,nickName;
     private Button registerButton;
-    private Button sendCodeButton, verifyCodeButton;
     private FirebaseAuth mAuth;
-    private String generatedCode = "666666";
     private AuthNavigator navigator;
 
     /*@Override
@@ -65,68 +64,46 @@ public class RegisterFragment extends Fragment {
         emailField = view.findViewById(R.id.email_reg);
         passwordField = view.findViewById(R.id.password_1);
         confirmPasswordField = view.findViewById(R.id.password_2);
-        codeField = view.findViewById(R.id.email_check);
+        confirmPasswordField = view.findViewById(R.id.password_2);
+        // codeField = view.findViewById(R.id.email_check); // Removed
 
         registerButton = view.findViewById(R.id.button_register);
-        sendCodeButton = view.findViewById(R.id.button_send_code);
+        // sendCodeButton = view.findViewById(R.id.button_send_code); // Removed
         ImageButton backButton = view.findViewById(R.id.back_to_login_button);
-        verifyCodeButton = view.findViewById(R.id.verify_code_button);
+        // verifyCodeButton = view.findViewById(R.id.verify_code_button); // Removed
 
-        registerButton.setVisibility(View.GONE); // скрыть до подтверждения
-        verifyCodeButton.setVisibility(View.GONE); // скрыть до получения кода
+        // registerButton.setVisibility(View.GONE); // No longer hidden by default
+        // verifyCodeButton.setVisibility(View.GONE); // Removed
 
         backButton.setOnClickListener(v -> {
-            // Используем интерфейс для навигации
-            navigator.navigateToLogin();
-
-            // Или альтернативный вариант:
-            // requireActivity().getSupportFragmentManager().popBackStack();
+            if (navigator != null) {
+                navigator.navigateToLogin();
+            }
         });
 
-        sendCodeButton.setOnClickListener(v -> {
+        // Установка клика на кнопку регистрации
+        registerButton.setOnClickListener(v -> {
+            // Perform validation before calling registerUser
             String email = emailField.getText().toString().trim();
-            String nick_name = nickName.getText().toString().trim();
+            String nicknameText = nickName.getText().toString().trim(); // Corrected variable name
             String password = passwordField.getText().toString().trim();
             String confirmPassword = confirmPasswordField.getText().toString().trim();
 
             // Проверка на пустые поля
-            if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || nick_name.isEmpty()) {
-                Toast.makeText(getActivity(), "Заполните все поля", Toast.LENGTH_SHORT).show();
+            if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || nicknameText.isEmpty()) {
+                Toast.makeText(getActivity(), "Заполните все поля", Toast.LENGTH_SHORT).show(); // TODO: Use string resource
                 return;
             }
 
             // Проверка совпадения паролей
             if (!password.equals(confirmPassword)) {
-                Toast.makeText(getActivity(), "Пароли не совпадают", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Пароли не совпадают", Toast.LENGTH_SHORT).show(); // TODO: Use string resource
                 return;
             }
+            // TODO: Add password strength validation if desired (e.g., minimum length)
 
-            // Всё введено корректно — отправляем код
-//            generatedCode = generateCode();
-            sendCodeToEmail(email, generatedCode);
-            Toast.makeText(getActivity(), "Код отправлен на почту", Toast.LENGTH_SHORT).show();
-            // Скрываем кнопку отправки кода, показываем кнопку подтверждения
-            sendCodeButton.setVisibility(View.GONE);
-            verifyCodeButton.setVisibility(View.VISIBLE);
+            registerUser();
         });
-
-        verifyCodeButton.setOnClickListener(v -> {
-            String enteredCode = codeField.getText().toString().trim();
-            if (enteredCode.equals(generatedCode)) {
-                Toast.makeText(getActivity(), "Код подтвержден", Toast.LENGTH_SHORT).show();
-                verifyCodeButton.setVisibility(View.GONE);         // Скрываем кнопку подтверждения
-                registerButton.setVisibility(View.VISIBLE);        // Показываем кнопку регистрации
-            } else {
-                Toast.makeText(getActivity(), "Неверный код", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Установка клика на кнопку регистрации
-        registerButton.setOnClickListener(v -> registerUser());
-
-        /*registerButton.setOnClickListener(v -> {
-            navigator.navigateToRegister();
-        });*/
 
 
 
@@ -136,21 +113,12 @@ public class RegisterFragment extends Fragment {
 
     private void registerUser() {
         String email = emailField.getText().toString().trim();
-        String nick_name = nickName.getText().toString().trim();
+        // String nick_name = nickName.getText().toString().trim(); // Validation moved to OnClickListener
         String password = passwordField.getText().toString().trim();
-        String confirmPassword = confirmPasswordField.getText().toString().trim();
+        // String confirmPassword = confirmPasswordField.getText().toString().trim(); // Validation moved
 
-//        // Проверка на пустые поля
-//        if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || nick_name.isEmpty()) {
-//            Toast.makeText(getActivity(), "Заполните все поля", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        // Проверка на совпадение паролей
-//        if (!password.equals(confirmPassword)) {
-//            Toast.makeText(getActivity(), "Пароли не совпадают", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+        // Client-side validation is now done in the OnClickListener for registerButton.
+        // Proceed directly with Firebase registration.
 
         // Регистрация через Firebase Authentication
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -158,7 +126,7 @@ public class RegisterFragment extends Fragment {
                     if (task.isSuccessful()) {
                         // обявление переменных
                         String uid = mAuth.getCurrentUser().getUid();
-                        String nicknameText = nickName.getText().toString().trim();
+                        String nicknameText = nickName.getText().toString().trim(); // Ensure this is the corrected variable name
                         // оттправка данных
                         FirestoreManager firestoreManager = new FirestoreManager();
                         firestoreManager.saveUserToFirestore(uid, email, nicknameText);
@@ -166,25 +134,17 @@ public class RegisterFragment extends Fragment {
                         // Переход в главный экран после успешной регистрации
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
-                        getActivity().finish(); // Закрыть текущую активность
+                        if (getActivity() != null) {
+                            getActivity().finish(); // Закрыть текущую активность
+                        }
 
                     } else {
                         // Если ошибка
+                        // TODO: Use string resource for error message prefix
                         Toast.makeText(getActivity(), "Ошибка регистрации: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-    private String generateCode() {
-        Random random = new Random();
-        int code = 100000 + random.nextInt(900000); // 6-значный код
-        return String.valueOf(code);
-    }
-
-    private void sendCodeToEmail(String email, String code) {
-        // Здесь должна быть отправка письма
-        // Можно через Firebase Functions, SMTP API или сторонний backend
-        // Для отладки можно просто выводить в лог или показывать Toast
-        Toast.makeText(getActivity(), "Код: " + code, Toast.LENGTH_LONG).show(); // TODO: Убери в релизе!
-    }
+    // Removed generateCode() and sendCodeToEmail() methods
 }
 

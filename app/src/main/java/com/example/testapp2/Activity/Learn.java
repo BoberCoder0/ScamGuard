@@ -20,6 +20,7 @@ import com.example.testapp2.Activity.Search;
 import com.example.testapp2.Activity.Settings;
 import com.example.testapp2.R;
 import com.example.testapp2.databinding.ActivityLearnBinding;
+import com.example.testapp2.utils.LocaleHelper;
 import com.example.testapp2.utils.ThemeHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -34,6 +35,8 @@ public class Learn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         ThemeHelper.applyTheme(this); // 👈 обязательно ДО super.onCreate
         super.onCreate(savedInstanceState);
+        setTitle(R.string.learn); // Установите нужную строку из ресурсов
+        LocaleHelper.loadLocale(this); // Должно вызываться ДО инициализации UI
 
         ActivityLearnBinding binding = ActivityLearnBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -99,7 +102,7 @@ public class Learn extends AppCompatActivity {
     private void setHtmlContent() {
         // Определяем текущий язык устройства (по умолчанию русский)
         boolean isRussian = Locale.getDefault().getLanguage().equals("ru");
-
+        /// context.getResources().flushLayoutCache(); // отчиста кеша  // он не должооон но может в будущем понадобится хз
         // ============= Раздел 1 =============
         TextView section1Content = findViewById(R.id.section1_content);
         String section1Html = isRussian ?

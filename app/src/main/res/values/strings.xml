@@ -57,6 +57,7 @@
     <string name="EnterCode">Введите код</string>
     <string name="SignIn">Зарегистрироваться</string>
     <string name="Skip">Пропустить</string>
+    <string name="EnterCurrentPassword">Enter current password</string>
 
     <!-- Сообщения Toast -->
     <string name="image_or_user_missing">Изображение или пользователь отсутствует</string>
@@ -114,4 +115,34 @@
                 + "<li> Жалуются, что попали в неприятную ситуацию, и просят перевести деньги;</li>"
                 + "<li> Сообщают от имени полицейского, что родственник попал в беду. Этот же родственник просит экстренно перевести определённую сумму.</li>"
                 + "</ul>"</string>
+
+    <!-- New Strings for AccountActivity -->
+    <string name="github_sign_in_success">Successfully signed in with GitHub.</string>
+    <string name="github_sign_in_failed">GitHub sign-in failed: %s</string>
+    <string name="github_sign_in_error_generic">Could not sign in with GitHub. Please try again.</string>
+    <string name="google_sign_in_success">Successfully signed in with Google.</string>
+    <string name="link_with_google_success">Successfully linked account with Google.</string>
+    <string name="link_with_google_failed">Failed to link account with Google: %s</string>
+    <string name="link_with_github_success">Successfully linked account with GitHub.</string>
+    <string name="link_with_github_failed">Failed to link account with GitHub: %s</string>
+    <string name="user_cancelled">Operation cancelled by user.</string>
+    <string name="sign_in_cancelled">Sign-in cancelled.</string>
+
+    <!-- Strings for re-authentication and user data updates -->
+    <string name="user_not_signed_in">User not signed in.</string>
+    <string name="no_changes_to_save">No changes to save.</string>
+    <string name="nickname_update_success">Nickname updated successfully.</string>
+    <string name="nickname_update_failed_reason">Failed to update nickname: %s</string>
+    <string name="current_password_required_for_sensitive_changes">Please enter your current password to update email or password.</string>
+    <string name="reauth_failed_incorrect_password">Re-authentication failed. Incorrect current password?</string>
+    <string name="no_changes_attempted">No changes were attempted.</string>
+
+    <string name="update_result_nickname_success_details">Nickname updated.</string>
+    <string name="update_result_nickname_failed_details">Nickname update failed</string> <!-- Reason will be appended in code -->
+    <string name="update_result_email_success_details">Email updated.</string>
+    <string name="update_result_email_failed_details">Email update failed</string> <!-- Reason will be appended in code -->
+    <string name="update_result_password_success_details">Password updated.</string>
+    <string name="update_result_password_failed_details">Password update failed</string>
+    <string name="home">Дом</string> <!-- Reason will be appended in code -->
+
 </resources>
