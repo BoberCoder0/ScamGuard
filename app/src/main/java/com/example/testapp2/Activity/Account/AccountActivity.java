@@ -419,6 +419,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
 
     // Запускает процесс входа через Google
     private void signInWithGoogle() {
+        googleSignInClient.signOut();
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN); // Запускаем Activity Google Sign-In
     }
