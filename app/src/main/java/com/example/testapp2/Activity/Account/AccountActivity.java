@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentContainerView;
 
 import com.example.testapp2.Activity.MainActivity;
@@ -331,7 +333,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
             loadUserData();
             checkProviderStatus();
             if (isNewUser) {
-                Toast.makeText(this, getString(R.string.github_sign_in_success), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.github_sign_up_success), Toast.LENGTH_SHORT).show();
             } else {
                 // This could be a re-authentication or linking, if we can distinguish linking, use link_with_github_success
                 // For now, using general success. More specific context would be needed for precise linking message.
@@ -425,12 +427,12 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
     private void signInWithGitHub() {
         // TODO: Replace "YOUR_GITHUB_CLIENT_ID" with your actual GitHub Client ID from your GitHub OAuth App settings.
         // This ID should ideally be stored in a secure place, like gradle.properties or build config.
-        String githubClientId = "YOUR_GITHUB_CLIENT_ID"; // Placeholder
+        String githubClientId = "Ov23li09J5mt6cgsYhlK"; // Placeholder
 
         // TODO: Replace "<PROJECT_ID>" with your actual Firebase project ID.
         // This redirect URI must be configured in your GitHub OAuth App settings under "Authorization callback URL".
         // It follows the pattern Firebase uses to handle authentication redirects: https://<PROJECT_ID>.firebaseapp.com/__/auth/handler
-        String githubRedirectUri = "https://<PROJECT_ID>.firebaseapp.com/__/auth/handler"; // Placeholder
+        String githubRedirectUri = "https://scamguard-3daf9.firebaseapp.com/__/auth/handler"; // Placeholder
 
         // Формируем URI для авторизации GitHub OAuth
         Uri uri = new Uri.Builder()
@@ -507,13 +509,23 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         findViewById(R.id.save_button2).setVisibility(View.GONE);
         findViewById(R.id.dell_account).setVisibility(View.GONE);
         findViewById(R.id.log_out).setVisibility(View.GONE);
-        findViewById(R.id.google_layout).setVisibility(View.GONE); // Скрываем Layout для статуса Google
-        findViewById(R.id.git_layout).setVisibility(View.GONE); // Скрываем Layout для статуса GitHub
+        findViewById(R.id.google_layout).setVisibility(View.VISIBLE); // Скрываем Layout для статуса Google
+        findViewById(R.id.git_layout).setVisibility(View.VISIBLE); // Скрываем Layout для статуса GitHub
         findViewById(R.id.avaButton).setVisibility(View.GONE);
 
         // Показываем кнопки "Вход" и "Регистрация"
         findViewById(R.id.buttonLogin).setVisibility(View.VISIBLE);
         findViewById(R.id.buttonRegister).setVisibility(View.VISIBLE);
+
+        // Обновляем отступ для google_layout (170dp)
+        LinearLayout googleLayout = findViewById(R.id.google_layout);
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) googleLayout.getLayoutParams();
+        params.topMargin = (int) (160 * getResources().getDisplayMetrics().density); // Конвертируем dp в пиксели
+        googleLayout.setLayoutParams(params);
+
+        // Показываем статусы провайдеров
+        findViewById(R.id.google_layout).setVisibility(View.VISIBLE);
+        findViewById(R.id.git_layout).setVisibility(View.VISIBLE);
 
         // Подсказки для полей ввода (если бы они были видимы)
         // emailInput.setHint(getString(R.string.EnterNewEmail)); // Пример: если бы поле email было видно
@@ -543,6 +555,16 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         // Скрываем кнопки "Вход" и "Регистрация"
         findViewById(R.id.buttonLogin).setVisibility(View.GONE);
         findViewById(R.id.buttonRegister).setVisibility(View.GONE);
+
+        // Обновляем отступ для google_layout (330dp)
+        LinearLayout googleLayout = findViewById(R.id.google_layout);
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) googleLayout.getLayoutParams();
+        params.topMargin = (int) (330 * getResources().getDisplayMetrics().density); // Конвертируем dp в пиксели
+        googleLayout.setLayoutParams(params);
+
+        // Показываем статусы провайдеров
+        findViewById(R.id.google_layout).setVisibility(View.VISIBLE);
+        findViewById(R.id.git_layout).setVisibility(View.VISIBLE);
 
         // Установка подсказок/текста с использованием строковых ресурсов, если они не установлены в XML
         // Подсказка для nickNameInput обрабатывается в loadUserData
@@ -743,6 +765,8 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         } else if (finalMessage.isEmpty() && anyOperationAttempted) { // All attempted operations were successful, but no specific message was generated (e.g. only nickname changed and it was successful)
              Toast.makeText(this, getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         }
+
+
     }
 
     // Вызывается после успешного удаления аккаунта

@@ -58,6 +58,11 @@
     <string name="SignIn">Sign in</string>
     <string name="Skip">Skip</string>
 
+    <!-- New Strings for AccountActivity -->
+
+    <string name="github_sign_in_success">GitHub is connected</string>
+    <string name="github_sign_up_success">Successfully signed in with GitHub.</string>
+
     <!-- Toast Messages -->
     <string name="image_or_user_missing">Image or user missing</string>
     <string name="unable_to_open_file">Unable to open file</string>

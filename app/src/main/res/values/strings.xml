@@ -117,7 +117,8 @@
                 + "</ul>"</string>
 
     <!-- New Strings for AccountActivity -->
-    <string name="github_sign_in_success">Successfully signed in with GitHub.</string>
+    <string name="github_sign_in_success">GitHub подключен</string>
+    <string name="github_sign_up_success">Успешно авторизовался на GitHub.</string>
     <string name="github_sign_in_failed">GitHub sign-in failed: %s</string>
     <string name="github_sign_in_error_generic">Could not sign in with GitHub. Please try again.</string>
     <string name="google_sign_in_success">Successfully signed in with Google.</string>
