@@ -31,7 +31,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,6 +44,8 @@ public class SearchHistoryActivity extends AppCompatActivity implements SearchHi
     private RecyclerView recyclerView;
     private SearchHistoryAdapter adapter;
     private List<SearchHistoryItem> historyList = new ArrayList<>();
+    private static final String PREFS_NAME = "search_history";
+    private static final String KEY_HISTORY = "history_list";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +58,12 @@ public class SearchHistoryActivity extends AppCompatActivity implements SearchHi
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+        // Сначала загружаем локальную историю
+        historyList.addAll(loadLocalHistory());
+        adapter.notifyDataSetChanged();
+
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        Log.d("SearchHistory", "Current UID: " + user.getUid());
         if (user != null) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             String uid = user.getUid();
@@ -65,7 +74,7 @@ public class SearchHistoryActivity extends AppCompatActivity implements SearchHi
                     .orderBy("timestamp", Query.Direction.DESCENDING)
                     .get()
                     .addOnSuccessListener(queryDocumentSnapshots -> {
-                        historyList.clear();
+                        historyList.clear(); // Очищаем перед обновлением
                         for (DocumentSnapshot doc : queryDocumentSnapshots) {
                             SearchHistoryItem item = doc.toObject(SearchHistoryItem.class);
                             if (item != null) {
@@ -73,10 +82,14 @@ public class SearchHistoryActivity extends AppCompatActivity implements SearchHi
                             }
                         }
                         adapter.notifyDataSetChanged();
+                        saveLocalHistory(historyList); // Сохраняем в локальный кэш
                     })
                     .addOnFailureListener(e -> {
                         Log.e("SearchHistory", "Ошибка чтения истории: " + e.getMessage());
+                        Toast.makeText(this, "Не удалось загрузить историю", Toast.LENGTH_SHORT).show();
                     });
+        } else {
+            Toast.makeText(this, "Пользователь не авторизован", Toast.LENGTH_SHORT).show();
         }
 
         // Переход по кнопкам в нижнем тулбаре
@@ -116,6 +129,27 @@ public class SearchHistoryActivity extends AppCompatActivity implements SearchHi
             }
         });
     }
+
+    // Сохранение списка в SharedPreferences
+    private void saveLocalHistory(List<SearchHistoryItem> items) {
+        Gson gson = new Gson();
+        String json = gson.toJson(items);
+        getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .edit()
+                .putString(KEY_HISTORY, json)
+                .apply();
+    }
+
+    // Загрузка списка из SharedPreferences
+    private List<SearchHistoryItem> loadLocalHistory() {
+        Gson gson = new Gson();
+        String json = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+                .getString(KEY_HISTORY, null);
+
+        Type type = new TypeToken<List<SearchHistoryItem>>(){}.getType();
+        return json != null ? gson.fromJson(json, type) : new ArrayList<>();
+    }
+
     // Для перехода по иконке аккаунта
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
