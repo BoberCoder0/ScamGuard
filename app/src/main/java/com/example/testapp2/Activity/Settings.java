@@ -23,6 +23,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioButton;
 
 import com.example.testapp2.Activity.Account.AccountActivity;
+import com.example.testapp2.Activity.Account.ProfileActivity;
 import com.example.testapp2.Activity.Account.SearchHistoryActivity;
 import com.example.testapp2.R; // Убедись, что путь до R правильный
 import com.example.testapp2.utils.ThemeHelper;
@@ -72,6 +73,7 @@ public class Settings extends AppCompatActivity {
         textViewLightThemeLabel = findViewById(R.id.LightLabel);
         lineDark = findViewById(R.id.line_dark);
         lineLight = findViewById(R.id.line_light);
+        Button goToProfile = findViewById(R.id.goToProfile);
 
         // Загружаем сохраненное состояние темы
         boolean isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false);
@@ -196,6 +198,12 @@ public class Settings extends AppCompatActivity {
                 return false;
             }
         });
+
+        goToProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(Settings.this, ProfileActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     // обводка

@@ -1,13 +1,18 @@
 package com.example.testapp2.Activity.Account;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.ext.SdkExtensions;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -21,10 +26,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresExtension;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentContainerView;
+
+import com.example.testapp2.fragments.AvatarFragment;
+import com.example.testapp2.utils.AvatarUploader;
 
 import com.example.testapp2.Activity.MainActivity;
 import com.example.testapp2.R;
@@ -39,6 +50,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.common.io.ByteStreams;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -54,9 +66,11 @@ import com.example.testapp2.utils.LocaleHelper; // Импорт для упра�
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Executors;
 
 // AccountActivity реализует интерфейс AuthNavigator для навигации между фрагментами аутентификации
 public class AccountActivity extends AppCompatActivity implements AuthNavigator {
@@ -79,6 +93,7 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
     private static final int RC_GOOGLE_SIGN_IN = 123; // Код для входа через Google
     private static final int RC_GITHUB_SIGN_IN = 420; // Код для входа через GitHub (пока не полностью реализован)
     private static final int PICK_IMAGE_REQUEST = 1; // Код для выбора изображения из галереи
+    private static final int PERMISSION_REQUEST_CODE = 100; // Любое уникальное число
 
     private Uri imageUri; // URI выбранного изображения для аватара
 
@@ -147,7 +162,11 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         // Обработка клика по кнопке "Сбросить"
         resetButton.setOnClickListener(v -> resetChanges());
         // Обработка клика по кнопке аватара
-        avaButton.setOnClickListener(v -> openImageChooser());
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && SdkExtensions.getExtensionVersion(Build.VERSION_CODES.R) >= 2) {
+            avaButton.setOnClickListener(v -> checkAndRequestPermissions());
+            // avaButton.setOnClickListener(v -> openImageChooser()); - метод устарел
+        }*/
+        avaButton.setOnClickListener(v -> checkAndRequestPermissions());
         // Обработка клика по кнопке закрытия Activity
         binding.crossButton.setOnClickListener(v -> finish());
         // Обработка клика по кнопке "Сохранить"
@@ -179,67 +198,192 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
         });
     }
 
-    // Открывает chooser для выбора изображения из галереи
-    private void openImageChooser() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/*"); // Ограничиваем выбор только изображениями
-        startActivityForResult(intent, PICK_IMAGE_REQUEST); // Запускаем Activity для выбора изображения
+    // Запрос разрешения
+    public void checkAndRequestPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, PERMISSION_REQUEST_CODE);
+            } else {
+                pickImage();
+            }
+        } else {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            } else {
+                pickImage();
+            }
+        }
     }
 
-    // Загружает выбранное изображение в Firebase Storage
-    private void uploadImageToFirebase() {
+    // 3. Выбор изображения (pickImage)
+    private void pickImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+   /* // 4. onActivityResult
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            imageUri = data.getData();
+            uploadImageToSupabase(); // тут вызываем загрузку
+        }
+    }*/
+
+    // Открывает chooser для выбора изображения из галереи
+    // @RequiresExtension(extension = Build.VERSION_CODES.R, version = 2) - нужен был для метода Chooser
+
+    // метод устарел
+
+    /*private void openImageChooser() {
+        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // Explain to the user why we need the permission
+                new AlertDialog.Builder(this)
+                        .setTitle("Permission needed")
+                        .setMessage("This permission is needed to select your profile picture")
+                        .setPositiveButton("OK", (dialog, which) ->
+                                ActivityCompat.requestPermissions(AccountActivity.this,
+                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                        PERMISSION_REQUEST_CODE))
+                        .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                        .create().show();
+            } else {
+                // No explanation needed, request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        PERMISSION_REQUEST_CODE);
+            }
+        } else {
+            // Permission already granted
+            launchGallery();
+        }
+    }*/
+
+    private void showToast(String message) {
+        if (!isFinishing() && !isDestroyed()) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void launchGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    // Сохраняет данные пользователя (никнейм, email, пароль) в Supabase
+   /* private void uploadImageToSupabase() {
         if (imageUri == null || user == null) {
-            // Показываем Toast сообщение, если изображение или пользователь отсутствуют
             Toast.makeText(this, getString(R.string.image_or_user_missing), Toast.LENGTH_SHORT).show();
             return;
         }
 
+        File file;
         try {
-            // Пробуем открыть InputStream для проверки доступности файла
-            InputStream inputStream = getContentResolver().openInputStream(imageUri);
-            if (inputStream == null) {
-                Toast.makeText(this, getString(R.string.unable_to_open_file), Toast.LENGTH_SHORT).show();
+            // Получаем путь к файлу из Uri
+            String path = com.example.testapp2.utils.FileUtils.getPath(this, imageUri);
+            if (path == null) {
+                Toast.makeText(this, "Не удалось получить путь к файлу", Toast.LENGTH_SHORT).show();
                 return;
             }
-        } catch (FileNotFoundException e) {
-            // Обработка ошибки "файл не найден"
-            Toast.makeText(this, getString(R.string.file_not_found, e.getMessage()), Toast.LENGTH_SHORT).show();
+            file = new File(path);
+        } catch (Exception e) {
+            Toast.makeText(this, "Ошибка доступа к файлу: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Показываем индикатор прогресса
         showProgressIndicator();
 
-        // Получаем ссылку на Firebase Storage и создаем путь для файла аватара
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference fileReference = storageRef.child("avatars/" + user.getUid() + ".jpg");
-
-        // Загружаем файл
-        fileReference.putFile(imageUri)
-                .addOnSuccessListener(taskSnapshot -> {
-                    // При успешной загрузке, получаем URL скачивания
-                    fileReference.getDownloadUrl()
-                            .addOnSuccessListener(uri -> {
-                                String imageUrl = uri.toString();
-                                // Обновляем URL аватара в Firestore для пользователя
-                                updateUserAvatar(imageUrl);
-                                // Загружаем и отображаем аватар с помощью Picasso и CircleTransform
-                                Picasso.get().load(imageUrl).transform(new CircleTransform()).into(avaButton);
-                                // Скрываем индикатор прогресса
-                                hideProgressIndicator();
-                            })
-                            .addOnFailureListener(e -> {
-                                // Обработка ошибки получения URL
-                                Toast.makeText(this, getString(R.string.url_error, e.getMessage()), Toast.LENGTH_SHORT).show();
-                                hideProgressIndicator();
-                            });
-                })
-                .addOnFailureListener(e -> {
-                    // Обработка ошибки загрузки файла
-                    Toast.makeText(this, getString(R.string.upload_error, e.getMessage()), Toast.LENGTH_LONG).show();
-                    Log.e("FirebaseUpload", "Ошибка", e); // Логируем ошибку
+        com.example.testapp2.utils.AvatarUploader.INSTANCE.uploadAvatarAsync(
+            file,
+            user.getUid(),
+            url -> {
+                // onSuccess: обновляем Firestore и UI
+                runOnUiThread(() -> {
+                    updateUserAvatar(url);
+                    com.squareup.picasso.Picasso.get().load(url).transform(new CircleTransform()).into(avaButton);
                     hideProgressIndicator();
+                    Toast.makeText(this, "Аватар успешно загружен", Toast.LENGTH_SHORT).show();
                 });
+                return null;
+            },
+            throwable -> {
+                runOnUiThread(() -> {
+                    hideProgressIndicator();
+                    Toast.makeText(this, "Ошибка загрузки: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
+                });
+                return null;
+            }
+        );
+    }*/
+
+    private void uploadImageToSupabase() {
+        if (imageUri == null || user == null) return;
+
+        showProgressIndicator();
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                // Чтение данных через ContentResolver
+                InputStream inputStream = getContentResolver().openInputStream(imageUri);
+                byte[] fileBytes = inputStream != null ? ByteStreams.toByteArray(inputStream) : null;
+                inputStream.close();
+
+                if (fileBytes == null) {
+                    runOnUiThread(() -> {
+                        hideProgressIndicator();
+                        Toast.makeText(this, "Ошибка чтения файла", Toast.LENGTH_SHORT).show();
+                    });
+                    return;
+                }
+
+                // Создание временного файла в кеше
+                File tempFile = new File(getCacheDir(), "temp_avatar.jpg");
+                FileOutputStream fos = new FileOutputStream(tempFile);
+                fos.write(fileBytes);
+                fos.close();
+
+                // Загрузка через Supabase
+                runOnUiThread(() -> {
+                    AvatarUploader.INSTANCE.uploadAvatarAsync(
+                            tempFile,
+                            user.getUid(),
+                            url -> {
+                                // Успешно загружено: обновляем Firestore и UI
+                                updateUserAvatar(url);
+                                runOnUiThread(() -> {
+                                    Picasso.get().load(url).transform(new CircleTransform()).into(avaButton);
+                                    hideProgressIndicator();
+                                    Toast.makeText(this, "Аватар успешно загружен", Toast.LENGTH_SHORT).show();
+                                });
+                                return null;
+                            },
+                            throwable -> {
+                                // Ошибка загрузки: показываем сообщение
+                                runOnUiThread(() -> {
+                                    hideProgressIndicator();
+                                    Toast.makeText(this, "Ошибка загрузки: " + throwable.getMessage(), Toast.LENGTH_LONG).show();
+                                });
+                                return null;
+                            }
+                    );
+                });
+
+            } catch (Exception e) {
+                runOnUiThread(() -> {
+                    hideProgressIndicator();
+                    Toast.makeText(this, "Ошибка: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                });
+            }
+        });
     }
 
     // Скрывает индикатор прогресса и затемняющий фон
@@ -273,16 +417,56 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                 });
     }
 
+    /*@Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Разрешение получено, открываем галерею
+                launchGallery();
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }*/
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                pickImage();
+            } else {
+                Toast.makeText(this, "Не даны разрешения на доступ к фото", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     // Обработка результатов Activity (выбор изображения, вход через Google)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Обработка результата выбора изображения
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData(); // Получаем URI выбранного изображения
-            avaButton.setImageURI(imageUri); // Устанавливаем изображение на кнопку/ImageView
-            uploadImageToFirebase(); // Загружаем изображение в Firebase
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+            imageUri = data.getData();
+
+            avaButton.setImageURI(imageUri); // Показываем выбранное фото сразу
+            uploadImageToSupabase();
+
+            // раньше была проверкой Log
+            /*try {
+                // Verify we can read the file
+                InputStream inputStream = getContentResolver().openInputStream(imageUri);
+                if (inputStream != null) {
+                    inputStream.close();
+                    avaButton.setImageURI(imageUri);
+                    uploadImageToSupabase();
+                }
+            } catch (Exception e) {
+                Log.e("AccountActivity", "Error handling image selection", e);
+                showToast("Error selecting image");
+            }*/
         }
         // Обработка результата входа через Google
         else if (requestCode == RC_GOOGLE_SIGN_IN) {
@@ -601,6 +785,13 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                             emailInput.setText(emailFromStore != null ? emailFromStore : (this.user != null ? this.user.getEmail() : ""));
 
                             String photoUrl = (String) userData.get("photoUrl");
+                            Bundle args = new Bundle();
+                            args.putString("photoUrl", photoUrl);
+                            AvatarFragment avatarFragment = new AvatarFragment();
+                            avatarFragment.setArguments(args);
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.avatarFragment, avatarFragment)
+                                    .commit();
                             if (photoUrl != null && !photoUrl.isEmpty()) {
                                 Picasso.get().load(photoUrl).transform(new CircleTransform()).into(avaButton);
                             } else if (this.user != null && this.user.getPhotoUrl() != null && !this.user.getPhotoUrl().toString().isEmpty()) {
@@ -844,4 +1035,5 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                 .commit(); // Применяем изменения
         // TODO: что бы сделать комит
     }
+
 }

@@ -84,7 +84,12 @@ dependencies {
     // implementation ("com.google.firebase:firebase-database:20.0.4") // Removed, covered by libs.firebase.database or BOM
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
     implementation ("com.google.android.material:material:1.6.0")
-    implementation ("com.google.code.gson:gson:2.x.x")
+    implementation ("com.google.code.gson:gson:2.11.0")
+
+    // Supabase dependencies
+    implementation("io.github.jan-tennert.supabase:storage-kt:1.3.2")
+    implementation("io.github.jan-tennert.supabase:postgrest-kt:1.3.2")
+    implementation("io.github.jan-tennert.supabase:gotrue-kt:1.3.2")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
