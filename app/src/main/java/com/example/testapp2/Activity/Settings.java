@@ -73,7 +73,7 @@ public class Settings extends AppCompatActivity {
         textViewLightThemeLabel = findViewById(R.id.LightLabel);
         lineDark = findViewById(R.id.line_dark);
         lineLight = findViewById(R.id.line_light);
-        Button goToProfile = findViewById(R.id.goToProfile);
+        //Button goToProfile = findViewById(R.id.goToProfile); тесты
 
         // Загружаем сохраненное состояние темы
         boolean isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false);
@@ -199,10 +199,11 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        goToProfile.setOnClickListener(v -> {
+
+        /*goToProfile.setOnClickListener(v -> {
             Intent intent = new Intent(Settings.this, ProfileActivity.class);
             startActivity(intent);
-        });
+        });*/ /// был нужен для тестов авы
 
     }
 

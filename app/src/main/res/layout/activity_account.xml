@@ -312,4 +312,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--<fragment
+        android:id="@+id/avatarFragment"
+        android:name="com.example.testapp2.fragments.AvatarFragment"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="0dp" />-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -787,11 +787,11 @@ public class AccountActivity extends AppCompatActivity implements AuthNavigator 
                             String photoUrl = (String) userData.get("photoUrl");
                             Bundle args = new Bundle();
                             args.putString("photoUrl", photoUrl);
-                            AvatarFragment avatarFragment = new AvatarFragment();
+                            /*AvatarFragment avatarFragment = new AvatarFragment();
                             avatarFragment.setArguments(args);
                             getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.avatarFragment, avatarFragment)
-                                    .commit();
+                                    .commit();*/ /// был нужон для тестов авы
                             if (photoUrl != null && !photoUrl.isEmpty()) {
                                 Picasso.get().load(photoUrl).transform(new CircleTransform()).into(avaButton);
                             } else if (this.user != null && this.user.getPhotoUrl() != null && !this.user.getPhotoUrl().toString().isEmpty()) {
